@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-black;
+  }
+
+  h1 {
+    @apply lg:text-[60px] md:text-[44px] text-[36px] lg:leading-[80px] md:leading-[50px] leading-[45px] font-bold;
+  }
+  h2 {
+    @apply lg:text-[44px] md:text-[40px] text-[36px] lg:leading-[60px] md:leading-[50px] leading-[45px] font-bold;
+  }
+  h4 {
+    @apply text-[24px] font-bold;
+  }
+  h5 {
+    @apply text-[18px] font-bold;
+  }
+  .heading-2 {
+    @apply lg:text-[44px] md:text-[40px] text-[36px] lg:leading-[60px] md:leading-[50px] leading-[45px] font-bold;
+  }
+  .heading-4 {
+    @apply text-[24px]  font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply cursor-pointer inline-flex gap-1.5 font-medium text-sm items-center justify-center  py-2 px-4 rounded-[4px] whitespace-nowrap;
+  }
+
+  .btn-primary {
+    @apply border border-primary bg-primary  text-white hover:bg-secondary hover:border-secondary transition-all;
+  }
+  .btn-secondary {
+    @apply border border-secondary bg-secondary  text-white hover:bg-primary hover:border-primary transition-all;
+  }
+
+  .btn-white {
+    @apply border border-white bg-white  text-primary transition-all;
+  }
+
+  .btn-white-outline {
+    @apply text-white border border-white transition-all;
+  }
+
+  .heading-2 {
+    @apply text-[44px] font-[600];
+  }
+}

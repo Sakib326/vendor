@@ -1,0 +1,176 @@
+[
+  {
+    "id": 1,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/cast_card.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Natile Portman",
+    "designation": "Jane Foster / The Mighty Thor",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Benedict Cumberbatch",
+    "designation": "Stephen Strange / Doctor Strange",
+    "img": "/assets/images/ca_2.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Michael James Shaw",
+    "designation": "Corvus Glaive",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Benedict Cumberbatch",
+    "designation": "Asgardian Distress Call (voice) (uncredited)",
+    "img": "/assets/images/ca_5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Benedict Cumberbatch",
+    "designation": "Stephen Strange / Doctor Strange",
+    "img": "/assets/images/ca_2.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_2.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_5.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 14,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_5.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_5.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_2.jpg"
+  },
+  {
+    "id": 19,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 21,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 23,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 24,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 25,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_5.jpg"
+  },
+  {
+    "id": 26,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 27,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_1.jpg"
+  },
+  {
+    "id": 28,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_2.jpg"
+  },
+  {
+    "id": 29,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_3.jpg"
+  },
+  {
+    "id": 30,
+    "name": "Chris Hemsworth",
+    "designation": "Thor Odinson",
+    "img": "/assets/images/ca_4.jpg"
+  }
+]

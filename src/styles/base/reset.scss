@@ -1,0 +1,17 @@
+html,
+body {
+  font-size: 16px;
+  font-family: "Rubik", sans-serif;
+  color: #808291;
+  line-height: 1.6;
+}
+
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Mizanur Rahman",
+    "profileImageSrc": "./assets/images/person.webp",
+    "leadType": "Hot",
+    "country": "Bangladesh",
+    "state": "Dhaka",
+    "city": "Dhaka",
+    "courseLevel": "Undergraduate",
+    "department": "Computer Science and Information Systems",
+    "specialization": ["Computer", "science"],
+    "intake": ["January - March, 2023", "July - September, 2022"],
+    "countryPreferences": ["USA", "Australia"],
+    "englishProficiencies": ["IELTS-5", "GMAT-250"],
+    "education": ["Higher Secondary School Certificate"],
+    "leadSource": "Study in United States",
+    "callStatus": "busy",
+    "leadOwner": "Maohmmad Mamun Hossain",
+    "assigned": "Hina Tarannum",
+    "tags": ["tag1", "tag2"]
+  }
+]
