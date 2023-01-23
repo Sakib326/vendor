@@ -1,3 +1,37 @@
 .auth_h_screen {
   min-height: calc(100vh - 32px - 32px);
 }
+.custom_spinner {
+  span i {
+    background-color: #fff !important;
+  }
+}
+
+//table design
+.custom_data_table {
+  .ant-table-content table {
+    tbody tr td {
+      border: 0 !important;
+      color: #808291;
+      font-weight: 400;
+      font-size: 12px;
+    }
+    tbody tr:nth-child(odd) {
+      background: #f8f8f9;
+    }
+    thead tr th {
+      background-color: transparent !important;
+      border-bottom: 0;
+      &:first-child {
+        border-left: 1px solid #eeeeee;
+      }
+
+      &:last-child {
+        border-right: 1px solid #eeeeee;
+      }
+
+      color: #ac224d !important;
+      border-radius: 0 !important;
+    }
+  }
+}
