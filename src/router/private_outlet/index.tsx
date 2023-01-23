@@ -10,7 +10,7 @@ export const PrivateOutlet = () => {
   return auth ? (
     <>
       <Header />
-      <div className="grid grid-cols-[120px_1fr]">
+      <div className="grid grid-cols-[100px_1fr]">
         <Nav />
         <main>
           <Outlet />

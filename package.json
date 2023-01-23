@@ -11,6 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@types/js-cookie": "^3.0.2",
+    "@types/react-slick": "^0.23.10",
     "antd": "^5.1.5",
     "autoprefixer": "^10.4.13",
     "formik": "^2.2.9",
@@ -23,8 +24,10 @@
     "react-otp-input": "^2.4.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.2",
+    "react-slick": "^0.29.0",
     "react-svg": "^15.1.21",
     "sass": "^1.57.1",
+    "slick-carousel": "^1.8.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

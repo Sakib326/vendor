@@ -2,7 +2,7 @@ import { MdNotifications } from "react-icons/md";
 
 const Header = () => {
   return (
-    <header className="bg-primary px-8 py-4 flex items-center justify-between sticky top-0 z-[100] border-b">
+    <header className="bg-primary px-8 py-4 flex items-center justify-between sticky top-0 z-[100] border-b  h-[72px]">
       <div className="left">
         <img src="/images/misc/logo-white.webp" alt="logo" />
       </div>

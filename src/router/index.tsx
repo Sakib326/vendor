@@ -1,9 +1,9 @@
-import { Suspense, lazy } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Spin } from "antd";
+import { lazy, Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 // outlet
 const PrivateOutlet = lazy(() => import("./private_outlet"));
 const PublicOutlet = lazy(() => import("./public_outlet"));
-const CampaignOutlet = lazy(() => import("./campaign_outlet"));
 const ProfileOutlet = lazy(() => import("./profile_outlet"));
 // auth
 const Login = lazy(() => import("../modules/auth/login"));
@@ -13,18 +13,22 @@ const ResetPassword = lazy(() => import("../modules/auth/reset_password"));
 const Verification = lazy(() => import("../modules/auth/verification"));
 // general
 const Dashboard = lazy(() => import("../modules/dashboard"));
-const CampaignTable = lazy(() => import("../modules/campaigns/campaignTable"));
-const Feed = lazy(() => import("../modules/feed"));
-const Winners = lazy(() => import("../modules/winners"));
-const Take = lazy(() => import("../modules/take"));
-// campaign
-const CampaignList = lazy(() => import("../modules/campaign/list"));
-const CampaignFeed = lazy(() => import("../modules/campaign/feed"));
-const CampaignAbout = lazy(() => import("../modules/campaign/about"));
-const CampaignProducts = lazy(() => import("../modules/campaign/products"));
+const CampaignList = lazy(() => import("../modules/campaigns/list"));
+const CampaignAdd = lazy(() => import("../modules/campaigns/add"));
+const ProductList = lazy(() => import("../modules/products/list"));
+const ProductAdd = lazy(() => import("../modules/products/add"));
 // profile
-const ProfileOverview = lazy(() => import("../modules/profile/overview"));
-const ProfileSettings = lazy(() => import("../modules/profile/settings"));
+const ProfileFeed = lazy(() => import("../modules/profile/feed"));
+const ProfileAbout = lazy(() => import("../modules/profile/about"));
+const ProfileProducts = lazy(() => import("../modules/profile/products"));
+const ProfileServices = lazy(() => import("../modules/profile/service"));
+const ProfileCampaigns = lazy(() => import("../modules/profile/campaigns"));
+const ProfileCampaignDetails = lazy(
+  () => import("../modules/profile/campaign_detail")
+);
+// profile edit
+const ProfileEditAbout = lazy(() => import("../modules/profile_edit/about"));
+const ProfileSettings = lazy(() => import("../modules/profile_edit/settings"));
 
 const NotFound = () => {
   return <div>page not found</div>;
@@ -32,7 +36,13 @@ const NotFound = () => {
 
 const AppRouter = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense
+      fallback={
+        <div className="grid place-content-center h-screen w-screen">
+          <Spin tip="Loading" size="large" />
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" element={<PublicOutlet />}>
           <Route path="/login" element={<Login />} />
@@ -46,27 +56,30 @@ const AppRouter = () => {
 
         <Route path="/" element={<PrivateOutlet />}>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="campaign" element={<CampaignTable />} />
-          <Route path="feed" element={<Feed />} />
-          <Route path="winners" element={<Winners />} />
-          <Route path="take" element={<Take />} />
-          <Route path="products" element={<CampaignProducts />} />
-
-          {/* <Route path="/" element={<CampaignOutlet />}>
-            <Route path="campaign" element={<CampaignList />} />
-            <Route path="campaign/feed" element={<CampaignFeed />} />
-            <Route path="campaign/about" element={<CampaignAbout />} />
-            <Route path="campaign/about" element={<CampaignAbout />} />
-            <Route path="campaign/products" element={<CampaignProducts />} />
-          </Route> */}
+          <Route path="campaigns/list" element={<CampaignList />} />
+          <Route path="campaigns/add" element={<CampaignAdd />} />
+          <Route path="products/list" element={<ProductList />} />
+          <Route path="products/add" element={<ProductAdd />} />
 
           <Route path="/" element={<ProfileOutlet />}>
-            <Route path="profile" element={<ProfileOverview />} />
+            <Route path="profile/feed" element={<ProfileFeed />} />
+            <Route path="profile/about" element={<ProfileAbout />} />
+            <Route path="profile/products" element={<ProfileProducts />} />
+            <Route path="profile/services" element={<ProfileServices />} />
+            <Route path="profile/campaigns" element={<ProfileCampaigns />} />
+            <Route
+              path="profile/campaigns/:id"
+              element={<ProfileCampaignDetails />}
+            />
+          </Route>
+
+          <Route path="/" element={<ProfileOutlet type="edit" />}>
+            <Route path="profile/edit" element={<ProfileEditAbout />} />
             <Route path="profile/settings" element={<ProfileSettings />} />
           </Route>
         </Route>
 
-        <Route path="/*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
