@@ -278,7 +278,7 @@ export const CampaignList = () => {
               </div>
               <div className="text-xs">Total Campaign (1205)</div>
             </div>
-            <Link to="/products/add" className="btn btn-primary ">
+            <Link to="/campaigns/add" className="btn btn-primary ">
               <HiPlus />
               <span>Add New Campaign</span>
             </Link>
