@@ -1,5 +1,6 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 interface DataTypeWinners {
@@ -131,7 +132,7 @@ export const ProductList = () => {
               <div className="text-xs">Total Products (1205)</div>
             </div>
             <Link to="/products/add" className="btn btn-primary ">
-              <span>+</span>
+              <HiPlus />
               <span>Add New Product</span>
             </Link>
           </div>

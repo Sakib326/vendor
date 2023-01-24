@@ -192,22 +192,6 @@ export const ProfileOutlet = ({ type = "view" }) => {
                     Campaigns
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/profile/campaigns/1"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Campaign Details
-                  </NavLink>
-                </li>
               </>
             )}
           </ul>

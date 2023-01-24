@@ -2,6 +2,7 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { AiOutlineEye } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
+import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 interface DataTypeWinners {
@@ -253,7 +254,10 @@ const columns: ColumnsType<DataTypeWinners> = [
           <Link to="#" className="hover:text-primary transition-all p-1">
             <FiEdit />
           </Link>
-          <Link to="#" className="hover:text-primary transition-all p-1">
+          <Link
+            to="/campaigns/1"
+            className="hover:text-primary transition-all p-1"
+          >
             <FiEye />
           </Link>
         </div>
@@ -275,7 +279,7 @@ export const CampaignList = () => {
               <div className="text-xs">Total Campaign (1205)</div>
             </div>
             <Link to="/products/add" className="btn btn-primary ">
-              <span>+</span>
+              <HiPlus />
               <span>Add New Campaign</span>
             </Link>
           </div>

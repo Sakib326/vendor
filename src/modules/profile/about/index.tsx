@@ -1,4 +1,9 @@
 import { useState } from "react";
+import ProfileAboutContact from "./components/contact";
+import ProfileAboutOperationHours from "./components/operation_hours";
+import ProfileAbourOverview from "./components/overview";
+import ProfileAboutSocialMedia from "./components/social_media";
+import ProfileAboutSpecialty from "./components/specialty";
 
 const data = [
   {
@@ -7,7 +12,19 @@ const data = [
   },
   {
     id: 2,
-    title: "Contact",
+    title: "Contact and Info",
+  },
+  {
+    id: 3,
+    title: "Specialty",
+  },
+  {
+    id: 4,
+    title: "Hours of Operation",
+  },
+  {
+    id: 5,
+    title: "Social Media Links",
   },
 ];
 
@@ -33,62 +50,11 @@ export const ProfileAbout = () => {
         </ul>
       </div>
       <div className="p-5">
-        {step == 0 && (
-          <>
-            <h4 className="mb-5">About Company</h4>
-            <div>
-              UniSearch harnesses over ten years of experience in international
-              student recruitment within source markets and innovative
-              AI-powered technology to streamline the study abroad process from
-              the research stage down to arriving in the destination country and
-              beyond. Through predictive analytics and algorithm-driven systems,
-              we develop personal one-to-one relationships with students,
-              universities, and our network of dedicated counsellors and
-              mentors, covering all the bases of study abroad through a single
-              all-inclusive platform.
-            </div>
-            <br />
-            <div>
-              UniSearch harnesses over ten years of experience in international
-              student recruitment within source markets and innovative
-              AI-powered technology to streamline the study abroad process from
-              the research stage down to arriving in the destination country and
-              beyond. Through predictive analytics and algorithm-driven systems,
-              we develop personal one-to-one relationships with students,
-              universities, and our network of dedicated counsellors and
-              mentors, covering all the bases of study abroad through a single
-              all-inclusive platform.
-            </div>
-            <br />
-            <div>
-              UniSearch harnesses over ten years of experience in international
-              student recruitment within source markets and innovative
-              AI-powered technology to streamline the study abroad process from
-              the research stage down to arriving in the destination country and
-              beyond. Through predictive analytics and algorithm-driven systems,
-              we develop personal one-to-one relationships with students,
-              universities, and our network of dedicated counsellors and
-              mentors, covering all the bases of study abroad through a single
-              all-inclusive platform.
-            </div>
-          </>
-        )}
-        {step == 1 && (
-          <>
-            <h4 className="mb-5">Contact</h4>
-            <div>
-              UniSearch harnesses over ten years of experience in international
-              student recruitment within source markets and innovative
-              AI-powered technology to streamline the study abroad process from
-              the research stage down to arriving in the destination country and
-              beyond. Through predictive analytics and algorithm-driven systems,
-              we develop personal one-to-one relationships with students,
-              universities, and our network of dedicated counsellors and
-              mentors, covering all the bases of study abroad through a single
-              all-inclusive platform.
-            </div>
-          </>
-        )}
+        {step == 0 && <ProfileAbourOverview />}
+        {step == 1 && <ProfileAboutContact />}
+        {step == 2 && <ProfileAboutSpecialty />}
+        {step == 3 && <ProfileAboutOperationHours />}
+        {step == 4 && <ProfileAboutSocialMedia />}
       </div>
     </div>
   );

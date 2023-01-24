@@ -15,6 +15,8 @@ const Verification = lazy(() => import("../modules/auth/verification"));
 const Dashboard = lazy(() => import("../modules/dashboard"));
 const CampaignList = lazy(() => import("../modules/campaigns/list"));
 const CampaignAdd = lazy(() => import("../modules/campaigns/add"));
+const CampaignDetails = lazy(() => import("../modules/campaigns/details"));
+
 const ProductList = lazy(() => import("../modules/products/list"));
 const ProductAdd = lazy(() => import("../modules/products/add"));
 // profile
@@ -23,9 +25,6 @@ const ProfileAbout = lazy(() => import("../modules/profile/about"));
 const ProfileProducts = lazy(() => import("../modules/profile/products"));
 const ProfileServices = lazy(() => import("../modules/profile/service"));
 const ProfileCampaigns = lazy(() => import("../modules/profile/campaigns"));
-const ProfileCampaignDetails = lazy(
-  () => import("../modules/profile/campaign_detail")
-);
 // profile edit
 const ProfileEditAbout = lazy(() => import("../modules/profile_edit/about"));
 const ProfileSettings = lazy(() => import("../modules/profile_edit/settings"));
@@ -58,6 +57,8 @@ const AppRouter = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="campaigns/list" element={<CampaignList />} />
           <Route path="campaigns/add" element={<CampaignAdd />} />
+          <Route path="campaigns/:id" element={<CampaignDetails />} />
+
           <Route path="products/list" element={<ProductList />} />
           <Route path="products/add" element={<ProductAdd />} />
 
@@ -67,10 +68,6 @@ const AppRouter = () => {
             <Route path="profile/products" element={<ProfileProducts />} />
             <Route path="profile/services" element={<ProfileServices />} />
             <Route path="profile/campaigns" element={<ProfileCampaigns />} />
-            <Route
-              path="profile/campaigns/:id"
-              element={<ProfileCampaignDetails />}
-            />
           </Route>
 
           <Route path="/" element={<ProfileOutlet type="edit" />}>

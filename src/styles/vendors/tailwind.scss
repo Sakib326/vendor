@@ -43,9 +43,11 @@
   .btn-secondary {
     @apply border border-secondary bg-secondary  text-white hover:bg-primary hover:border-primary transition-all;
   }
-
   .btn-white {
     @apply border border-white bg-white  text-primary transition-all;
+  }
+  .btn-grey {
+    @apply border border-[#ebebed] bg-[#ebebed]  text-grey hover:border-[#d3d3d3] hover:bg-[#d3d3d3] transition-all;
   }
 
   .btn-white-outline {
