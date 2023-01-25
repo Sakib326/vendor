@@ -4,6 +4,7 @@ import { HiPlus } from "react-icons/hi";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
+import WinnersEditor from "../../@common/editor/bdwinners_editor";
 
 const { Dragger } = Upload;
 
@@ -33,6 +34,7 @@ export const ProductAdd = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [description, setDescription] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -45,7 +47,6 @@ export const ProductAdd = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
   return (
     <>
       <div className="p-8">
@@ -69,13 +70,34 @@ export const ProductAdd = () => {
                 <div className="grid grid-cols-[130px_1fr]">
                   <label className="mt-2">Description</label>
                   <div>
-                    <textarea
-                      className="form_control"
-                      placeholder="Description"
+                    <WinnersEditor
+                      name="summary"
+                      height="150"
+                      contents={description ? description : ""}
+                      // className="editor_error"
+                      onChange={(event: any) => {
+                        const content = event.target.value.replace(
+                          /(<([^>]+)>)/gi,
+                          ""
+                        );
+
+                        if (content) {
+                          setDescription(event.target.value);
+                        }
+                      }}
+                      // onKeyDown={(event: any) => {
+                      //   if (event?.key === "Tab") event.preventDefault();
+                      // }}
                     />
                     {/* <div className="error">Required field</div> */}
                   </div>
                 </div>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
+                nostrum modi accusamus repudiandae, quaerat numquam neque nemo,
+                natus magnam fuga maxime architecto suscipit maiores asperiores
+                quos. Ratione exercitationem officia animi nobis alias odit modi
+                enim temporibus laborum libero optio recusandae quisquam tenetur
+                maiores ad incidunt laudantium eum veniam, voluptatum quia.
                 <div className="grid grid-cols-[130px_1fr]">
                   <label className="mt-2">Product Link</label>
                   <div>

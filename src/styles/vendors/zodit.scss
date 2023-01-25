@@ -1,0 +1,26 @@
+.zodit_editor {
+  ol,
+  ul {
+    list-style: square;
+    padding-left: 35px;
+  }
+  .zodit-react-container {
+    .zodit-container:not(.zodit_inline) {
+      border: none !important;
+    }
+    .zodit-wysiwyg {
+      background: #f9f9f9;
+    }
+    .zodit-icon {
+      stroke: #808291 !important;
+      fill: #808291 !important;
+    }
+  }
+}
+.editor_error {
+  .zodit-react-container {
+    .zodit-container:not(.zodit_inline) {
+      border: 1px solid red !important;
+    }
+  }
+}
