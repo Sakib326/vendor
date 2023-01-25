@@ -13,25 +13,12 @@ const ResetPassword = lazy(() => import("../modules/auth/reset_password"));
 const Verification = lazy(() => import("../modules/auth/verification"));
 // general
 const Dashboard = lazy(() => import("../modules/dashboard"));
-<<<<<<< HEAD
-const CampaignTable = lazy(() => import("../modules/campaigns/campaignTable"));
-const CampaignNew = lazy(() => import("../modules/campaigns/newCampaign"));
-const Feed = lazy(() => import("../modules/feed"));
-const Winners = lazy(() => import("../modules/winners"));
-const Take = lazy(() => import("../modules/take"));
-// campaign
-const CampaignList = lazy(() => import("../modules/campaign/list"));
-const CampaignFeed = lazy(() => import("../modules/campaign/feed"));
-const CampaignAbout = lazy(() => import("../modules/campaign/about"));
-const CampaignProducts = lazy(() => import("../modules/campaign/products"));
-=======
 const CampaignList = lazy(() => import("../modules/campaigns/list"));
 const CampaignAdd = lazy(() => import("../modules/campaigns/add"));
 const CampaignDetails = lazy(() => import("../modules/campaigns/details"));
 
 const ProductList = lazy(() => import("../modules/products/list"));
 const ProductAdd = lazy(() => import("../modules/products/add"));
->>>>>>> d60cf6d2ee718cf0adb70fcabe5dec822b509d86
 // profile
 const ProfileFeed = lazy(() => import("../modules/profile/feed"));
 const ProfileAbout = lazy(() => import("../modules/profile/about"));
@@ -68,18 +55,9 @@ const AppRouter = () => {
 
         <Route path="/" element={<PrivateOutlet />}>
           <Route path="dashboard" element={<Dashboard />} />
-<<<<<<< HEAD
-          <Route path="campaign" element={<CampaignTable />} />
-          <Route path="campaign/new" element={<CampaignNew />} />
-          <Route path="feed" element={<Feed />} />
-          <Route path="winners" element={<Winners />} />
-          <Route path="take" element={<Take />} />
-          <Route path="products" element={<CampaignProducts />} />
-=======
           <Route path="campaigns/list" element={<CampaignList />} />
           <Route path="campaigns/add" element={<CampaignAdd />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
->>>>>>> d60cf6d2ee718cf0adb70fcabe5dec822b509d86
 
           <Route path="products/list" element={<ProductList />} />
           <Route path="products/add" element={<ProductAdd />} />
