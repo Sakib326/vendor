@@ -5,6 +5,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
+import ImageInput from "../../@common/image_input/Image_input";
 
 const { Dragger } = Upload;
 
@@ -128,6 +129,7 @@ export const ProductAdd = () => {
                           { value: "Service", label: "Service" },
                           { value: "Manufacturing", label: "Manufacturing" },
                         ]}
+                        placeholder="Select a category"
                       />
                       <button
                         onClick={showModal}
@@ -141,7 +143,14 @@ export const ProductAdd = () => {
                   </div>
                   <div className="grid grid-cols-[100px_1fr]">
                     <label className="mt-2">Images</label>
-                    <div>image picker</div>
+                    {/* <div>image picker</div> */}
+                    <div>
+                      <ImageInput
+                        onChange={(e: any) => {
+                          console.log("======", e);
+                        }}
+                      />
+                    </div>
                   </div>
                   <div className="grid grid-cols-[100px_1fr]">
                     <label className="mt-2">Status</label>

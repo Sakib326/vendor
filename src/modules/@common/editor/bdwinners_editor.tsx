@@ -39,11 +39,6 @@ function WinnersEditor(props: any) {
         onChange={(value: any) => {
           const target = { name: target_name, value: value, event: Event };
           props?.onChange({ target, value });
-          if (value?.keyCode == 9) {
-            console.log("hello");
-
-            value.preventDefault();
-          }
         }}
       />
     </div>
