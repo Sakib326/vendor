@@ -92,12 +92,6 @@ export const ProductAdd = () => {
                     {/* <div className="error">Required field</div> */}
                   </div>
                 </div>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
-                nostrum modi accusamus repudiandae, quaerat numquam neque nemo,
-                natus magnam fuga maxime architecto suscipit maiores asperiores
-                quos. Ratione exercitationem officia animi nobis alias odit modi
-                enim temporibus laborum libero optio recusandae quisquam tenetur
-                maiores ad incidunt laudantium eum veniam, voluptatum quia.
                 <div className="grid grid-cols-[130px_1fr]">
                   <label className="mt-2">Product Link</label>
                   <div>
