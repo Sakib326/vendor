@@ -21,6 +21,7 @@ export const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    terms: false,
   };
 
   // Validation schema
@@ -43,13 +44,17 @@ export const Register = () => {
     mobile: Yup.string()
       .required("Mobile number is required")
       .matches(
-        /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
+        /(^(\+8801|8801|01|008801))[3-9]{1}(\d){8}$/,
         "Mobile number not valid."
       )
       .typeError("Mobile number not valid. Only number allowed"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm Password is required"),
+    terms: Yup.bool().oneOf(
+      [true],
+      "Accept privacy policy & terms is required"
+    ),
   });
 
   const vendorRegistration = async (values: any) => {
@@ -193,10 +198,19 @@ export const Register = () => {
                 </div>
 
                 <div className="mt-5 text-sm">
-                  <Checkbox onChange={onChangeTermCheck}>I agree to </Checkbox>
+                  <Checkbox
+                    onChange={(e) => {
+                      setFieldValue("terms", e?.target?.checked);
+                    }}
+                  >
+                    I agree to{" "}
+                  </Checkbox>
                   <Link to="#" className="text-[#7367f0] hover:underline">
                     privacy policy & terms
                   </Link>
+                  {errors?.terms && touched?.terms ? (
+                    <div className="error">{errors?.terms}</div>
+                  ) : null}
                 </div>
                 <button
                   onClick={() => handleSubmit}
