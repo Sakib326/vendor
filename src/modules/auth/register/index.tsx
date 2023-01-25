@@ -39,9 +39,14 @@ export const Register = () => {
         /^(?=.*[0-9])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{6,}$/,
         "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
       ),
+
     mobile: Yup.string()
       .required("Mobile number is required")
-      .min(9, "Mobile number not valid"),
+      .matches(
+        /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
+        "Mobile number not valid."
+      )
+      .typeError("Mobile number not valid. Only number allowed"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm Password is required"),
@@ -137,7 +142,6 @@ export const Register = () => {
                       Mobile Number <span className="astrisk">*</span>
                     </label>
                     <Field
-                      type="number"
                       name="mobile"
                       className={errors?.mobile && touched?.mobile && "error"}
                       placeholder="Mobile Number"
