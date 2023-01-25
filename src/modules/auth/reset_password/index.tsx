@@ -45,6 +45,7 @@ export const ResetPassword = () => {
       }
     });
   };
+
   return (
     <div className="p-8 min-h-screen overflow-auto">
       <div className="auth_h_screen grid grid-cols-[1fr_650px] gap-12">

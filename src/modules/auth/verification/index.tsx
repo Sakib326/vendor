@@ -30,6 +30,7 @@ export const Verification = () => {
       }
     });
   };
+
   return (
     <div className="p-8 min-h-screen overflow-auto">
       <div className="auth_h_screen grid grid-cols-[1fr_650px] gap-12">
@@ -56,7 +57,7 @@ export const Verification = () => {
             Type your security code
           </div>
           <Formik
-            initialValues={{ token: "" }}
+            initialValues={{ token: parsedLinkQuery?.token ?? "" }}
             enableReinitialize={true}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -71,7 +72,7 @@ export const Verification = () => {
                     name="token"
                     className={`w-full ${errors?.token && "error"}`}
                     placeholder="Security Code"
-                    value={values?.token ?? ""}
+                    value={values?.token}
                   />
                   {errors?.token && touched?.token ? (
                     <div className="error">{errors?.token}</div>
