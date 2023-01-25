@@ -1,11 +1,12 @@
 import { MdNotifications } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className="bg-primary px-8 py-4 flex items-center justify-between sticky top-0 z-[100] border-b  h-[72px]">
-      <div className="left">
+      <Link to="/dashboard" className="left">
         <img src="/images/misc/logo-white.webp" alt="logo" />
-      </div>
+      </Link>
       <div className="flex items-center gap-3">
         <MdNotifications className="text-white text-2xl	" />
         <div className="w-[40px] h-[40px]">
