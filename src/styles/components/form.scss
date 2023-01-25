@@ -80,3 +80,24 @@
   border: 1px solid red;
   border-radius: 6px;
 }
+
+// Radio box custom design
+.campaign_type_wrapper {
+  .campaign_type_input {
+    transition: all 0.3s;
+  }
+  .campaign_type_input:checked + .campaign_type_box {
+    border: 1px solid #ac224d;
+    svg {
+      path {
+        stroke: #ac224d;
+      }
+    }
+    .website_fill svg {
+      path {
+        fill: #ac224d;
+        stroke: unset;
+      }
+    }
+  }
+}

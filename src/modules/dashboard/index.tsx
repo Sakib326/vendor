@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { BsPencil } from "react-icons/bs";
-import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
 import { DatePicker } from "antd";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { BiPlus } from "react-icons/bi";
+import { Chart } from "./components/chart";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
+const { RangePicker } = DatePicker;
 
 interface DataTypeWinners {
   key: string;
@@ -202,38 +206,47 @@ const columnsTake: ColumnsType<DataTypeTake> = [
   },
 ];
 
+const rangePresets: {
+  label: string;
+  value: [Dayjs, Dayjs];
+}[] = [
+  { label: "Last 7 Days", value: [dayjs().add(-7, "d"), dayjs()] },
+  { label: "Last 14 Days", value: [dayjs().add(-14, "d"), dayjs()] },
+  { label: "Last 30 Days", value: [dayjs().add(-30, "d"), dayjs()] },
+  { label: "Last 90 Days", value: [dayjs().add(-90, "d"), dayjs()] },
+];
+
 export const Dashboard = () => {
-  const onChange = (date: any) => {
-    if (date) {
-      console.log("Date: ", date);
+  const onRangeChange = (
+    dates: null | (Dayjs | null)[],
+    dateStrings: string[]
+  ) => {
+    if (dates) {
+      console.log("From: ", dates[0], ", to: ", dates[1]);
+      console.log("From: ", dateStrings[0], ", to: ", dateStrings[1]);
     } else {
       console.log("Clear");
     }
   };
+
   return (
     <div className="p-8 mb-[60px]">
       <div className="max-w-[1170px] w-full mx-auto">
         {/* filter */}
         <div className="flex items-center gap-3 mb-5 relative">
-          <div className="btn bg-tertiary text-primary border border-tertiary hover:bg-[#fee4ee] transition-all">
+          <div className="btn py-0 bg-tertiary text-primary border border-tertiary cursor-auto">
             <span>Date: last 3 months</span>
             {/* <BsPencil /> */}
-            <DatePicker
-              showToday={false}
-              presets={[
-                { label: "Today", value: dayjs().add(0, "d") },
-                { label: "Yesterday", value: dayjs().add(-1, "d") },
-                { label: "Last Week", value: dayjs().add(-7, "d") },
-                { label: "Last Month", value: dayjs().add(-1, "month") },
-                { label: "Last 3 Months", value: dayjs().add(-3, "month") },
-                { label: "Last 6 Months", value: dayjs().add(-6, "month") },
-              ]}
-              onChange={onChange}
+            <RangePicker
+              size="large"
+              presets={rangePresets}
+              onChange={onRangeChange}
+              className="bg-tertiary border-tertiary"
             />
           </div>
 
-          <Link to="#!" className="btn btn-primary">
-            <span>+</span>
+          <Link to="/campaigns/add" className="btn btn-primary">
+            <BiPlus className="text-lg" />
             <span> New Campaign</span>
           </Link>
         </div>
@@ -263,8 +276,8 @@ export const Dashboard = () => {
         </div>
 
         {/* chart */}
-        <div className="mb-5">
-          <img src="/temp/chart.png" alt="chart" />
+        <div className="border p-3 mb-7">
+          <Chart />
         </div>
 
         {/* tables */}
@@ -278,7 +291,7 @@ export const Dashboard = () => {
                 </div>
                 <div className="text-xs">Total Campaign (1205)</div>
               </div>
-              <Link to="/winners" className="btn btn-primary ">
+              <Link to="/campaigns/list" className="btn btn-primary ">
                 View More
               </Link>
             </div>
@@ -301,7 +314,7 @@ export const Dashboard = () => {
                 </div>
                 <div className="text-xs">Total Winners (12)</div>
               </div>
-              <Link to="/winners" className="btn btn-primary ">
+              <Link to="/campaigns/1" className="btn btn-primary ">
                 View More
               </Link>
             </div>
