@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { useLocation } from "react-router-dom";
 import { useSignOutMutation } from "../../../redux/auth/auth_api";
@@ -14,63 +14,49 @@ export const Nav = () => {
   };
   return (
     <nav
-      className="sticky top-[72px] left-0 self-start overflow-auto flex flex-col text-xs"
+      className="side_nav sticky top-[72px] left-0 self-start overflow-auto flex flex-col text-xs"
       style={{ height: "calc(100vh - 72px)", borderRight: "1px solid #eee" }}
     >
       <div>
-        <Link
+        <NavLink
           to="/dashboard"
-          className={`flex flex-col gap-2 items-center px-4 py-6 hover:bg-tertiary hover:text-primary transition-all ${
-            location?.pathname?.includes("dashboard")
-              ? "bg-tertiary text-primary"
-              : null
-          }`}
+          className={(navData) =>
+            (navData.isActive ? "active " : "") + `nav_link`
+          }
         >
           <ReactSVG src="/icons/dashboard.svg" />
           <span>Dashboard</span>
-        </Link>
-        <Link
-          to="/campaign"
-          className={`flex flex-col gap-2 items-center px-4 py-6 hover:bg-tertiary hover:text-primary transition-all ${
-            location?.pathname?.includes("campaign")
-              ? "bg-tertiary text-primary"
-              : null
+        </NavLink>
+        <NavLink
+          to="/campaigns/list"
+          className={`nav_link ${
+            location?.pathname?.includes("campaign") ? "active" : ""
           }`}
         >
           <ReactSVG src="/icons/feed.svg" />
-          <span>Campaign</span>
-        </Link>
-        <Link
-          to="/products"
-          className={`flex flex-col gap-2 items-center text-center px-4 py-6 hover:bg-tertiary hover:text-primary transition-all ${
-            location?.pathname?.includes("products")
-              ? "bg-tertiary text-primary"
-              : null
+          <span>Campaigns</span>
+        </NavLink>
+        <NavLink
+          to="/products/list"
+          className={`nav_link ${
+            location?.pathname?.includes("products") ? "active" : ""
           }`}
         >
           <ReactSVG src="/icons/campaign.svg" />
-          <span>Product</span>
-        </Link>
+          <span>Products</span>
+        </NavLink>
       </div>
-
       <div className="mt-auto">
-        <Link
-          to="/profile"
-          className={`flex flex-col gap-2 items-center text-center px-4 py-6 hover:bg-tertiary hover:text-primary transition-all ${
-            location?.pathname?.includes("profile")
-              ? "bg-tertiary text-primary"
-              : null
+        <NavLink
+          to="/profile/feed"
+          className={`nav_link stroke ${
+            location?.pathname?.includes("profile") ? "active" : ""
           }`}
         >
           <span>My Profile</span>
           <ReactSVG src="/icons/profile.svg" />
-        </Link>
-        <div
-          className={`flex flex-col gap-2 items-center text-center px-4 py-6 hover:bg-tertiary hover:text-primary transition-all cursor-pointer`}
-          onClick={() => {
-            logOut();
-          }}
-        >
+        </NavLink>
+        <div className={`nav_link`}>
           <ReactSVG src="/icons/logout.svg" />
           <span>Log out</span>
         </div>

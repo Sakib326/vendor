@@ -1,1 +1,22 @@
+.ant-table-thead {
+  th.ant-table-cell {
+    background-color: #fff !important;
+    color: #ac224d !important;
+    &::before {
+      display: none !important;
+    }
+  }
+}
+.ant-table-cell:first-child {
+  padding-left: 20px !important;
+}
 
+.ant-tabs-tab {
+  padding: 12px 25px !important;
+  margin: 0 !important;
+}
+
+.ant-select-selection-placeholder {
+  display: flex !important;
+  align-items: center !important;
+}

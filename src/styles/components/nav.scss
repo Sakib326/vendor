@@ -1,0 +1,29 @@
+.side_nav {
+  .nav_link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &.active,
+    &:hover {
+      color: #ac224d;
+      background-color: #faf2f5;
+      svg path {
+        fill: #ac224d;
+      }
+    }
+    &.stroke {
+      &.active,
+      &:hover {
+        svg path {
+          fill: unset;
+          stroke: #ac224d;
+        }
+      }
+    }
+  }
+}

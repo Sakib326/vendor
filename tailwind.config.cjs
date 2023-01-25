@@ -10,6 +10,7 @@ module.exports = {
         grey: "#808291",
         black: "#181B31",
         white: "#ffffff",
+        danger: "#e50f0f",
       },
     },
     fontFamily: {

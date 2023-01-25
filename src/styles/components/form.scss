@@ -1,3 +1,4 @@
+// auth form styles
 .form_group {
   position: relative;
   label {
@@ -7,12 +8,16 @@
     line-height: 1.5;
     color: #3f4254;
     display: flex;
+    gap: 2px;
     align-items: center;
     justify-content: center;
     padding: 0 10px;
     background-color: #fff;
     left: 20px;
     top: -16px;
+  }
+  .astrisk {
+    color: #e50f0f;
   }
   input {
     background-color: #fff;
@@ -23,6 +28,7 @@
     font-size: 14px;
     &.error {
       border: 1px solid #e50f0f;
+      color: inherit;
     }
     &::placeholder {
       font-size: 14px;
@@ -36,4 +42,34 @@
   font-size: 13px;
   font-weight: normal;
   color: #e50f0f;
+}
+
+// profile edit form styles
+.form_control {
+  color: #181b31 !important;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 12px 20px;
+  &.error {
+    border: 1px solid #e50f0f;
+    color: inherit;
+  }
+}
+
+.form_control_select {
+  .ant-select-selector {
+    height: 44px !important;
+    background-color: #f9f9f9 !important;
+    border: none !important;
+    .ant-select-selection-search-input {
+      height: 44px !important;
+      background-color: #f9f9f9 !important;
+    }
+  }
+  .ant-select-selection-item {
+    display: flex;
+    align-items: center;
+    color: #181b31 !important;
+  }
 }

@@ -1,0 +1,81 @@
+// product detail arrows
+svg.slider_arrow_next,
+svg.slider_arrow_prev {
+  padding: 2px;
+  box-sizing: content-box;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  color: #ac224d;
+  border: 1px solid #ac224d;
+  background-color: #fff;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s;
+  &:hover {
+    color: #fbad18;
+    border: 1px solid #fbad18;
+  }
+}
+
+svg.slider_arrow_prev {
+  left: -35px;
+}
+svg.slider_arrow_next {
+  right: -35px;
+}
+
+// recent winners dots
+.recent_winners {
+  .slick-dots {
+    bottom: -4px;
+  }
+  .slick-dots li {
+    margin: 0;
+  }
+  .slick-dots li button:before {
+    font-size: 6px;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #fbad18;
+  }
+  .slick-dots li button:hover,
+  .slick-dots li button:focus {
+    color: #fbad18;
+  }
+  .slick-dots li button:hover:before,
+  .slick-dots li button:focus:before {
+    opacity: unset;
+  }
+  .slick-dots li button:before {
+    opacity: 1;
+    color: #fff;
+  }
+}
+
+// recent campaign dots
+.recent_campaign {
+  .slick-dots li {
+    margin: 0;
+  }
+  .slick-dots li button:before {
+    font-size: 6px;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #ac224d;
+  }
+  .slick-dots li button:hover,
+  .slick-dots li button:focus {
+    color: #ac224d;
+  }
+  .slick-dots li button:hover:before,
+  .slick-dots li button:focus:before {
+    opacity: unset;
+  }
+  .slick-dots li button:before {
+    opacity: 1;
+    color: #d7d7d7;
+  }
+}
