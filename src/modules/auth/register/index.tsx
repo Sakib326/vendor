@@ -2,19 +2,17 @@ import { Checkbox, message, Spin } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { Field, Form, Formik } from "formik";
 import queryString from "query-string";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useSignUpMutation } from "../../../redux/auth/auth_api";
 
-const onChangeTermCheck = (e: CheckboxChangeEvent) => {
-  console.log(`checked = ${e.target.checked}`);
-};
-
 export const Register = () => {
-  const parsed = queryString.parse(location.search);
   const navigate = useNavigate();
-  const [signUp, { data, isLoading, error: responseError }] =
-    useSignUpMutation();
+  const [signUp, { isLoading, error }] = useSignUpMutation();
+  const [userEmail, setUserEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const regInit = {
     businessName: "",
     mobile: "",
@@ -69,12 +67,13 @@ export const Register = () => {
           message.success(
             "Registration successful. Check your email to verify"
           );
-          navigate(`/verification?email=${res?.data?.email}`);
+          navigate(`/verification?email=${userEmail}`);
         } else {
           message.error(
             res?.error?.data?.message ??
               "Something went wrong. Try reload the page"
           );
+          setErrorMessage(res?.error?.data?.message);
         }
       });
     } catch (e) {
@@ -107,6 +106,14 @@ export const Register = () => {
           >
             {({ handleSubmit, setFieldValue, errors, values, touched }) => (
               <Form className="w-full">
+                {errorMessage && (
+                  <div
+                    className="col-span-4 p-4 mb-6 text-sm text-red-800 rounded-lg bg-red-50"
+                    role="alert"
+                  >
+                    {errorMessage}
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-x-4 gap-y-10">
                   <div className="form_group col-span-2">
                     <label htmlFor="">
@@ -136,6 +143,10 @@ export const Register = () => {
                       className={errors?.email && touched?.email && "error"}
                       placeholder="Email Address"
                       value={values?.email ?? ""}
+                      onChange={(e: any) => {
+                        setFieldValue("email", e?.target?.value);
+                        setUserEmail(e?.target?.value);
+                      }}
                       autoComplete="off"
                     />
                     {errors?.email && touched?.email ? (

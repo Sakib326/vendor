@@ -108,7 +108,7 @@ export const authApi = apiSlice.injectEndpoints({
     forgotPassChange: build.mutation({
       query: (data) => ({
         url: "vendor/auth/reset-password",
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
     }),

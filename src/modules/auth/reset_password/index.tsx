@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
 import { useForgotPassChangeMutation } from "../../../redux/auth/auth_api";
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import { message, Spin } from "antd";
 export const ResetPassword = () => {
   const [forgotPassChange, { isLoading }] = useForgotPassChangeMutation();
   const parsedLinkQuery = queryString.parse(location.search);
+  const navigate = useNavigate();
 
   const forgotPassInit = {
     password: "",
@@ -37,6 +38,7 @@ export const ResetPassword = () => {
     }).then((res: any) => {
       if (!res?.error) {
         message.success("Successful. Your password has been changed");
+        navigate("/login");
       } else {
         message.error(
           res?.error?.data?.message ??
@@ -80,7 +82,9 @@ export const ResetPassword = () => {
                     <Field
                       type="password"
                       name="password"
-                      className={errors?.password && "error"}
+                      className={
+                        errors?.password && touched?.password && "error"
+                      }
                       placeholder="New Password"
                       value={values?.password ?? ""}
                     />
@@ -95,7 +99,11 @@ export const ResetPassword = () => {
                     <Field
                       type="password"
                       name="confirmPassword"
-                      className={errors?.confirmPassword && "error"}
+                      className={
+                        errors?.confirmPassword &&
+                        touched?.confirmPassword &&
+                        "error"
+                      }
                       placeholder="Confirm Password"
                       value={values?.confirmPassword ?? ""}
                     />
