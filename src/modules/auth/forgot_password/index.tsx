@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useForgotPassMutation } from "../../../redux/auth/auth_api";
@@ -22,13 +22,18 @@ export const ForgotPassword = () => {
   });
 
   const vendorForgotPass = async (values: any) => {
-    try {
-      await forgotPass({
-        email: values?.email,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    await forgotPass({
+      email: values?.email,
+    }).then((res: any) => {
+      if (!res?.error) {
+        message.success("Successful. Check your email");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
   };
 
   return (

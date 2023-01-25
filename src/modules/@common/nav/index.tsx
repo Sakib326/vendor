@@ -56,7 +56,7 @@ export const Nav = () => {
           <span>My Profile</span>
           <ReactSVG src="/icons/profile.svg" />
         </NavLink>
-        <div className={`nav_link`}>
+        <div onClick={logOut} className={`nav_link`}>
           <ReactSVG src="/icons/logout.svg" />
           <span>Log out</span>
         </div>

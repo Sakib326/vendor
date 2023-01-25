@@ -1,8 +1,7 @@
-import { Checkbox, Spin } from "antd";
+import { Checkbox, message, Spin } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { Field, Form, Formik } from "formik";
 import queryString from "query-string";
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useSignUpMutation } from "../../../redux/auth/auth_api";
@@ -55,17 +54,23 @@ export const Register = () => {
         mobile: `${values?.mobile}`,
         email: values?.email,
         password: values?.password,
+      }).then((res: any) => {
+        if (!res?.error) {
+          message.success(
+            "Registration successful. Check your email to verify"
+          );
+          navigate(`/verification?email=${res?.data?.email}`);
+        } else {
+          message.error(
+            res?.error?.data?.message ??
+              "Something went wrong. Try reload the page"
+          );
+        }
       });
     } catch (e) {
       console.log(e);
     }
   };
-
-  useEffect(() => {
-    if (data?.token) {
-      navigate(`/verification?email=${data?.email}`);
-    }
-  }, [data, responseError, navigate]);
 
   return (
     <div className="p-8 min-h-screen overflow-auto">

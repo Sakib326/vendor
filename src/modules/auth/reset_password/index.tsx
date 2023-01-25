@@ -4,7 +4,7 @@ import { useForgotPassChangeMutation } from "../../../redux/auth/auth_api";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import queryString from "query-string";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 
 export const ResetPassword = () => {
   const [forgotPassChange, { isLoading }] = useForgotPassChangeMutation();
@@ -30,16 +30,20 @@ export const ResetPassword = () => {
 
   const vendorForgotPass = async (values: any) => {
     if (!parsedLinkQuery?.token) return;
-    try {
-      const rest = await forgotPassChange({
-        token: parsedLinkQuery?.token,
-        password: values?.password,
-        confirmPassword: values?.confirmPassword,
-      });
-      console.log(rest);
-    } catch (e) {
-      console.log(e);
-    }
+    await forgotPassChange({
+      token: parsedLinkQuery?.token,
+      password: values?.password,
+      confirmPassword: values?.confirmPassword,
+    }).then((res: any) => {
+      if (!res?.error) {
+        message.success("Successful. Your password has been changed");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
   };
   return (
     <div className="p-8 min-h-screen overflow-auto">

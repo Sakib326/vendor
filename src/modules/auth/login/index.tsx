@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -33,6 +33,11 @@ export const Login = () => {
     }).then((res: any) => {
       if (!res?.error) {
         navigate("/dashboard");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
       }
     });
   };

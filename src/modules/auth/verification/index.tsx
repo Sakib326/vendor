@@ -1,4 +1,4 @@
-import { Form, Spin } from "antd";
+import { Form, message, Spin } from "antd";
 import { Field, Formik } from "formik";
 import queryString from "query-string";
 import { useEffect } from "react";
@@ -16,17 +16,19 @@ export const Verification = () => {
   });
 
   const vendorActiveAcc = async (values: any) => {
-    try {
-      await signUpVerificaton(values?.token).then((res: any) => {
-        console.log(res);
-
-        if (!res?.error || res?.error?.originalStatus === 200) {
-          navigate(`/login`);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    await signUpVerificaton(values?.token).then((res: any) => {
+      if (!res?.error || res?.error?.originalStatus === 200) {
+        message.success(
+          "Email verify successful. Sign in to your account and start the adventure"
+        );
+        navigate(`/login`);
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
   };
   return (
     <div className="p-8 min-h-screen overflow-auto">
