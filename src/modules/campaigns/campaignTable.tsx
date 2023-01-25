@@ -1,6 +1,7 @@
 import { Dropdown, Space, Table } from "antd";
 import { Fragment } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import newsSlider from "../../_fakedata/slider.json";
 
 export const CampaignTable = () => {
@@ -189,10 +190,24 @@ export const CampaignTable = () => {
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full">
         <Fragment>
-          <div className="border-slate-200 border rounded-t-md border-b-0">
-            <div className="mx-4 py-4">
-              <p className="text-lg text-black font-medium">Campaign List</p>
-              <p>Total Campaign</p>
+          <div className="border-slate-100 border rounded-t-md border-b-0">
+            <div className="p-5 border border-b-0 rounded-t flex justify-between">
+              <div>
+                <div className="text-black font-medium text-lg">
+                  Campaign List
+                </div>
+                <div className="text-xs">Total Campaign (1205)</div>
+              </div>
+              {/* <button type="button" className="p-1">
+                <BsThreeDotsVertical />
+              </button> */}
+              <button
+                // onClick={() => setEdit(false)}
+                type="button"
+                className="btn btn-primary"
+              >
+                New Campaign
+              </button>
             </div>
           </div>
 

@@ -14,6 +14,7 @@ const Verification = lazy(() => import("../modules/auth/verification"));
 // general
 const Dashboard = lazy(() => import("../modules/dashboard"));
 const CampaignTable = lazy(() => import("../modules/campaigns/campaignTable"));
+const CampaignNew = lazy(() => import("../modules/campaigns/newCampaign"));
 const Feed = lazy(() => import("../modules/feed"));
 const Winners = lazy(() => import("../modules/winners"));
 const Take = lazy(() => import("../modules/take"));
@@ -47,6 +48,7 @@ const AppRouter = () => {
         <Route path="/" element={<PrivateOutlet />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="campaign" element={<CampaignTable />} />
+          <Route path="campaign/new" element={<CampaignNew />} />
           <Route path="feed" element={<Feed />} />
           <Route path="winners" element={<Winners />} />
           <Route path="take" element={<Take />} />
