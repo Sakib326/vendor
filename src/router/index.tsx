@@ -16,6 +16,7 @@ const Dashboard = lazy(() => import("../modules/dashboard"));
 const CampaignList = lazy(() => import("../modules/campaigns/list"));
 const CampaignAddFirst = lazy(() => import("../modules/campaigns/add/first"));
 import CampaignAddSecond from "../modules/campaigns/add/second";
+const CampaignEdit = lazy(() => import("../modules/campaigns/edit"));
 const CampaignDetails = lazy(() => import("../modules/campaigns/details"));
 
 const ProductList = lazy(() => import("../modules/products/list"));
@@ -59,6 +60,7 @@ const AppRouter = () => {
           <Route path="campaigns/list" element={<CampaignList />} />
           <Route path="campaigns/add" element={<CampaignAddFirst />} />
           <Route path="campaigns/add/:id" element={<CampaignAddSecond />} />
+          <Route path="campaigns/edit/:id" element={<CampaignEdit />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
 
           <Route path="products/list" element={<ProductList />} />
