@@ -251,7 +251,10 @@ const columns: ColumnsType<DataTypeWinners> = [
     render: (_, col) => (
       <>
         <div className="flex items-center">
-          <Link to="#" className="hover:text-primary transition-all p-1">
+          <Link
+            to="/campaigns/edit/1"
+            className="hover:text-primary transition-all p-1"
+          >
             <FiEdit />
           </Link>
           <Link

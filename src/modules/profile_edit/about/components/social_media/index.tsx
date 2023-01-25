@@ -1,5 +1,5 @@
-import { Select } from "antd";
-import { AiOutlinePlus } from "react-icons/ai";
+import { Select, Tooltip } from "antd";
+import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 
 const ProfileEditSocialMedia = () => {
   const handleChange = (value: string) => {
@@ -30,9 +30,11 @@ const ProfileEditSocialMedia = () => {
                 { value: "Pinterest", label: "Pinterest" },
               ]}
             />
-            <button type="button" className="btn btn-secondary">
-              <span>Delete</span>
-            </button>
+            <Tooltip title="Delete">
+              <button type="button">
+                <AiOutlineDelete className="text-lg hover:text-danger transition-all" />
+              </button>
+            </Tooltip>
           </div>
           <div className="grid grid-cols-[1fr_1fr_auto] gap-4 items-center">
             <input
@@ -52,9 +54,11 @@ const ProfileEditSocialMedia = () => {
                 { value: "Pinterest", label: "Pinterest" },
               ]}
             />
-            <button type="button" className="btn btn-secondary">
-              <span>Delete</span>
-            </button>
+            <Tooltip title="Delete">
+              <button type="button">
+                <AiOutlineDelete className="text-lg hover:text-danger transition-all" />
+              </button>
+            </Tooltip>
           </div>
           <div className="grid grid-cols-[1fr_1fr_auto] gap-4 items-center">
             <input
@@ -74,9 +78,11 @@ const ProfileEditSocialMedia = () => {
                 { value: "Pinterest", label: "Pinterest" },
               ]}
             />
-            <button type="button" className="btn btn-secondary">
-              <span>Delete</span>
-            </button>
+            <Tooltip title="Delete">
+              <button type="button">
+                <AiOutlineDelete className="text-lg hover:text-danger transition-all" />
+              </button>
+            </Tooltip>
           </div>
           <div className="grid grid-cols-[1fr_1fr_auto] gap-4 items-center">
             <input
@@ -96,9 +102,11 @@ const ProfileEditSocialMedia = () => {
                 { value: "Pinterest", label: "Pinterest" },
               ]}
             />
-            <button type="button" className="btn btn-secondary">
-              <span>Delete</span>
-            </button>
+            <Tooltip title="Delete">
+              <button type="button">
+                <AiOutlineDelete className="text-lg hover:text-danger transition-all" />
+              </button>
+            </Tooltip>
           </div>
 
           <button

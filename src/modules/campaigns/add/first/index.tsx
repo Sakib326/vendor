@@ -1,6 +1,7 @@
 import { DatePicker } from "antd";
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
+import WinnersEditor from "../../../@common/editor/bdwinners_editor";
 const { RangePicker } = DatePicker;
 
 const CampaignAddFirst = () => {
@@ -89,9 +90,24 @@ const CampaignAddFirst = () => {
               <div className="grid grid-cols-[130px_1fr]">
                 <label className="mt-2">Description</label>
                 <div>
-                  <textarea
-                    className="form_control"
-                    placeholder="Description"
+                  <WinnersEditor
+                    name="summary"
+                    height="150"
+                    // contents={description ? description : ""}
+                    // className="editor_error"
+                    // onChange={(event: any) => {
+                    //   const content = event.target.value.replace(
+                    //     /(<([^>]+)>)/gi,
+                    //     ""
+                    //   );
+
+                    //   if (content) {
+                    //     setDescription(event.target.value);
+                    //   }
+                    // }}
+                    // onKeyDown={(event: any) => {
+                    //   if (event?.key === "Tab") event.preventDefault();
+                    // }}
                   />
                   {/* <div className="error">Required field</div> */}
                 </div>

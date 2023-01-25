@@ -21,7 +21,7 @@ export const ProfileCampaigns = () => {
                   className="rounded-md w-full"
                 />
               </div>
-              <Link to="#!" className="btn btn-primary  w-full">
+              <Link to="/campaigns/edit/1" className="btn btn-primary  w-full">
                 Edit
               </Link>
             </div>
@@ -46,7 +46,7 @@ export const ProfileCampaigns = () => {
                   className="rounded-md w-full"
                 />
               </div>
-              <Link to="#!" className="btn btn-primary  w-full">
+              <Link to="/campaigns/1" className="btn btn-primary  w-full">
                 View Details
               </Link>
             </div>
@@ -83,7 +83,7 @@ export const ProfileCampaigns = () => {
                   <span className="text-xs">Winner</span>
                 </div>
               </div>
-              <Link to="#!" className="btn btn-primary  w-full">
+              <Link to="/campaigns/1" className="btn btn-primary  w-full">
                 View Details
               </Link>
             </div>
