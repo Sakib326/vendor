@@ -1,8 +1,8 @@
 .zodit_editor {
   ol,
   ul {
-    list-style: square;
-    padding-left: 35px;
+    list-style: disc;
+    padding-left: 20px;
   }
   .zodit-react-container {
     .zodit-container:not(.zodit_inline) {
@@ -23,4 +23,7 @@
       border: 1px solid red !important;
     }
   }
+}
+.zodit-add-new-line {
+  display: none !important;
 }

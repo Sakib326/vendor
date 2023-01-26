@@ -16,87 +16,93 @@ const CampaignEdit = () => {
           <div className="grid grid-cols-[2fr_1fr] gap-7">
             {/* left */}
             <div className="grid gap-5 self-start">
-              <div className="grid grid-cols-[130px_1fr]">
-                <label className="mt-2">
-                  <span>Campaign Name</span>
-                  <span className="text-danger">*</span>
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    className="form_control"
-                    placeholder="Campaign Name"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-[130px_1fr]">
-                <label className="mt-2">Type</label>
-
-                <div className="campaign_type_wrapper max-w-[90%] grid grid-cols-2 gap-5">
-                  <label htmlFor="brandAwarness" className="cursor-pointer">
-                    <input
-                      id="brandAwarness"
-                      type="radio"
-                      name="campaignType"
-                      className="hidden campaign_type_input"
-                    />
-                    <div className="campaign_type_box border p-4 rounded">
-                      <ReactSVG src="/icons/brand-4chan.svg" />
-                      <div className="text-black text-base font-medium mt-2 mb-1">
-                        Brand Awarness
-                      </div>
-                      <div>
-                        Lorem ipsum dolor sit amet consectetur. Ligula commodo
-                        tempor.
-                      </div>
-                    </div>
+              {/* normal fields */}
+              <div className="grid gap-5 border rounded p-3">
+                <div className="grid grid-cols-[130px_1fr]">
+                  <label className="mt-2">
+                    <span>Campaign Name</span>
+                    <span className="text-danger">*</span>
                   </label>
-                  <label htmlFor="websitePromotion" className="cursor-pointer">
+                  <div>
                     <input
-                      id="websitePromotion"
-                      type="radio"
-                      name="campaignType"
-                      className="hidden campaign_type_input"
+                      type="text"
+                      className="form_control"
+                      placeholder="Campaign Name"
                     />
-                    <div className="campaign_type_box border p-4 rounded">
-                      <ReactSVG
-                        src="/icons/website.svg"
-                        className="website_fill"
+                  </div>
+                </div>
+                <div className="grid grid-cols-[130px_1fr]">
+                  <label className="mt-2">Type</label>
+
+                  <div className="campaign_type_wrapper max-w-[90%] grid grid-cols-2 gap-5">
+                    <label htmlFor="brandAwarness" className="cursor-pointer">
+                      <input
+                        id="brandAwarness"
+                        type="radio"
+                        name="campaignType"
+                        className="hidden campaign_type_input"
                       />
-                      <div className="text-black text-base font-medium mt-2 mb-1">
-                        Website Promotion
+                      <div className="campaign_type_box border p-4 rounded">
+                        <ReactSVG src="/icons/brand-4chan.svg" />
+                        <div className="text-black text-base font-medium mt-2 mb-1">
+                          Brand Awarness
+                        </div>
+                        <div>
+                          Lorem ipsum dolor sit amet consectetur. Ligula commodo
+                          tempor.
+                        </div>
                       </div>
-                      <div>
-                        Lorem ipsum dolor sit amet consectetur. Ligula commodo
-                        tempor.
+                    </label>
+                    <label
+                      htmlFor="websitePromotion"
+                      className="cursor-pointer"
+                    >
+                      <input
+                        id="websitePromotion"
+                        type="radio"
+                        name="campaignType"
+                        className="hidden campaign_type_input"
+                      />
+                      <div className="campaign_type_box border p-4 rounded">
+                        <ReactSVG
+                          src="/icons/website.svg"
+                          className="website_fill"
+                        />
+                        <div className="text-black text-base font-medium mt-2 mb-1">
+                          Website Promotion
+                        </div>
+                        <div>
+                          Lorem ipsum dolor sit amet consectetur. Ligula commodo
+                          tempor.
+                        </div>
                       </div>
-                    </div>
-                  </label>
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-[130px_1fr]">
-                <label className="mt-2">Description</label>
-                <div>
-                  <WinnersEditor
-                    name="summary"
-                    height="150"
-                    // contents={description ? description : ""}
-                    // className="editor_error"
-                    // onChange={(event: any) => {
-                    //   const content = event.target.value.replace(
-                    //     /(<([^>]+)>)/gi,
-                    //     ""
-                    //   );
+                <div className="grid grid-cols-[130px_1fr]">
+                  <label className="mt-2">Description</label>
+                  <div>
+                    <WinnersEditor
+                      name="summary"
+                      height="150"
+                      // contents={description ? description : ""}
+                      // className="editor_error"
+                      // onChange={(event: any) => {
+                      //   const content = event.target.value.replace(
+                      //     /(<([^>]+)>)/gi,
+                      //     ""
+                      //   );
 
-                    //   if (content) {
-                    //     setDescription(event.target.value);
-                    //   }
-                    // }}
-                    // onKeyDown={(event: any) => {
-                    //   if (event?.key === "Tab") event.preventDefault();
-                    // }}
-                  />
-                  {/* <div className="error">Required field</div> */}
+                      //   if (content) {
+                      //     setDescription(event.target.value);
+                      //   }
+                      // }}
+                      // onKeyDown={(event: any) => {
+                      //   if (event?.key === "Tab") event.preventDefault();
+                      // }}
+                    />
+                    {/* <div className="error">Required field</div> */}
+                  </div>
                 </div>
               </div>
 

@@ -230,10 +230,10 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 mb-[60px]">
+    <div className="p-5 lg:p-8 mb-[60px]">
       <div className="max-w-[1170px] w-full mx-auto">
         {/* filter */}
-        <div className="flex items-center gap-3 mb-5 relative">
+        <div className="flex flex-wrap items-center gap-3 mb-5 relative">
           <div className="btn py-0 bg-tertiary text-primary border border-tertiary cursor-auto">
             <span>Date: last 3 months</span>
             {/* <BsPencil /> */}
@@ -245,43 +245,53 @@ export const Dashboard = () => {
             />
           </div>
 
-          <Link to="/campaigns/add" className="btn btn-primary">
+          <Link
+            to="/campaigns/add"
+            className="btn btn-primary w-full sm:w-max order-[-1] sm:order-2"
+          >
             <BiPlus className="text-lg" />
             <span> New Campaign</span>
           </Link>
         </div>
+
         {/* highlights */}
-        <div className="flex items-center">
-          <div className="bg-primary text-white p-7 w-[260px]">
-            <div className="flex items-center gap-2 mb-2">
+        <div className="grid grid-cols-3  max-w-[780px]  w-full items-center text-center sm:text-left">
+          <div className="bg-primary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
+            <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
               <ReactSVG src="/icons/eye.svg" />
               <span>Total Impressions</span>
             </div>
-            <h2 className="text-white">1600</h2>
+            <div className="text-white text-3xl sm:text-[50px] font-semibold">
+              1600
+            </div>
           </div>
-          <div className="bg-secondary text-white p-7 w-[260px]">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="bg-secondary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
+            <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
               <ReactSVG src="/icons/hand-click.svg" />
               <span>Total Takes</span>
             </div>
-            <h2 className="text-white">1600</h2>
+            <div className="text-white text-3xl sm:text-[50px] font-semibold">
+              1600
+            </div>
           </div>
-          <div className="bg-gradient-to-br from-[#AC224D] to-[#2A1621] text-white p-7 w-[260px]">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="bg-gradient-to-br from-[#AC224D] to-[#2A1621] text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
+            <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
               <ReactSVG src="/icons/podium.svg" />
               <span>Total Winners</span>
             </div>
-            <h2 className="text-white">1900</h2>
+            <div className="text-white text-3xl sm:text-[50px] font-semibold">
+              1900
+            </div>
           </div>
         </div>
 
         {/* chart */}
-        <div className="border p-3 mb-7">
+        <div className="border p-3 mb-5 lg:mb-7">
           <Chart />
         </div>
 
         {/* tables */}
-        <div className="grid grid-cols-2 gap-7">
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-5 lg:gap-7">
           {/* table take */}
           <div className="border rounded">
             <div className="p-5 flex justify-between items-center">
