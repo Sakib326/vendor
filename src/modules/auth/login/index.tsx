@@ -4,10 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useSignInMutation } from "../../../redux/auth/auth_api";
 
-// const onChange = (e: CheckboxChangeEvent) => {
-//   console.log(`checked = ${e.target.checked}`);
-// };
-
 export const Login = () => {
   const [signIn, { data, isLoading, isError }] = useSignInMutation();
   const navigate = useNavigate();
