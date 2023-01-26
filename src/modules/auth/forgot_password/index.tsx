@@ -42,7 +42,37 @@ export const ForgotPassword = () => {
         <div className="flex items-end justify-center bg-[#F8F7FA] rounded-2xl pt-10">
           <img src="/images/auth/forgot-password.webp" alt="forgot-password" />
         </div>
-        {data === undefined && !isError && !tryAgainClicked ? (
+        {!isError && tryAgainClicked ? (
+          <div className="flex flex-col h-full items-center justify-center p-12">
+            <div className="mb-10 text-center">
+              <div className="mb-4 flex justify-center">
+                <img src="/images/misc/logo.webp" alt="logo" />
+              </div>
+              <h4 className="mb-2">Check Your Email</h4>
+              <div>
+                We have sent a password reset link to{" "}
+                <span className="font-semibold">{userEmail}</span>. pelase check
+                your email to proceed
+              </div>
+            </div>
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <div className="text-center text-sm">
+                Did’t receive an email?{" "}
+                <span
+                  onClick={() => {
+                    setTryAgainClicked(true);
+                    vendorForgotPass({ email: userEmail });
+                  }}
+                  className="text-[#7367f0] hover:underline cursor-pointer"
+                >
+                  Try Again
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
           <div className="flex flex-col h-full items-center justify-center p-12">
             <div className="mb-10 text-center">
               <div className="mb-4 flex justify-center">
@@ -88,7 +118,10 @@ export const ForgotPassword = () => {
                   </div>
 
                   <button
-                    onClick={() => handleSubmit}
+                    onClick={() => {
+                      setTryAgainClicked(true);
+                      handleSubmit();
+                    }}
                     type="submit"
                     className="btn btn-primary w-full mt-5 mb-4"
                     disabled={isLoading}
@@ -107,36 +140,6 @@ export const ForgotPassword = () => {
                 </Form>
               )}
             </Formik>
-          </div>
-        ) : (
-          <div className="flex flex-col h-full items-center justify-center p-12">
-            <div className="mb-10 text-center">
-              <div className="mb-4 flex justify-center">
-                <img src="/images/misc/logo.webp" alt="logo" />
-              </div>
-              <h4 className="mb-2">Check Your Email</h4>
-              <div>
-                We have sent a password reset link to{" "}
-                <span className="font-semibold">{userEmail}</span>. pelase check
-                your email to proceed
-              </div>
-            </div>
-            {isLoading ? (
-              <Spin />
-            ) : (
-              <div className="text-center text-sm">
-                Did’t receive an email?{" "}
-                <span
-                  onClick={() => {
-                    setTryAgainClicked(true);
-                    vendorForgotPass({ email: userEmail });
-                  }}
-                  className="text-[#7367f0] hover:underline cursor-pointer"
-                >
-                  Try Again
-                </span>
-              </div>
-            )}
           </div>
         )}
       </div>
