@@ -93,7 +93,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
           <NavLink
             to="/winners/list"
             className={`nav_link ${
-              location?.pathname?.includes("campaign") ? "active" : ""
+              location?.pathname?.includes("winners") ? "active" : ""
             }`}
           >
             <BsTrophy className="text-[18px]" />

@@ -189,6 +189,23 @@ export const ProductAdd = () => {
 
               <div>
                 <label className="mb-1">Icon</label>
+                <div className="flex flex-col justify-center items-center border-[1px] py-[27px] rounded-[6px]">
+                  <p className="text-[48px]">
+                    <InboxOutlined />
+                  </p>
+                  <div className="max-w-[290px] w-full mx-auto">
+                    <p className="text-center text-base text-[#181B31] font-medium mb-1">
+                      Click or drag file to this area to upload
+                    </p>
+                    <p className=" text-center text-[12px]">
+                      Support for a single or bulk upload. Strictly prohibit
+                      from uploading company data or other band files
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* <div>
+                <label className="mb-1">Icon</label>
                 <div>
                   <Dragger {...props}>
                     <p className="ant-upload-drag-icon">
@@ -203,7 +220,7 @@ export const ProductAdd = () => {
                     </p>
                   </Dragger>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex items-center gap-3 mt-5">
