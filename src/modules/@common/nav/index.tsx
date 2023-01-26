@@ -1,14 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { ReactSVG } from "react-svg";
-import { useLocation } from "react-router-dom";
 import { Drawer } from "antd";
-import { FiX } from "react-icons/fi";
-import { IoIosLogOut } from "react-icons/io";
-import { useSignOutMutation } from "../../../redux/auth/auth_api";
-import { MdOutlineCampaign, MdOutlineDashboard } from "react-icons/md";
-import { IoNewspaperOutline, IoPodiumOutline } from "react-icons/io5";
+import { Fragment } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { BsCart4, BsTrophy } from "react-icons/bs";
+import { FiX } from "react-icons/fi";
+import { IoIosLogOut } from "react-icons/io";
+import { MdOutlineCampaign, MdOutlineDashboard } from "react-icons/md";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { ReactSVG } from "react-svg";
+import { useSignOutMutation } from "../../../redux/auth/auth_api";
 
 type navProps = {
   className?: string;
@@ -93,7 +92,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
           <NavLink
             to="/winners/list"
             className={`nav_link ${
-              location?.pathname?.includes("campaign") ? "active" : ""
+              location?.pathname?.includes("winners") ? "active" : ""
             }`}
           >
             <BsTrophy className="text-[18px]" />
@@ -157,7 +156,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
           {mobileNavData?.map((item, i) => {
             const pathName = item?.url;
             return (
-              <>
+              <Fragment key={`navigation_${i}`}>
                 {pathName ? (
                   <li
                     onClick={handleClose}
@@ -185,7 +184,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
                     </button>
                   </li>
                 )}
-              </>
+              </Fragment>
             );
           })}
         </ul>

@@ -6,6 +6,7 @@ import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
 import ImageInput from "../../@common/image_input/Image_input";
+import { Field, Form, Formik } from "formik";
 
 const { Dragger } = Upload;
 
@@ -14,6 +15,9 @@ const props: UploadProps = {
   multiple: false,
   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange(info) {
+    console.log(info);
+    return false;
+
     const { status } = info.file;
     if (status !== "uploading") {
       console.log(info.file, info.fileList);
@@ -23,6 +27,24 @@ const props: UploadProps = {
     } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);
     }
+  },
+  beforeUpload(file) {
+    const isJpgOrPng =
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/webp";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG/WEBP file!");
+      // setIsError(true);
+    }
+    const isInSize = file.size / 1024 / 1024 < 2;
+    if (!isInSize) {
+      message.error(`Image must smaller than 2MB!`);
+      // setIsError(true);
+    }
+
+    // Prevent upload
+    return false;
   },
   onDrop(e) {
     console.log("Dropped files", e.dataTransfer.files);
@@ -176,49 +198,67 @@ export const ProductAdd = () => {
         wrapClassName="bg-red"
       >
         <div className="mt-4 p-2">
-          <form action="#" className="w-full">
-            <div className="grid gap-5">
-              <div>
-                <label className="mb-1">Title</label>
-                <input
-                  type="text"
-                  className="form_control"
-                  placeholder="Title"
-                />
-              </div>
+          <Formik
+            initialValues={{
+              name: "",
+              file: "",
+            }}
+            enableReinitialize={true}
+            // validationSchema={validationSchema}
+            onSubmit={(values) => {
+              console.log(values);
 
-              <div>
-                <label className="mb-1">Icon</label>
-                <div>
-                  <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
-                    <p className="ant-upload-text">
-                      Click or drag file to this area to upload
-                    </p>
-                    <p className="ant-upload-hint">
-                      Support for a single or bulk upload. Strictly prohibit
-                      from uploading company data or other band files
-                    </p>
-                  </Dragger>
+              // subscriberForgotPass(values);
+            }}
+          >
+            {({ handleSubmit, setFieldValue, errors, values, touched }) => (
+              <Form className="w-full">
+                <div className="grid gap-5">
+                  <div>
+                    <label className="mb-1">Title</label>
+                    <Field
+                      type="text"
+                      className="form_control"
+                      placeholder="Title"
+                      name="name"
+                      value={values?.name ?? ""}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-1">Icon</label>
+                    <div>
+                      <Dragger {...props}>
+                        <p className="ant-upload-drag-icon">
+                          <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">
+                          Click or drag file to this area to upload
+                        </p>
+                        <p className="ant-upload-hint">
+                          Support for a single or bulk upload. Strictly prohibit
+                          from uploading company data or other band files
+                        </p>
+                      </Dragger>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="flex items-center gap-3 mt-5">
-              <button type="submit" className="btn btn-primary">
-                Create
-              </button>
-              <button
-                onClick={handleCancel}
-                type="button"
-                className="btn btn-grey"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+                <div className="flex items-center gap-3 mt-5">
+                  <button type="submit" className="btn btn-primary">
+                    Create
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    type="button"
+                    className="btn btn-grey"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </Modal>
     </>
