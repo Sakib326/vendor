@@ -189,12 +189,12 @@ export const ProductAdd = () => {
 
               <div>
                 <label className="mb-1">Icon</label>
-                <div className="flex flex-col justify-center items-center border-[1px] py-[27px] rounded-[6px]">
+                <div className="flex flex-col justify-center items-center border-[1px] border-[#EEEEEE] hover:border-[#AC224D] transition-all py-[27px] rounded-[6px]">
                   <p className="text-[48px]">
                     <InboxOutlined />
                   </p>
                   <div className="max-w-[290px] w-full mx-auto">
-                    <p className="text-center text-base text-[#181B31] font-medium mb-1">
+                    <p className="text-center text-base text-[#181B31] font-medium mb-[10px]">
                       Click or drag file to this area to upload
                     </p>
                     <p className=" text-center text-[12px]">
