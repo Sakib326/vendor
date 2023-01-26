@@ -14,8 +14,8 @@ const Verification = lazy(() => import("../modules/auth/verification"));
 // general
 const Dashboard = lazy(() => import("../modules/dashboard"));
 const CampaignList = lazy(() => import("../modules/campaigns/list"));
-const CampaignAddFirst = lazy(() => import("../modules/campaigns/add/first"));
-import CampaignAddSecond from "../modules/campaigns/add/second";
+const CampaignAdd = lazy(() => import("../modules/campaigns/add"));
+import WinnersList from "../modules/winners/list";
 const CampaignEdit = lazy(() => import("../modules/campaigns/edit"));
 const CampaignDetails = lazy(() => import("../modules/campaigns/details"));
 
@@ -59,11 +59,11 @@ const AppRouter = () => {
         <Route path="/" element={<PrivateOutlet />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="campaigns/list" element={<CampaignList />} />
-          <Route path="campaigns/add" element={<CampaignAddFirst />} />
-          <Route path="campaigns/add/:id" element={<CampaignAddSecond />} />
+          <Route path="campaigns/add" element={<CampaignAdd />} />
           <Route path="campaigns/edit/:id" element={<CampaignEdit />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
 
+          <Route path="winners/list" element={<WinnersList />} />
           <Route path="products/list" element={<ProductList />} />
           <Route path="products/add" element={<ProductAdd />} />
 
