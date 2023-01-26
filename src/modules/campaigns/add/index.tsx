@@ -1,10 +1,12 @@
-import { DatePicker } from "antd";
+import { DatePicker, Select } from "antd";
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
-import WinnersEditor from "../../../@common/editor/bdwinners_editor";
+import WinnersEditor from "../../@common/editor/bdwinners_editor";
+import ImageInput from "../../@common/image_input/Image_input";
 const { RangePicker } = DatePicker;
 
-const CampaignAddFirst = () => {
+const CampaignAdd = () => {
+  const handleChange = (value: string) => {};
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full text-sm">
@@ -14,20 +16,6 @@ const CampaignAddFirst = () => {
           <div className="grid grid-cols-[2fr_1fr] gap-7">
             {/* left */}
             <div className="grid gap-5 self-start">
-              {/* steps */}
-              <div className="mb-2">
-                <div className="mb-3 flex items-center justify-between font-medium text-black">
-                  <span>Step 1</span>
-                  <span>Step 2</span>
-                  <span>Review</span>
-                </div>
-                <div className="h-[5px] w-full bg-[#eee] flex items-center justify-between">
-                  <span className="block w-[17px] h-[17px] bg-primary rounded-full border-[3px] border-white shadow-md "></span>
-                  <span className="block w-[17px] h-[17px] bg-grey rounded-full border-[3px] border-white shadow-md "></span>
-                  <span className="block w-[17px] h-[17px] bg-grey rounded-full border-[3px] border-white shadow-md "></span>
-                </div>
-              </div>
-
               <div className="grid grid-cols-[130px_1fr]">
                 <label className="mt-2">
                   <span>Campaign Name</span>
@@ -116,7 +104,7 @@ const CampaignAddFirst = () => {
             {/* right */}
             <div className="border rounded p-5 grid self-start">
               <div className="grid gap-5">
-                <div className="grid grid-cols-[100px_1fr]">
+                <div className="grid grid-cols-[120px_1fr]">
                   <label className="mt-2">
                     <span>Dates</span>
                     <br />(<span className="text-[11px]">start & end</span>)
@@ -129,11 +117,56 @@ const CampaignAddFirst = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-[100px_1fr]">
-                  <label className="mt-2">Thumbnail</label>
-                  <div>image picker</div>
+                <div className="grid grid-cols-[120px_1fr]">
+                  <label className="mt-2">Gift Value</label>
+                  <div>
+                    <input
+                      type="text"
+                      className="form_control"
+                      placeholder="৳"
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-[100px_1fr]">
+
+                <div className="grid grid-cols-[120px_1fr]">
+                  <label className="mt-2">Images</label>
+                  {/* <div>image picker</div> */}
+                  <div>
+                    <ImageInput
+                      onChange={(e: any) => {
+                        console.log("======", e);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-[120px_1fr]">
+                  <label className="mt-2">Winning Person</label>
+                  <div>
+                    <input
+                      type="text"
+                      className="form_control"
+                      placeholder="1"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-[120px_1fr]">
+                  <label className="mt-2">Promotion Type</label>
+                  <div>
+                    <Select
+                      className="form_control_select w-full"
+                      onChange={handleChange}
+                      options={[
+                        { value: "Edu Tech", label: "Edu Tech" },
+                        { value: "Service", label: "Service" },
+                        { value: "Manufacturing", label: "Manufacturing" },
+                      ]}
+                      placeholder="Select a category"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-[120px_1fr]">
                   <label className="mt-2">Status</label>
                   <div className="px-3 py-2 bg-[#ebebed] w-max rounded text-sm self-center">
                     Draft
@@ -142,9 +175,9 @@ const CampaignAddFirst = () => {
                 <Link
                   to="/campaigns/add/1"
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary inline-flex"
                 >
-                  Save & Next
+                  Publish
                 </Link>
               </div>
             </div>
@@ -155,4 +188,4 @@ const CampaignAddFirst = () => {
   );
 };
 
-export default CampaignAddFirst;
+export default CampaignAdd;
