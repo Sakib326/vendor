@@ -1,14 +1,21 @@
 import { message, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload/interface";
-import { useState } from "react";
+import { FC, useState } from "react";
+interface PropsType {
+  errorMessage?: string;
+  accept?: string;
+  maxSize?: number;
+  onChange: Function;
+  width?: number;
+  imageSource?: string;
+}
+export const ImageInput = (props: PropsType) => {
+  const errorMessage = props?.errorMessage;
+  const accept = props?.accept;
+  const maxSize = props?.maxSize ?? 2;
+  const width = props?.width ?? 150;
+  const imageSource = props?.imageSource;
 
-const ImageInput = ({
-  errorMessage,
-  accept,
-  maxSize = 2,
-  onChange,
-  width = 150,
-}: any) => {
   const [imageUrl, setImageUrl] = useState<string>();
   const [isError, setIsError] = useState(errorMessage ? true : false);
 
@@ -20,11 +27,12 @@ const ImageInput = ({
     const isInSize = info.file?.size / 1024 / 1024 < maxSize;
 
     if (info?.fileList.length > 0 && isJpgOrPng && isInSize) {
-      onChange(info?.file);
+      props?.onChange(info?.file);
 
       const ImageLink = URL.createObjectURL(info?.file);
       setImageUrl(ImageLink);
     } else {
+      props?.onChange();
       setImageUrl("");
     }
   };
@@ -47,19 +55,24 @@ const ImageInput = ({
     // Prevent upload
     return false;
   };
-  const uploadButton = imageUrl ? (
-    <div style={{ width: `${width}px` }}>
-      <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
-    </div>
-  ) : (
-    <div
-      style={{ width: `${width}px` }}
-      className={`${isError ? "image_error" : null}`}
-    >
-      <img src="/images/misc/image_input.svg" alt="" />
-      {errorMessage && <div className="error">{errorMessage}</div>}
-    </div>
-  );
+  const uploadButton =
+    imageUrl || imageSource ? (
+      <div style={{ width: `${width}px` }}>
+        <img
+          src={imageUrl ?? imageSource}
+          alt="avatar"
+          style={{ width: "100%" }}
+        />
+      </div>
+    ) : (
+      <div
+        style={{ width: `${width}px` }}
+        className={`${isError ? "image_error" : null}`}
+      >
+        <img src="/images/misc/image_input.svg" alt="input_image" />
+        {errorMessage && <div className="error">{errorMessage}</div>}
+      </div>
+    );
 
   return (
     <div style={{ width: `${width}px` }}>

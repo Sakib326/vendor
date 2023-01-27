@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { apiSlice } from "../api_slice";
 
 import {
@@ -17,12 +18,25 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          console.log(result);
+          Cookies.set("Authentication", result.data.accessToken, {
+            expires: result.data?.expires,
+            path: "",
+          });
+          // Cookies.set(
+          //   "Authentication",
+          //   `${accessToken}; HttpOnly; Path=/; ${
+          //     !isSameSite ? "SameSite=None; Secure;" : ""
+          //   } Max-Age=${jwtConfig.cookieExpiresIn}`
+          // );
+
           localStorage.setItem(
             "auth",
             JSON.stringify({
               accessToken: result.data.accessToken,
             })
           );
+
           dispatch(
             onSignInSuccess({
               accessToken: JSON.parse(localStorage.getItem("auth")!)

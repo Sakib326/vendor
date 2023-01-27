@@ -1,5 +1,6 @@
 import { message, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useSignInMutation } from "../../../redux/auth/auth_api";
@@ -28,6 +29,10 @@ export const Login = () => {
       remember: true,
     }).then((res: any) => {
       if (!res?.error) {
+        Cookies.set("Authentication", res.data.accessToken, {
+          expires: res.data?.expires,
+          path: "",
+        });
         navigate("/dashboard");
       } else {
         message.error(

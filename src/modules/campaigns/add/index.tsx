@@ -159,12 +159,14 @@ const CampaignAdd = () => {
 
                 <div className="grid grid-cols-[120px_1fr]">
                   <label className="mt-2">Images</label>
-                  {/* <div>image picker</div> */}
                   <div>
                     <ImageInput
-                      onChange={(e: any) => {
-                        console.log("======", e);
-                      }}
+                      onChange={(e: any) => e}
+                      width={120}
+                      errorMessage="f"
+                      accept="string"
+                      maxSize={3}
+                      imageSource="https://images.pexels.com/photos/220429/pexels-photo-220429.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                     />
                   </div>
                 </div>
