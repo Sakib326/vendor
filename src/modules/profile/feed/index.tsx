@@ -1,17 +1,54 @@
 import { TiMessages } from "react-icons/ti";
 import { IoArrowRedoOutline } from "react-icons/io5";
+import { InboxOutlined } from "@ant-design/icons";
 import { BiBookReader } from "react-icons/bi";
 import { FaRegHeart, FaUniversity } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
+import { Modal } from "antd";
+import { useState } from "react";
+import WinnersEditor from "../../@common/editor/bdwinners_editor";
 
 export const ProfileFeed = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="grid grid-cols-[2fr_1fr] gap-8">
       {/* left */}
       <div>
+        {/* card */}
+        <div className="border rounded p-5 pb-0 mb-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="grid grid-cols-[46px_1fr] gap-6 w-full">
+              <div className="border rounded-full flex items-center justify-center p-1 h-[46px]">
+                <img
+                  src="/temp/logo-unisearch.webp"
+                  alt="Campaign unisearch"
+                  title="Campaign unisearch"
+                />
+              </div>
+              <div
+                className="p-[13px] bg-[#8082911a] w-full rounded-[6px] cursor-pointer"
+                onClick={showModal}
+              >
+                <div>Lorem Ipsum delors todos, Unisearch?</div>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* card */}
         <div className="border rounded p-5 pb-0 mb-5">
           <div className="flex items-center justify-between mb-4">
@@ -706,6 +743,81 @@ export const ProfileFeed = () => {
           </div>
         </div>
       </div>
+      <Modal
+        footer={null}
+        title={<div className="text-black ml-1 text-2xl">Create Post</div>}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        wrapClassName="bg-red"
+      >
+        <div className="mt-4 p-2">
+          <form action="#" className="w-full">
+            <div className="grid gap-5">
+              <div>
+                <label className="mb-1">Post Title</label>
+                <input
+                  type="text"
+                  className="form_control"
+                  placeholder="Type Here"
+                />
+              </div>
+              <div>
+                <label className="mb-1">Description</label>
+
+                <WinnersEditor name="summary" height="150" />
+              </div>
+
+              <div>
+                <div className="flex flex-col justify-center items-center border-[1px] border-[#EEEEEE] hover:border-[#AC224D] transition-all py-[27px] rounded-[6px]">
+                  <p className="text-[48px]">
+                    <InboxOutlined />
+                  </p>
+                  <div className="max-w-[290px] w-full mx-auto">
+                    <p className="text-center text-base text-[#181B31] font-medium mb-[10px]">
+                      Click or drag file to this area to upload
+                    </p>
+                    <p className=" text-center text-[12px]">
+                      Support for a single or bulk upload. Strictly prohibit
+                      from uploading company data or other band files
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* <div>
+                <label className="mb-1">Icon</label>
+                <div>
+                  <Dragger {...props}>
+                    <p className="ant-upload-drag-icon">
+                      <InboxOutlined />
+                    </p>
+                    <p className="ant-upload-text">
+                      Click or drag file to this area to upload
+                    </p>
+                    <p className="ant-upload-hint">
+                      Support for a single or bulk upload. Strictly prohibit
+                      from uploading company data or other band files
+                    </p>
+                  </Dragger>
+                </div>
+              </div> */}
+            </div>
+
+            <div className="flex items-center gap-3 mt-5">
+              <button type="submit" className="btn btn-primary px-7">
+                Post
+              </button>
+              <button
+                onClick={handleCancel}
+                type="button"
+                className="btn btn-grey"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 };

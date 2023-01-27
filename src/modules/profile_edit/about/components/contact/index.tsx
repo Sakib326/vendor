@@ -49,19 +49,17 @@ const ProfileEditContact = () => {
               </div>
             </div>
 
-            <div className="col-span-1">
-              <div className="grid grid-cols-[130px_1fr] items-center">
-                <label>Bus. Category</label>
-                <Select
-                  className="form_control_select"
-                  onChange={handleChange}
-                  options={[
-                    { value: "Edu Tech", label: "Edu Tech" },
-                    { value: "Service", label: "Service" },
-                    { value: "Manufacturing", label: "Manufacturing" },
-                  ]}
-                />
-              </div>
+            <div className="grid grid-cols-[130px_1fr] gap-[44px]">
+              <label>Bus. Category</label>
+              <Select
+                className="form_control_select"
+                onChange={handleChange}
+                options={[
+                  { value: "Edu Tech", label: "Edu Tech" },
+                  { value: "Service", label: "Service" },
+                  { value: "Manufacturing", label: "Manufacturing" },
+                ]}
+              />
             </div>
 
             <div className="col-span-1">
