@@ -7,57 +7,58 @@ import { message, Upload } from "antd";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
 import ImageInput from "../../@common/image_input/Image_input";
 import { Field, Form, Formik } from "formik";
-
-const { Dragger } = Upload;
-
-const props: UploadProps = {
-  name: "file",
-  multiple: false,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange(info) {
-    console.log(info);
-    return false;
-
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  beforeUpload(file) {
-    const isJpgOrPng =
-      file.type === "image/jpeg" ||
-      file.type === "image/png" ||
-      file.type === "image/webp";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG/WEBP file!");
-      // setIsError(true);
-    }
-    const isInSize = file.size / 1024 / 1024 < 2;
-    if (!isInSize) {
-      message.error(`Image must smaller than 2MB!`);
-      // setIsError(true);
-    }
-
-    // Prevent upload
-    return false;
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+import { useAddCategoryMutation } from "../../../redux/product/product_api";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export const ProductAdd = () => {
+  const [addCategory, { isLoading, isError }] = useAddCategoryMutation();
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [description, setDescription] = useState(false);
+  // 1. Get your axios instance ready
+  function createAxios() {
+    return axios.create({ withCredentials: true });
+  }
+  const axiosInstance = createAxios();
+
+  // 2. Make sure you save the cookie after login.
+  // I'm using an object so that the reference to the cookie is always the same.
+  const cookieJar = {
+    myCookies: `bhbkhgbhjbhybhyb`,
+  };
+
+  // 3. Add the saved cookie to the request.
+  async function request() {
+    // read the cookie and set it in the headers
+    const response = await axiosInstance.get(
+      "http://192.168.68.125:4000/categories",
+      {
+        headers: {
+          cookie: cookieJar.myCookies,
+        },
+      }
+    );
+    console.log(response.status);
+  }
+
+  request().then(() => console.log("hi"));
+
+  // Cookies.set(
+  //   "Authentication",
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2RldmFwaS5iZHdpbm5lcnMuY29tIiwiYXVkaWVuY2UiOiJodHRwOi8vZGV2LmJkd2lubmVycy5jb20iLCJzdWJqZWN0IjoiMTIiLCJrZXlpZCI6InZlbmRvciIsImlzVHdvRkFBdXRoZW50aWNhdGVkIjpmYWxzZSwiaWF0IjoxNjc0Nzk3MTE3LCJleHAiOjE2NzQ4ODM1MTd9.3L94V6lUsd46QYKjlPjcASQUL5s2VVWySzC098aWIcc"
+  // );
+  // Cookies.set(
+  //   "Refresh",
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2RldmFwaS5iZHdpbm5lcnMuY29tIiwiYXVkaWVuY2UiOiJodHRwOi8vZGV2LmJkd2lubmVycy5jb20iLCJzdWJqZWN0IjoiMTIiLCJrZXlpZCI6InZlbmRvciIsImp3dGlkIjoiOSIsImlhdCI6MTY3NDc5NzExNywiZXhwIjoxNjc1NDAxOTE3fQ.hecCbfUPaeKUIojzhx80qjRlbbxUTKeop5CQFNlRNPI"
+  // );
+  // Cookies.set(
+  //   "ExpiresIn",
+  //   "Sat Jan 28 2023 05:25:17 GMT+0000 (Coordinated Universal Time)"
+  // );
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -69,6 +70,26 @@ export const ProductAdd = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  const addNewCategory = async (values: any) => {
+    const formArray = new FormData();
+    formArray.append("name", values.name);
+    if (values.file) {
+      formArray.append("file", values.file);
+    }
+    await addCategory(formArray).then((res: any) => {
+      console.log("=======================", res);
+
+      if (!res?.error) {
+        handleCancel();
+        message.success("Category added");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
   };
   return (
     <>
@@ -165,12 +186,12 @@ export const ProductAdd = () => {
                   </div>
                   <div className="grid grid-cols-[100px_1fr]">
                     <label className="mt-2">Images</label>
-                    {/* <div>image picker</div> */}
                     <div>
                       <ImageInput
                         onChange={(e: any) => {
                           console.log("======", e);
                         }}
+                        imageSource="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       />
                     </div>
                   </div>
@@ -206,9 +227,7 @@ export const ProductAdd = () => {
             enableReinitialize={true}
             // validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log(values);
-
-              // subscriberForgotPass(values);
+              addNewCategory(values);
             }}
           >
             {({ handleSubmit, setFieldValue, errors, values, touched }) => (
@@ -226,26 +245,38 @@ export const ProductAdd = () => {
                   </div>
 
                   <div>
+                    {/* <div>
+                      <label className="mb-1">Icon</label>
+                      <div className="flex flex-col justify-center items-center border-[1px] border-[#EEEEEE] hover:border-[#AC224D] transition-all py-[27px] rounded-[6px]">
+                        <p className="text-[48px] mb-5">
+                          <RxUpload />
+                        </p>
+                        <div className="max-w-[290px] w-full mx-auto">
+                          <p className="text-center text-base text-[#181B31] font-medium mb-[10px]">
+                            Drop files here or click to upload
+                          </p>
+                          <p className=" text-center text-[12px]">
+                            This is just a demo dropzone. Selected files are not
+                            actually uploaded.
+                          </p>
+                        </div>
+                      </div>
+                    </div> */}
                     <label className="mb-1">Icon</label>
-                    <div>
-                      <Dragger {...props}>
-                        <p className="ant-upload-drag-icon">
-                          <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">
-                          Click or drag file to this area to upload
-                        </p>
-                        <p className="ant-upload-hint">
-                          Support for a single or bulk upload. Strictly prohibit
-                          from uploading company data or other band files
-                        </p>
-                      </Dragger>
-                    </div>
+                    <ImageInput
+                      onChange={(e: any) => {
+                        setFieldValue("file", e);
+                      }}
+                    />
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 mt-5">
-                  <button type="submit" className="btn btn-primary">
+                  <button
+                    type="submit"
+                    onClick={() => handleSubmit}
+                    className="btn btn-primary"
+                  >
                     Create
                   </button>
                   <button
