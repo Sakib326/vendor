@@ -125,7 +125,9 @@ export const ProfileProducts = () => {
                 />
               </div>
               <span>{item?.category}</span>
-              <p className="text-primary font-medium">{item?.name}</p>
+              <Link to="#" className="text-primary font-medium">
+                {item?.name}
+              </Link>
 
               <div className="flex justify-start items-center gap-2">
                 <p className="text-primary font-medium">{item?.price}</p>

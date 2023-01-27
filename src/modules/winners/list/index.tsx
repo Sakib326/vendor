@@ -6,180 +6,75 @@ import { Link } from "react-router-dom";
 
 interface DataTypeWinners {
   key: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  totalViews: string;
-  totalParticipants: string;
-  totalTake: string;
-  status: string;
+  winner: { avatar: string; name: string };
+  levels: string;
+  state: string;
 }
 
-const data = [
+const winnersData = [
   {
     key: "1",
     id: "01",
-    name: "Recognize Misinformation on the Internet",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+    levels: "1st Prize",
+    state: "Fairfield",
   },
   {
     key: "2",
     id: "02",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "1st Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "active",
+    winner: {
+      avatar:
+        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
+      name: "Smith Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Naperville",
   },
   {
     key: "3",
     id: "03",
-    name: "Toxic Trade-Offs at Facebook",
-    giftLevels: "3rd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "complete",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
+      name: "Shamim Wasman",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Toledo",
   },
   {
     key: "4",
     id: "04",
-    name: "You Can’t Find a Laptop. Now What?",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
+    winner: {
+      avatar:
+        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
+      name: "Khalid Hasan",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Orange",
   },
   {
     key: "5",
     id: "05",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "6",
-    id: "06",
-    name: "Recognize Misinformation on the Internet",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "complete",
-  },
-  {
-    key: "7",
-    id: "07",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "8",
-    id: "08",
-    name: "Toxic Trade-Offs at Facebook",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "9",
-    id: "09",
-    name: "You Can’t Find a Laptop. Now What?",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "10",
-    id: "10",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "11",
-    id: "11",
-    name: "Recognize Misinformation on the Internet",
-    giftLevels: "2nd Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "complete",
-  },
-  {
-    key: "12",
-    id: "12",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "1st Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "13",
-    id: "13",
-    name: "Toxic Trade-Offs at Facebook",
-    giftLevels: "1st Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "14",
-    id: "14",
-    name: "You Can’t Find a Laptop. Now What?",
-    giftLevels: "1st Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "15",
-    id: "15",
-    name: "A Steal Might Actually Be a Raw Deal",
-    giftLevels: "1st Prize",
-    endDate: "Apr 09, 2011",
-    totalViews: "2345",
-    totalParticipants: "234",
-    totalTake: "534",
-    status: "pending",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Pembroke Pines",
   },
 ];
 
@@ -191,48 +86,63 @@ const columns: ColumnsType<DataTypeWinners> = [
   },
   {
     title: "Winners",
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "winner",
+    key: "winner",
+    render: (_, col) => (
+      <div className="flex items-center gap-2">
+        <div className="w-[30px] h-[30px]">
+          <img
+            className="w-full h-full object-cover rounded-full"
+            src={col?.winner?.avatar}
+            alt="logo"
+          />
+        </div>
+        <span className="text-[#4c4e64] font-medium">{col?.winner?.name}</span>
+      </div>
+    ),
   },
   {
     title: "Campaign name",
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "campaignName",
+    key: "campaignName",
   },
   {
-    title: "Gift levels",
-    dataIndex: "giftLevels",
-    key: "giftLevels",
+    title: "Gift Levels",
+    dataIndex: "levels",
+    key: "levels",
   },
+
   {
     title: "State",
-    dataIndex: "totalViews",
-    key: "totalViews",
+    dataIndex: "state",
+    key: "state",
   },
 ];
 
 export const WinnersList = () => {
   return (
-    <div className="p-8">
-      <div className="max-w-[1170px] mx-auto w-full">
-        <div className="border rounded">
-          <div className="p-5 flex justify-between items-center">
-            <div>
-              <div className="text-black font-medium text-lg">Winners List</div>
-              <div className="text-xs">Total Campaign (1205)</div>
-            </div>
-          </div>
+    <div className="max-w-[1170px] w-full mx-auto p-8">
+      <div className="border rounded">
+        <div className="p-5 flex justify-between items-center">
           <div>
-            <Table
-              size="middle"
-              dataSource={data}
-              columns={columns}
-              rowClassName={(record, index) =>
-                index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
-              }
-            />
+            <div className="text-black font-medium text-lg">
+              Last Campaign Winners List
+            </div>
+            <div className="text-xs">Total Winners (12)</div>
           </div>
+          <Link to="/campaigns/1" className="btn btn-grey py-1.5">
+            View All
+          </Link>
         </div>
+        <Table
+          size="middle"
+          dataSource={winnersData}
+          pagination={false}
+          columns={columns}
+          rowClassName={(record, index) =>
+            index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
+          }
+        />
       </div>
     </div>
   );
