@@ -310,16 +310,6 @@ const DataTable = ({ data, winner }: any) => (
 export const CampaignDetails = () => {
   const items: TabsProps["items"] = [
     {
-      key: "1",
-      label: (
-        <div className="flex items-center gap-2">
-          <IoPodiumOutline />
-          <span>ALl Winners list</span>
-        </div>
-      ),
-      children: <DataTable data={dataAllWinner} winner />,
-    },
-    {
       key: "2",
       label: (
         <div className="flex items-center gap-2">
@@ -328,6 +318,16 @@ export const CampaignDetails = () => {
         </div>
       ),
       children: <DataTable data={dataAllTake} />,
+    },
+    {
+      key: "1",
+      label: (
+        <div className="flex items-center gap-2">
+          <IoPodiumOutline />
+          <span>ALl Winners list</span>
+        </div>
+      ),
+      children: <DataTable data={dataAllWinner} winner />,
     },
   ];
 
@@ -396,28 +396,18 @@ export const CampaignDetails = () => {
                     <span>Brand Awareness</span>
                   </li>
                   <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
+                    <span className="font-medium">Start Date:</span>
+                    <span>21/1/2023</span>
                   </li>
                   <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
+                    <span className="font-medium">End Date:</span>
+                    <span>22/02/2023</span>
                   </li>
                   <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
-                  </li>
-                  <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
-                  </li>
-                  <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
-                  </li>
-                  <li className="flex gap-1">
-                    <span className="font-medium">Gifts Levels:</span>
-                    <span>05</span>
+                    <span className="font-medium">Status:</span>
+                    <div className="text-[#28C76F] bg-[#28776f29] text-sm px-3 py-1 text-center rounded  w-max font-semibold">
+                      Complete
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -434,10 +424,6 @@ export const CampaignDetails = () => {
                   application frameworks like nextjs). See More
                 </div>
               </div>
-
-              <Link to="#" className="btn btn-primary mt-2 w-full">
-                Edit
-              </Link>
             </div>
           </div>
 

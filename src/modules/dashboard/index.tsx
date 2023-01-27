@@ -256,7 +256,7 @@ export const Dashboard = () => {
 
         {/* highlights */}
         <div className="grid grid-cols-3  max-w-[780px]  w-full items-center text-center sm:text-left">
-          <div className="bg-primary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
+          <div className="bg-primary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full border-[1px]  border-primary">
             <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
               <ReactSVG src="/icons/eye.svg" />
               <span>Total Impressions</span>
@@ -265,7 +265,7 @@ export const Dashboard = () => {
               1600
             </div>
           </div>
-          <div className="bg-secondary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
+          <div className="bg-secondary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full border-[1px] border-secondary">
             <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
               <ReactSVG src="/icons/hand-click.svg" />
               <span>Total Takes</span>
@@ -274,12 +274,12 @@ export const Dashboard = () => {
               1600
             </div>
           </div>
-          <div className="bg-gradient-to-br from-[#AC224D] to-[#2A1621] text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full">
-            <div className="flex flex-col sm:flex-row items-center gap-2 mb-3">
-              <ReactSVG src="/icons/podium.svg" />
-              <span>Total Winners</span>
+          <div className=" text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full border-[1px] ">
+            <div className="flex flex-col sm:flex-row items-center gap-2 mb-3 text-[#808291]">
+              <ReactSVG src="/icons/trophy.svg" />
+              <span className="font-medium">Total Winners</span>
             </div>
-            <div className="text-white text-3xl sm:text-[50px] font-semibold">
+            <div className="text-white text-3xl sm:text-[50px] font-semibold text-[#ac224d]">
               1900
             </div>
           </div>
@@ -301,8 +301,8 @@ export const Dashboard = () => {
                 </div>
                 <div className="text-xs">Total Campaign (1205)</div>
               </div>
-              <Link to="/campaigns/list" className="btn btn-primary ">
-                View More
+              <Link to="/campaigns/list" className="btn btn-grey py-1.5">
+                View All
               </Link>
             </div>
             <Table
@@ -324,8 +324,8 @@ export const Dashboard = () => {
                 </div>
                 <div className="text-xs">Total Winners (12)</div>
               </div>
-              <Link to="/campaigns/1" className="btn btn-primary ">
-                View More
+              <Link to="/campaigns/1" className="btn btn-grey py-1.5">
+                View All
               </Link>
             </div>
             <Table
