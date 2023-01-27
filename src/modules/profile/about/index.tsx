@@ -35,10 +35,6 @@ export const ProfileAbout = () => {
     <div className="max-w-[770px] w-full mx-auto border rounded-lg">
       <div className="p-5">
         <ProfileAbourOverview />
-        <ProfileAboutContact />
-        {/* <ProfileAboutSpecialty /> */}
-        {/* <ProfileAboutOperationHours /> */}
-        <ProfileAboutSocialMedia />
       </div>
     </div>
   );
