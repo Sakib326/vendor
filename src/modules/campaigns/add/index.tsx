@@ -100,6 +100,35 @@ const CampaignAdd = () => {
                   {/* <div className="error">Required field</div> */}
                 </div>
               </div>
+              <div>
+                <div className="border-t border-b">
+                  <p className="py-[10px] text-[#181B31] font-medium">
+                    Terms & Conditions
+                  </p>
+                </div>
+                <ol className="list-decimal	pl-4 pt-4 flex flex-col gap-2 ">
+                  <li className="text-[#808291] text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur. Mollis integer
+                    condimentum blandit.
+                  </li>
+                  <li className="text-[#808291] text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur. Mollis integer
+                    condimentum blandit.
+                  </li>
+                  <li className="text-[#808291] text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur. Mollis integer
+                    condimentum blandit.
+                  </li>
+                  <li className="text-[#808291] text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur. Mollis integer
+                    condimentum blandit.
+                  </li>
+                  <li className="text-[#808291] text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur. Mollis integer
+                    condimentum blandit.
+                  </li>
+                </ol>
+              </div>
             </div>
             {/* right */}
             <div className="border rounded p-5 grid self-start">
