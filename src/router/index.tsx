@@ -65,6 +65,7 @@ const AppRouter = () => {
 
           <Route path="winners/list" element={<WinnersList />} />
           <Route path="products/list" element={<ProductList />} />
+          <Route path="products/edit/:id" element={<ProductAdd />} />
           <Route path="products/add" element={<ProductAdd />} />
 
           <Route path="/" element={<ProfileOutlet />}>

@@ -1,9 +1,9 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { AiOutlineEye } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useGetAllCampaignQuery } from "../../../redux/campaign/campaign_api";
 
 interface DataTypeWinners {
   key: string;
@@ -270,6 +270,7 @@ const columns: ColumnsType<DataTypeWinners> = [
 ];
 
 export const CampaignList = () => {
+  const { data: campaignList } = useGetAllCampaignQuery<any>({});
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full">
@@ -286,14 +287,14 @@ export const CampaignList = () => {
               <span>Add New Campaign</span>
             </Link>
           </div>
-          <Table
+          {/* <Table
             size="middle"
             dataSource={data}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
             }
-          />
+          /> */}
         </div>
       </div>
     </div>

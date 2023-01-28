@@ -1,8 +1,8 @@
 import { message, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload/interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 interface PropsType {
-  errorMessage?: string;
+  errorMessage?: any;
   accept?: string;
   maxSize?: number;
   onChange: Function;
@@ -18,6 +18,9 @@ export const ImageInput = (props: PropsType) => {
 
   const [imageUrl, setImageUrl] = useState<string>();
   const [isError, setIsError] = useState(errorMessage ? true : false);
+  useEffect(() => {
+    if (errorMessage) setIsError(true);
+  }, [errorMessage]);
 
   const handleChange: UploadProps["onChange"] = (info: any) => {
     const isJpgOrPng =
@@ -59,6 +62,7 @@ export const ImageInput = (props: PropsType) => {
     imageUrl || imageSource ? (
       <div style={{ width: `${width}px` }}>
         <img
+          crossOrigin="anonymous"
           src={imageUrl ?? imageSource}
           alt="avatar"
           style={{ width: "100%" }}

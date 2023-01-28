@@ -18,18 +18,6 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(result);
-          Cookies.set("Authentication", result.data.accessToken, {
-            expires: result.data?.expires,
-            path: "",
-          });
-          // Cookies.set(
-          //   "Authentication",
-          //   `${accessToken}; HttpOnly; Path=/; ${
-          //     !isSameSite ? "SameSite=None; Secure;" : ""
-          //   } Max-Age=${jwtConfig.cookieExpiresIn}`
-          // );
-
           localStorage.setItem(
             "auth",
             JSON.stringify({
