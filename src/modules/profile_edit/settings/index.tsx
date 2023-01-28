@@ -115,9 +115,7 @@ export const ProfileSettings = () => {
       {/* Delete Account */}
       <div className="border rounded p-6">
         <div className="mb-5">
-          <div className="font-semibold text-black mb-2">
-            Notification Settings
-          </div>
+          <div className="font-semibold text-black mb-2">Delete Account</div>
           <div className="mb-5 bg-tertiary p-4 text-primary rounded">
             <div className="font-medium mb-1">
               Are you sure you want to delete your account?
