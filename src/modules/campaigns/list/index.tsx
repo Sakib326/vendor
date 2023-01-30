@@ -1,20 +1,10 @@
-import { Table } from "antd";
+import { message, Popconfirm, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useGetAllCampaignQuery } from "../../../redux/campaign/campaign_api";
-
-interface DataTypeWinners {
-  key: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  totalViews: string;
-  totalParticipants: string;
-  totalTake: string;
-  status: string;
-}
 
 const data = [
   {
@@ -183,8 +173,21 @@ const data = [
     status: "pending",
   },
 ];
+const onDeleteClick = (id: any) => {
+  console.log("clicked");
 
-const columns: ColumnsType<DataTypeWinners> = [
+  //  deleteProduct({ id: id }).then((res: any) => {
+  //    if (!res?.error) {
+  //      message.success("Campaign deleted");
+  //    } else {
+  //      message.error(
+  //        res?.error?.data?.message ??
+  //          "Something went wrong. Try reload the page"
+  //      );
+  //    }
+  //  });
+};
+const columns: any = [
   {
     title: "SL",
     dataIndex: "id",
@@ -224,7 +227,7 @@ const columns: ColumnsType<DataTypeWinners> = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (_, col) => (
+    render: (_: any, col: any) => (
       <>
         {col?.status === "pending" && (
           <div className="text-[#FFA800] bg-[#f9ebd1] text-sm px-3 py-1 text-center rounded w-max">
@@ -248,21 +251,35 @@ const columns: ColumnsType<DataTypeWinners> = [
     title: "Actions",
     dataIndex: "id",
     key: "id",
-    render: (_, col) => (
+    render: (_: any, col: any) => (
       <>
         <div className="flex items-center">
-          <Link
-            to="/campaigns/edit/1"
-            className="hover:text-primary transition-all p-1"
-          >
-            <FiEdit />
-          </Link>
           <Link
             to="/campaigns/1"
             className="hover:text-primary transition-all p-1"
           >
             <FiEye />
           </Link>
+          <Link
+            to={`/campaigns/edit/${col?.id}`}
+            className="hover:text-primary transition-all p-1"
+          >
+            <FiEdit />
+          </Link>
+          <Popconfirm
+            placement="right"
+            title="Are you sure to delete this ?"
+            description="Delete the product"
+            onConfirm={(e) => {
+              onDeleteClick(col?.id);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <span className="hover:text-primary transition-all p-1">
+              <AiOutlineDelete />
+            </span>
+          </Popconfirm>
         </div>
       </>
     ),
@@ -287,14 +304,14 @@ export const CampaignList = () => {
               <span>Add New Campaign</span>
             </Link>
           </div>
-          {/* <Table
+          <Table
             size="middle"
             dataSource={data}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
             }
-          /> */}
+          />
         </div>
       </div>
     </div>

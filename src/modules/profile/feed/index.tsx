@@ -10,6 +10,8 @@ import { ReactSVG } from "react-svg";
 import { Modal } from "antd";
 import { useState } from "react";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
+import { Field, Form, Formik } from "formik";
+import ImageInput from "../../@common/image_input/Image_input";
 
 const singleProduct = [
   {
@@ -100,6 +102,7 @@ export const ProfileFeed = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div className="grid grid-cols-[2fr_1fr] gap-8">
       {/* left */}
@@ -555,70 +558,94 @@ export const ProfileFeed = () => {
         wrapClassName="bg-red"
       >
         <div className="mt-4 p-2">
-          <form action="#" className="w-full">
-            <div className="grid gap-5">
-              <div>
-                <label className="mb-1">Post Title</label>
-                <input
-                  type="text"
-                  className="form_control"
-                  placeholder="Type Here"
-                />
-              </div>
-              <div>
-                <label className="mb-1">Description</label>
+          <Formik
+            initialValues={{
+              title: "",
+              description: "",
+              shortDescription: "",
+              status: "Active",
+              file: undefined,
+            }}
+            enableReinitialize={true}
+            // validationSchema={categoryValidationSchema}
+            onSubmit={(values, { resetForm }) => {
+              // addNewCategory(values, resetForm);
+            }}
+          >
+            {({
+              handleSubmit,
+              setFieldValue,
+              resetForm,
+              errors,
+              values,
+              touched,
+            }) => (
+              <Form className="w-full">
+                <div className="grid gap-5">
+                  <div>
+                    <label className="mb-1">Post Title</label>
+                    <Field
+                      type="text"
+                      className={`form_control ${
+                        errors?.title && touched?.title && "error"
+                      }`}
+                      placeholder="Type Here"
+                      name="title"
+                    />
+                    {errors?.title && touched?.title ? (
+                      <div className="error">{errors?.title}</div>
+                    ) : null}
+                  </div>
+                  <div>
+                    <label className="mb-1">Description</label>
 
-                <WinnersEditor name="summary" height="150" />
-              </div>
+                    <WinnersEditor
+                      onChange={(event: any) => {
+                        const content = event.target.value.replace(
+                          /(<([^>]+)>)/gi,
+                          ""
+                        );
 
-              <div>
-                <div className="flex flex-col justify-center items-center border-[1px] border-[#EEEEEE] hover:border-[#AC224D] transition-all py-[27px] rounded-[6px]">
-                  <p className="text-[48px]">
-                    <InboxOutlined />
-                  </p>
-                  <div className="max-w-[290px] w-full mx-auto">
-                    <p className="text-center text-base text-[#181B31] font-medium mb-[10px]">
-                      Click or drag file to this area to upload
-                    </p>
-                    <p className=" text-center text-[12px]">
-                      Support for a single or bulk upload. Strictly prohibit
-                      from uploading company data or other band files
-                    </p>
+                        if (content) {
+                          setFieldValue("description", event.target.value);
+                        }
+                      }}
+                      contents={values?.description ? values?.description : ""}
+                      name="description"
+                      height="150"
+                    />
+                    {errors?.description && touched?.description ? (
+                      <div className="error">{errors?.description}</div>
+                    ) : null}
+                  </div>
+
+                  <div>
+                    <label>Image</label>
+                    <div className="mt-2">
+                      <ImageInput
+                        onChange={(e: any) => {
+                          setFieldValue("file", e);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* <div>
-                <label className="mb-1">Icon</label>
-                <div>
-                  <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
-                    <p className="ant-upload-text">
-                      Click or drag file to this area to upload
-                    </p>
-                    <p className="ant-upload-hint">
-                      Support for a single or bulk upload. Strictly prohibit
-                      from uploading company data or other band files
-                    </p>
-                  </Dragger>
-                </div>
-              </div> */}
-            </div>
 
-            <div className="flex items-center gap-3 mt-5">
-              <button type="submit" className="btn btn-primary px-7">
-                Post
-              </button>
-              <button
-                onClick={handleCancel}
-                type="button"
-                className="btn btn-grey"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+                <div className="flex items-center gap-3 mt-5">
+                  <button type="submit" className="btn btn-primary px-7">
+                    Post
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    type="button"
+                    className="btn btn-grey"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </Modal>
     </div>

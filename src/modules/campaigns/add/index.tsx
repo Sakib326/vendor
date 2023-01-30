@@ -351,7 +351,10 @@ const CampaignAdd = () => {
                       <div>
                         <Select
                           className="form_control_select w-full"
-                          onChange={(e) => setFieldValue("promotionType", e)}
+                          onChange={(e) => {
+                            setFieldValue("promotionType", e);
+                            setFieldValue("promotionValue", "");
+                          }}
                           options={[
                             { value: "IMAGE", label: "Image" },
                             { value: "YOUTUBE", label: "Youtube" },
