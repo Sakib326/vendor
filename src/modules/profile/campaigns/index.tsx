@@ -4,7 +4,6 @@ import CountdownTimer from "../../@common/countdown_timer";
 export const ProfileCampaigns = () => {
   return (
     <div>
-      <h4 className="mb-5">Campaign List</h4>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {/* card */}
         {new Array(2).fill(1).map((_, i) => {

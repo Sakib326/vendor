@@ -76,6 +76,134 @@ const winnersData = [
     levels: "1st Prize",
     state: "Pembroke Pines",
   },
+  {
+    key: "6",
+    id: "6",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+    levels: "1st Prize",
+    state: "Fairfield",
+  },
+  {
+    key: "7",
+    id: "7",
+    winner: {
+      avatar:
+        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
+      name: "Smith Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Naperville",
+  },
+  {
+    key: "8",
+    id: "8",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
+      name: "Shamim Wasman",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Toledo",
+  },
+  {
+    key: "9",
+    id: "9",
+    winner: {
+      avatar:
+        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
+      name: "Khalid Hasan",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Orange",
+  },
+  {
+    key: "10",
+    id: "10",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Pembroke Pines",
+  },
+  {
+    key: "11",
+    id: "11",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+    levels: "1st Prize",
+    state: "Fairfield",
+  },
+  {
+    key: "12",
+    id: "12",
+    winner: {
+      avatar:
+        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
+      name: "Smith Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Naperville",
+  },
+  {
+    key: "13",
+    id: "13",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
+      name: "Shamim Wasman",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Toledo",
+  },
+  {
+    key: "14",
+    id: "14",
+    winner: {
+      avatar:
+        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
+      name: "Khalid Hasan",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Orange",
+  },
+  {
+    key: "15",
+    id: "15",
+    winner: {
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
+      name: "Ema Watson",
+    },
+    campaignName: "Recognize Misinformation on the Internet",
+
+    levels: "1st Prize",
+    state: "Pembroke Pines",
+  },
 ];
 
 const columns: ColumnsType<DataTypeWinners> = [
@@ -125,19 +253,13 @@ export const WinnersList = () => {
       <div className="border rounded">
         <div className="p-5 flex justify-between items-center">
           <div>
-            <div className="text-black font-medium text-lg">
-              Last Campaign Winners List
-            </div>
+            <div className="text-black font-medium text-lg">Winners List</div>
             <div className="text-xs">Total Winners (12)</div>
           </div>
-          <Link to="/campaigns/1" className="btn btn-grey py-1.5">
-            View All
-          </Link>
         </div>
         <Table
           size="middle"
           dataSource={winnersData}
-          pagination={false}
           columns={columns}
           rowClassName={(record, index) =>
             index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"

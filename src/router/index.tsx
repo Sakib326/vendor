@@ -25,6 +25,9 @@ const ProductAdd = lazy(() => import("../modules/products/add"));
 const ProfileFeed = lazy(() => import("../modules/profile/feed"));
 const ProfileAbout = lazy(() => import("../modules/profile/about"));
 const ProfileProducts = lazy(() => import("../modules/profile/products"));
+const ProfileProductDetail = lazy(
+  () => import("../modules/profile/product_detail")
+);
 const ProfileServices = lazy(() => import("../modules/profile/service"));
 const ProfileCampaigns = lazy(() => import("../modules/profile/campaigns"));
 // profile edit
@@ -72,6 +75,10 @@ const AppRouter = () => {
             <Route path="profile/feed" element={<ProfileFeed />} />
             <Route path="profile/about" element={<ProfileAbout />} />
             <Route path="profile/products" element={<ProfileProducts />} />
+            <Route
+              path="profile/products/1"
+              element={<ProfileProductDetail />}
+            />
             <Route path="profile/services" element={<ProfileServices />} />
             <Route path="profile/campaigns" element={<ProfileCampaigns />} />
           </Route>

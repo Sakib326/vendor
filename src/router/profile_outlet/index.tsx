@@ -6,7 +6,7 @@ import { BiEdit } from "react-icons/bi";
 export const ProfileOutlet = ({ type = "view" }) => {
   return (
     <div className="pb-[80px]">
-      <div className="h-[320px]">
+      <div className="h-[320px] max-w-[1270px] mx-auto w-full">
         <img
           src="/temp/cover.webp"
           alt="cover"
@@ -158,6 +158,22 @@ export const ProfileOutlet = ({ type = "view" }) => {
                     }
                   >
                     Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/profile/products/1"
+                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                    style={(navData: { isActive: boolean }) =>
+                      navData.isActive
+                        ? {
+                            color: "#AC224D",
+                            borderBottom: "2px solid #AC224D",
+                          }
+                        : undefined
+                    }
+                  >
+                    Product Details
                   </NavLink>
                 </li>
                 <li>

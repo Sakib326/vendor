@@ -314,7 +314,7 @@ export const CampaignDetails = () => {
       label: (
         <div className="flex items-center gap-2">
           <RiHandCoinLine />
-          <span>ALl Take List</span>
+          <span>All Take List</span>
         </div>
       ),
       children: <DataTable data={dataAllTake} />,
@@ -324,7 +324,7 @@ export const CampaignDetails = () => {
       label: (
         <div className="flex items-center gap-2">
           <IoPodiumOutline />
-          <span>ALl Winners list</span>
+          <span>All Winners list</span>
         </div>
       ),
       children: <DataTable data={dataAllWinner} winner />,
