@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { DatePicker, message, Select, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
 import ImageInput from "../../@common/image_input/Image_input";
@@ -9,13 +10,29 @@ import type { Dayjs } from "dayjs";
 import moment from "moment";
 import { RangePickerProps } from "antd/es/date-picker";
 import * as Yup from "yup";
-import { useAddCampaignMutation } from "../../../redux/campaign/campaign_api";
+import {
+  useAddCampaignMutation,
+  useGetSingleCampaignQuery,
+  useUpdateCampaignMutation,
+} from "../../../redux/campaign/campaign_api";
 
 const { RangePicker } = DatePicker;
 
 const CampaignAdd = () => {
+  const { id } = useParams();
   const [addCampaign, { isLoading: loadingCampaign, isError: CampaignError }] =
     useAddCampaignMutation();
+  const [singleCampaignMute, setSingleCampaignMute] = useState(true);
+  useEffect(() => {
+    if (id) setSingleCampaignMute(false);
+  }, [id]);
+  const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`, {
+    skip: singleCampaignMute,
+  });
+  const [updateCampaign, { isLoading: loadingUpdateCampaign }] =
+    useUpdateCampaignMutation();
+
+  const navigate = useNavigate();
   const onRangeChange = (
     dates: null | (Dayjs | null)[],
     dateStrings: string[],
@@ -36,10 +53,13 @@ const CampaignAdd = () => {
     name: Yup.string().required("Campaign name is required"),
     giftValue: Yup.number()
       .required("Gift value is required")
-      .typeError("Only number allowed"),
+      .typeError("Only number allowed")
+      .min(1, "Minimum value 1"),
     winnerCount: Yup.number()
       .required("Number of winner is required")
-      .typeError("Only number allowed"),
+      .typeError("Only number allowed")
+      .min(1, "Minimum value 1"),
+    promotionValue: Yup.string().required("This field is required"),
   });
   const productAddInit = {
     name: "",
@@ -52,11 +72,14 @@ const CampaignAdd = () => {
     winnerCount: undefined,
     promotionType: "IMAGE",
     promotionValue: "",
+    promotionFile: undefined,
   };
   const handleCampaign = async (values: any) => {
     const formArray = new FormData();
-    if (values.promotionValue) {
+    if (values.promotionValue && values?.promotionType !== "IMAGE") {
       formArray.append("promotionValue", values.promotionValue);
+    } else {
+      formArray.append("promotionValue", values.promotionFile);
     }
     if (values.thumbnail) {
       formArray.append("thumbnail", values.thumbnail);
@@ -69,33 +92,46 @@ const CampaignAdd = () => {
     formArray.append("giftValue", values?.giftValue);
     formArray.append("winnerCount", values?.winnerCount);
     formArray.append("promotionType", values?.promotionType);
-
-    await addCampaign(formArray).then((res: any) => {
-      if (!res?.error) {
-        message.success("Campaign created & submitted for review");
-      } else {
-        message.error(
-          res?.error?.data?.message ??
-            "Something went wrong. Try reload the page"
-        );
-      }
-    });
+    if (id) {
+      await updateCampaign({ data: formArray, id: id }).then((res: any) => {
+        if (!res?.error) {
+          message.success("Campaign updated suessfully");
+        } else {
+          message.error(
+            res?.error?.data?.message ??
+              "Something went wrong. Try reload the page"
+          );
+        }
+      });
+    } else {
+      await addCampaign(formArray).then((res: any) => {
+        if (!res?.error) {
+          message.success("Campaign created & submitted for review");
+        } else {
+          message.error(
+            res?.error?.data?.message ??
+              "Something went wrong. Try reload the page"
+          );
+        }
+      });
+    }
   };
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full text-sm">
-        <h4 className="font-medium pb-4 mb-8 border-b">New Campaign</h4>
+        <h4 className="font-medium pb-4 mb-8 border-b">
+          {id ? "Edit Campaign" : "New Campaign"}
+        </h4>
 
         <Formik
-          initialValues={productAddInit}
-          enableReinitialize={false}
-          // validationSchema={campaignValidationSchema}
+          initialValues={singleCampaign ?? productAddInit}
+          enableReinitialize={id ? true : false}
+          validationSchema={campaignValidationSchema}
           onSubmit={(values) => {
-            // return;
             handleCampaign(values);
           }}
         >
-          {({ handleSubmit, setFieldValue, errors, values, touched }) => (
+          {({ handleSubmit, setFieldValue, errors, values, touched }: any) => (
             <Form className="w-full">
               <div className="grid grid-cols-[2fr_1fr] gap-7">
                 {/* left */}
@@ -269,16 +305,18 @@ const CampaignAdd = () => {
                         <RangePicker
                           size={"large"}
                           className="text-sm bg-[#f9f9f9] border-[#f9f9f9]"
-                          // defaultValue={[
-                          //   dayjs(
-                          //     `${moment(values?.startDate, "DD/MM/YYYY")}`,
-                          //     "DD/MM/YYYY"
-                          //   ),
-                          //   dayjs(
-                          //     `${moment(values?.endDate, "DD/MM/YYYY")}`,
-                          //     "DD/MM/YYYY"
-                          //   ),
-                          // ]}
+                          defaultValue={[
+                            dayjs(
+                              `${moment(values?.startDate).format(
+                                "YYYY-MM-DD"
+                              )}`,
+                              "YYYY-MM-DD"
+                            ),
+                            dayjs(
+                              `${moment(values?.endDate).format("YYYY-MM-DD")}`,
+                              "YYYY-MM-DD"
+                            ),
+                          ]}
                           disabledDate={disabledDate}
                           format="YYYY-MM-DD"
                           onChange={(dates, dateStrings) => {
@@ -316,7 +354,16 @@ const CampaignAdd = () => {
                       <label className="mt-2">Thumbnail</label>
                       <div>
                         <ImageInput
-                          onChange={(e: any) => setFieldValue("thumbnail", e)}
+                          onChange={(e: any) =>
+                            setFieldValue("thumbnail", e?.file)
+                          }
+                          imageSource={
+                            values?.thumbnail
+                              ? `${import.meta.env.VITE_API_URL}/${
+                                  values?.thumbnail
+                                }`
+                              : ""
+                          }
                         />
                       </div>
                     </div>
@@ -401,11 +448,26 @@ const CampaignAdd = () => {
                       </div>
                     ) : (
                       <div className="grid grid-cols-[120px_1fr]">
-                        <label className="mt-2">Image</label>
+                        <label className="mt-2">
+                          Image <span className="text-danger">*</span>
+                        </label>
                         <div>
                           <ImageInput
-                            onChange={(e: any) =>
-                              setFieldValue("promotionValue", e)
+                            onChange={(e: any) => {
+                              setFieldValue("promotionValue", e?.type);
+                              setFieldValue("promotionFile", e?.file);
+                            }}
+                            errorMessage={
+                              errors?.promotionValue &&
+                              touched?.promotionValue &&
+                              "Field is required"
+                            }
+                            imageSource={
+                              values?.promotionValue
+                                ? `${import.meta.env.VITE_API_URL}/${
+                                    values?.promotionValue
+                                  }`
+                                : ""
                             }
                           />
                         </div>
@@ -420,15 +482,14 @@ const CampaignAdd = () => {
                     </div>
                     <button
                       type="submit"
-                      // onClick={() => handleSubmit}
-                      onClick={() => {
-                        handleSubmit();
-                      }}
-                      disabled={loadingCampaign}
+                      onClick={handleSubmit}
+                      disabled={loadingCampaign || loadingUpdateCampaign}
                       className="btn btn-primary"
                     >
-                      {loadingCampaign && <Spin className="custom_spinner" />}
-                      Publish
+                      {(loadingCampaign || loadingUpdateCampaign) && (
+                        <Spin className="custom_spinner" />
+                      )}
+                      {id ? "Update" : "Publish"}
                     </button>
                   </div>
                 </div>

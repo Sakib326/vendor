@@ -4,290 +4,129 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import { useGetAllCampaignQuery } from "../../../redux/campaign/campaign_api";
-
-const data = [
-  {
-    key: "1",
-    id: "01",
-    name: "Recognize Misinformation on the Internet",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "2",
-    id: "02",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "3",
-    id: "03",
-    name: "Toxic Trade-Offs at Facebook",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "complete",
-  },
-  {
-    key: "4",
-    id: "04",
-    name: "You Can’t Find a Laptop. Now What?",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "5",
-    id: "05",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "6",
-    id: "06",
-    name: "Recognize Misinformation on the Internet",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "complete",
-  },
-  {
-    key: "7",
-    id: "07",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "8",
-    id: "08",
-    name: "Toxic Trade-Offs at Facebook",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "9",
-    id: "09",
-    name: "You Can’t Find a Laptop. Now What?",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "10",
-    id: "10",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "11",
-    id: "11",
-    name: "Recognize Misinformation on the Internet",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "complete",
-  },
-  {
-    key: "12",
-    id: "12",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "13",
-    id: "13",
-    name: "Toxic Trade-Offs at Facebook",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "active",
-  },
-  {
-    key: "14",
-    id: "14",
-    name: "You Can’t Find a Laptop. Now What?",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-  {
-    key: "15",
-    id: "15",
-    name: "A Steal Might Actually Be a Raw Deal",
-    startDate: "Apr 09, 2011",
-    endDate: "Apr 09, 2011",
-    views: "2345",
-    impression: "234",
-    totalTake: "534",
-    status: "pending",
-  },
-];
-const onDeleteClick = (id: any) => {
-  console.log("clicked");
-
-  //  deleteProduct({ id: id }).then((res: any) => {
-  //    if (!res?.error) {
-  //      message.success("Campaign deleted");
-  //    } else {
-  //      message.error(
-  //        res?.error?.data?.message ??
-  //          "Something went wrong. Try reload the page"
-  //      );
-  //    }
-  //  });
-};
-const columns: any = [
-  {
-    title: "SL",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Campaign Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Start Date",
-    dataIndex: "startDate",
-    key: "startDate",
-  },
-  {
-    title: "End Date",
-    dataIndex: "endDate",
-    key: "endDate",
-  },
-  {
-    title: "View",
-    dataIndex: "views",
-    key: "views",
-  },
-  {
-    title: "Impression",
-    dataIndex: "impression",
-    key: "impression",
-  },
-  {
-    title: "Take",
-    dataIndex: "totalTake",
-    key: "totalTake",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (_: any, col: any) => (
-      <>
-        {col?.status === "pending" && (
-          <div className="text-[#FFA800] bg-[#f9ebd1] text-sm px-3 py-1 text-center rounded w-max">
-            Pending
-          </div>
-        )}
-        {col?.status === "active" && (
-          <div className="text-[#7367F0] bg-[#e9e7fd] text-sm px-3 py-1 text-center rounded  w-max">
-            Active
-          </div>
-        )}
-        {col?.status === "complete" && (
-          <div className="text-[#28C76F] bg-[#e7f0e3] text-sm px-3 py-1 text-center rounded  w-max">
-            Complete
-          </div>
-        )}
-      </>
-    ),
-  },
-  {
-    title: "Actions",
-    dataIndex: "id",
-    key: "id",
-    render: (_: any, col: any) => (
-      <>
-        <div className="flex items-center">
-          <Link
-            to="/campaigns/1"
-            className="hover:text-primary transition-all p-1"
-          >
-            <FiEye />
-          </Link>
-          <Link
-            to={`/campaigns/edit/${col?.id}`}
-            className="hover:text-primary transition-all p-1"
-          >
-            <FiEdit />
-          </Link>
-          <Popconfirm
-            placement="right"
-            title="Are you sure to delete this ?"
-            description="Delete the product"
-            onConfirm={(e) => {
-              onDeleteClick(col?.id);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <span className="hover:text-primary transition-all p-1">
-              <AiOutlineDelete />
-            </span>
-          </Popconfirm>
-        </div>
-      </>
-    ),
-  },
-];
+import {
+  useDeleteCampaignMutation,
+  useGetAllCampaignQuery,
+} from "../../../redux/campaign/campaign_api";
 
 export const CampaignList = () => {
   const { data: campaignList } = useGetAllCampaignQuery<any>({});
+  const [deleteCampaign, { isLoading }] = useDeleteCampaignMutation();
+  const onDeleteClick = (id: any) => {
+    deleteCampaign({ id: id }).then((res: any) => {
+      if (!res?.error) {
+        message.success("Campaign deleted");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
+  };
+  const columns: any = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Campaign Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Start Date",
+      dataIndex: "startDate",
+      key: "startDate",
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
+    },
+    // {
+    //   title: "View",
+    //   dataIndex: "views",
+    //   key: "views",
+    // },
+    // {
+    //   title: "Impression",
+    //   dataIndex: "impression",
+    //   key: "impression",
+    // },
+    // {
+    //   title: "Take",
+    //   dataIndex: "totalTake",
+    //   key: "totalTake",
+    // },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_: any, col: any) => (
+        <>
+          {col?.status === "DRAFT" && (
+            <div className="text-[#FFA800] bg-[#f9ebd1] text-sm px-3 py-1 text-center rounded w-max">
+              Draft
+            </div>
+          )}
+          {col?.status === "ACTIVE" && (
+            <div className="text-[#7367F0] bg-[#e9e7fd] text-sm px-3 py-1 text-center rounded  w-max">
+              Active
+            </div>
+          )}
+          {col?.status === "complete" && (
+            <div className="text-[#28C76F] bg-[#e7f0e3] text-sm px-3 py-1 text-center rounded  w-max">
+              Complete
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      title: "Actions",
+      dataIndex: "id",
+      key: "id",
+      render: (_: any, col: any) => (
+        <>
+          <div className="flex items-center">
+            <Link
+              to="/campaigns/1"
+              className="hover:text-primary transition-all p-1"
+            >
+              <FiEye />
+            </Link>
+            <Link
+              to={`/campaigns/edit/${col?.uuid}`}
+              className="hover:text-primary transition-all p-1"
+            >
+              <FiEdit />
+            </Link>
+            <Popconfirm
+              placement="right"
+              title="Are you sure to delete this ?"
+              description="Delete the product"
+              onConfirm={(e) => {
+                if (col?.status === "ACTIVE") {
+                  message.error("You can't delete an active campaign");
+                  return;
+                }
+                onDeleteClick(col?.uuid);
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <span className="hover:text-primary transition-all p-1">
+                <AiOutlineDelete />
+              </span>
+            </Popconfirm>
+          </div>
+        </>
+      ),
+    },
+  ];
+
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full">
@@ -297,7 +136,9 @@ export const CampaignList = () => {
               <div className="text-black font-medium text-lg">
                 Campaign List
               </div>
-              <div className="text-xs">Total Campaign (1205)</div>
+              <div className="text-xs">
+                Total Campaign ({campaignList?.totalItems})
+              </div>
             </div>
             <Link to="/campaigns/add" className="btn btn-primary ">
               <HiPlus />
@@ -306,11 +147,12 @@ export const CampaignList = () => {
           </div>
           <Table
             size="middle"
-            dataSource={data}
+            dataSource={campaignList?.results ?? []}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
             }
+            rowKey="id"
           />
         </div>
       </div>

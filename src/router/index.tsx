@@ -63,7 +63,7 @@ const AppRouter = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="campaigns/list" element={<CampaignList />} />
           <Route path="campaigns/add" element={<CampaignAdd />} />
-          <Route path="campaigns/edit/:id" element={<CampaignEdit />} />
+          <Route path="campaigns/edit/:id" element={<CampaignAdd />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
 
           <Route path="winners/list" element={<WinnersList />} />

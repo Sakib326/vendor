@@ -30,7 +30,7 @@ export const ImageInput = (props: PropsType) => {
     const isInSize = info.file?.size / 1024 / 1024 < maxSize;
 
     if (info?.fileList.length > 0 && isJpgOrPng && isInSize) {
-      props?.onChange(info?.file);
+      props?.onChange({ file: info?.file, type: info?.file?.type });
 
       const ImageLink = URL.createObjectURL(info?.file);
       setImageUrl(ImageLink);

@@ -624,7 +624,7 @@ export const ProfileFeed = () => {
                     <div className="mt-2">
                       <ImageInput
                         onChange={(e: any) => {
-                          setFieldValue("file", e);
+                          setFieldValue("file", e?.file);
                         }}
                       />
                     </div>

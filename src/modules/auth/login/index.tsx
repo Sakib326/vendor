@@ -1,12 +1,20 @@
 import { message, Spin } from "antd";
+import { useState } from "react";
 import { Field, Form, Formik } from "formik";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useSignInMutation } from "../../../redux/auth/auth_api";
+import {
+  useGetProfileQuery,
+  useSignInMutation,
+} from "../../../redux/auth/auth_api";
 
 export const Login = () => {
   const [signIn, { data, isLoading, isError }] = useSignInMutation();
+  const [isProfileGet, setIsProfileGet] = useState(true);
+  const { data: profileData } = useGetProfileQuery("init", {
+    skip: isProfileGet,
+  });
   const navigate = useNavigate();
 
   const signInInit = {
@@ -29,11 +37,10 @@ export const Login = () => {
       remember: true,
     }).then((res: any) => {
       if (!res?.error) {
-        Cookies.set("Authentication", res.data.accessToken, {
-          expires: res.data?.expires,
-          path: "",
-        });
-        navigate("/dashboard");
+        setIsProfileGet(false);
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 500);
       } else {
         message.error(
           res?.error?.data?.message ??

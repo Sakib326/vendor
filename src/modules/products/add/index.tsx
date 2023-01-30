@@ -341,7 +341,7 @@ export const ProductAdd = () => {
                         <div>
                           <ImageInput
                             onChange={(e: any) => {
-                              setFieldValue("file", e);
+                              setFieldValue("file", e?.file);
                               setFieldValue("hasFile", !e ? false : true);
                             }}
                             imageSource={
@@ -369,10 +369,12 @@ export const ProductAdd = () => {
                       <button
                         type="submit"
                         onClick={() => handleSubmit}
-                        disabled={loadingProduct}
+                        disabled={loadingProduct || loadingUpdateProduct}
                         className="btn btn-primary"
                       >
-                        {loadingProduct && <Spin className="custom_spinner" />}
+                        {(loadingProduct || loadingUpdateProduct) && (
+                          <Spin className="custom_spinner" />
+                        )}
                         {id ? "Update Product" : "Add Product"}
                       </button>
                     </div>
@@ -445,7 +447,7 @@ export const ProductAdd = () => {
                     <label className="mb-1">Icon</label>
                     <ImageInput
                       onChange={(e: any) => {
-                        setFieldValue("file", e);
+                        setFieldValue("file", e?.file);
                       }}
                     />
                   </div>
