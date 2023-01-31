@@ -119,9 +119,14 @@ const CampaignAdd = () => {
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full text-sm">
-        <h4 className="font-medium pb-4 mb-8 border-b">
-          {id ? "Edit Campaign" : "New Campaign"}
-        </h4>
+        <div className="flex items-center justify-between  pb-2 mb-8 border-b">
+          <h4 className="font-medium pb-4">
+            {id ? "Edit Campaign" : "New Campaign"}
+          </h4>
+          <Link to="/campaigns/list" className="btn btn-primary">
+            All Campaign
+          </Link>
+        </div>
 
         <Formik
           initialValues={singleCampaign ?? productAddInit}
