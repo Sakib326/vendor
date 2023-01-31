@@ -11,7 +11,6 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 export const ResetPassword = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [confirmPasswordType, setConfirmPasswordType] = useState("password");
-
   const [forgotPassChange, { isLoading }] = useForgotPassChangeMutation();
   const parsedLinkQuery = queryString.parse(location.search);
   const navigate = useNavigate();
