@@ -5,8 +5,13 @@ import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import queryString from "query-string";
 import { message, Spin } from "antd";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export const ResetPassword = () => {
+  const [passwordType, setPasswordType] = useState("password");
+  const [confirmPasswordType, setConfirmPasswordType] = useState("password");
+
   const [forgotPassChange, { isLoading }] = useForgotPassChangeMutation();
   const parsedLinkQuery = queryString.parse(location.search);
   const navigate = useNavigate();
@@ -79,15 +84,32 @@ export const ResetPassword = () => {
                     <label htmlFor="">
                       Password <span className="astrisk">*</span>
                     </label>
-                    <Field
-                      type="password"
-                      name="password"
-                      className={
-                        errors?.password && touched?.password && "error"
-                      }
-                      placeholder="New Password"
-                      value={values?.password ?? ""}
-                    />
+                    <div className="relative">
+                      <Field
+                        type={`${passwordType}`}
+                        name="password"
+                        className={`${
+                          errors?.password && touched?.password && "error"
+                        } !pr-11`}
+                        placeholder="New Password"
+                        value={values?.password ?? ""}
+                      />
+                      <div
+                        className="password_view"
+                        onClick={() =>
+                          setPasswordType(
+                            passwordType == "password" ? "text" : "password"
+                          )
+                        }
+                      >
+                        {passwordType === "password" && (
+                          <AiOutlineEye className="text-lg" />
+                        )}
+                        {passwordType == "text" && (
+                          <AiOutlineEyeInvisible className="text-lg" />
+                        )}
+                      </div>
+                    </div>
                     {errors?.password && touched?.password ? (
                       <div className="error">{errors?.password}</div>
                     ) : null}
@@ -96,17 +118,36 @@ export const ResetPassword = () => {
                     <label htmlFor="">
                       Confirm Password <span className="astrisk">*</span>
                     </label>
-                    <Field
-                      type="password"
-                      name="confirmPassword"
-                      className={
-                        errors?.confirmPassword &&
-                        touched?.confirmPassword &&
-                        "error"
-                      }
-                      placeholder="Confirm Password"
-                      value={values?.confirmPassword ?? ""}
-                    />
+                    <div className="relative">
+                      <Field
+                        type={`${confirmPasswordType}`}
+                        name="confirmPassword"
+                        className={`${
+                          errors?.confirmPassword &&
+                          touched?.confirmPassword &&
+                          "error"
+                        } !pr-11`}
+                        placeholder="Confirm Password"
+                        value={values?.confirmPassword ?? ""}
+                      />
+                      <div
+                        className="password_view"
+                        onClick={() =>
+                          setConfirmPasswordType(
+                            confirmPasswordType == "password"
+                              ? "text"
+                              : "password"
+                          )
+                        }
+                      >
+                        {confirmPasswordType === "password" && (
+                          <AiOutlineEye className="text-lg" />
+                        )}
+                        {confirmPasswordType == "text" && (
+                          <AiOutlineEyeInvisible className="text-lg" />
+                        )}
+                      </div>
+                    </div>
                     {errors?.confirmPassword && touched?.confirmPassword ? (
                       <div className="error">{errors?.confirmPassword}</div>
                     ) : null}

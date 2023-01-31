@@ -8,8 +8,10 @@ import {
   useGetProfileQuery,
   useSignInMutation,
 } from "../../../redux/auth/auth_api";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export const Login = () => {
+  const [type, setType] = useState("password");
   const [signIn, { data, isLoading, isError }] = useSignInMutation();
   const [isProfileGet, setIsProfileGet] = useState(true);
   const { data: profileData } = useGetProfileQuery("init", {
@@ -92,7 +94,7 @@ export const Login = () => {
                       <div className="error">{errors?.email}</div>
                     ) : null}
                   </div>
-                  <div className="form_group col-span-2">
+                  <div className="form_group col-span-2 relative">
                     <label htmlFor="">
                       Password <span className="astrisk">*</span>
                     </label>
@@ -102,15 +104,30 @@ export const Login = () => {
                     >
                       Forgot Password?
                     </Link>
-                    <Field
-                      type="password"
-                      name="password"
-                      className={
-                        errors?.password && touched?.password && "error"
-                      }
-                      placeholder="Password"
-                      value={values?.password ?? ""}
-                    />
+                    <div className="relative">
+                      <Field
+                        type={`${type}`}
+                        name="password"
+                        className={`${
+                          errors?.password && touched?.password ? "error" : ""
+                        } !pr-11`}
+                        placeholder="Password"
+                        value={values?.password ?? ""}
+                      />
+                      <div
+                        className="password_view"
+                        onClick={() =>
+                          setType(type == "password" ? "text" : "password")
+                        }
+                      >
+                        {type === "password" && (
+                          <AiOutlineEye className="text-lg" />
+                        )}
+                        {type == "text" && (
+                          <AiOutlineEyeInvisible className="text-lg" />
+                        )}
+                      </div>
+                    </div>
                     {errors?.password && touched?.password ? (
                       <div className="error">{errors?.password}</div>
                     ) : null}
