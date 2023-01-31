@@ -299,7 +299,7 @@ const ProfileEditOverview = () => {
                 </div>
                 <div className="col-span-2">
                   <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
-                    <label>GMap Link</label>
+                    <label>GMap Embed Code</label>
                     <Field
                       type="text"
                       name="gMapLink"
