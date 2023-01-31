@@ -38,7 +38,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
 
-  tagTypes: ["category", "campaign", "product"],
+  tagTypes: ["category", "campaign", "product", "profile"],
   endpoints: () => ({}),
 });
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";

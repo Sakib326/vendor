@@ -1,70 +1,148 @@
-import { Checkbox } from "antd";
-import type { CheckboxChangeEvent } from "antd/es/checkbox";
-
-const onChange = (e: CheckboxChangeEvent) => {
-  console.log(`checked = ${e.target.checked}`);
-};
+import { message, Spin } from "antd";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { useUpdatePasswordMutation } from "../../../redux/auth/auth_api";
 
 export const ProfileSettings = () => {
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
+  const changePassword = async (values: any, resetForm: any) => {
+    await updatePassword({
+      oldPassword: values?.oldPassword,
+      password: values?.password,
+      confirmPassword: values?.confirmPassword,
+    }).then((res: any) => {
+      if (!res?.error) {
+        resetForm();
+        message.success("Successful. Your password has been changed");
+      } else {
+        message.error(
+          res?.error?.data?.message ??
+            "Something went wrong. Try reload the page"
+        );
+      }
+    });
+  };
+
+  // Validation schema
+  const validationSchema = Yup.object().shape({
+    oldPassword: Yup.string().required("Current password required"),
+    password: Yup.string()
+      .min(6, "Must be more than or equal 6 characters")
+      .required("New Password is required")
+      .matches(
+        /^(?=.*[0-9])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{6,}$/,
+        "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required"),
+  });
   return (
     <div className="grid gap-7 text-sm">
       {/* Profile Details */}
       <div className="border rounded p-6">
         <div className="font-semibold text-black mb-8">Profile Details</div>
-        <form action="#" className="w-full">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-10">
-            <div className="form_group">
-              <label htmlFor="">
-                Current Password <span className="astrisk">*</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Current Password"
-                // className="error"
-              />
-              {/* <div className="error">Required Field</div> */}
-            </div>
-            <div></div>
-            <div className="form_group">
-              <label htmlFor="password">
-                New Password <span className="astrisk">*</span>
-              </label>
-              <input id="password" type="text" placeholder="New Password" />
-            </div>
-            <div className="form_group">
-              <label htmlFor="password">
-                Confirm New Password<span className="astrisk">*</span>
-              </label>
-              <input
-                id="password"
-                type="text"
-                placeholder="Confirm New Password"
-              />
-            </div>
-          </div>
-        </form>
-        <div className="my-5">
-          <div className="font-semibold text-sm text-black mb-2">
-            Password Requirements:
-          </div>
-          <ul className="text-sm list-disc pl-4">
-            <li>Minimum 8 characters long - the more, the better</li>
-            <li>At least one lowercase character</li>
-            <li>At least one number, symbol, or whitespace character</li>
-          </ul>
-        </div>
-        <div className="flex item-center gap-3">
-          <button type="button" className="btn btn-primary">
-            Save Changes
-          </button>
-          <button type="button" className="btn btn-grey">
-            Cancel
-          </button>
-        </div>
+        <Formik
+          initialValues={{
+            oldPassword: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          enableReinitialize={true}
+          validationSchema={validationSchema}
+          onSubmit={(values, { resetForm }) => {
+            changePassword(values, resetForm);
+          }}
+        >
+          {({ handleSubmit, resetForm, errors, values, touched }: any) => (
+            <Form className="w-full">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+                <div className="form_group">
+                  <label htmlFor="">
+                    Current Password <span className="astrisk">*</span>
+                  </label>
+                  <Field
+                    type="password"
+                    name="oldPassword"
+                    className={
+                      errors?.oldPassword && touched?.oldPassword && "error"
+                    }
+                    placeholder="Current Password"
+                    value={values?.oldPassword ?? ""}
+                  />
+                  {errors?.oldPassword && touched?.oldPassword ? (
+                    <div className="error">{errors?.oldPassword}</div>
+                  ) : null}
+                </div>
+                <div></div>
+                <div className="form_group">
+                  <label htmlFor="password">
+                    New Password <span className="astrisk">*</span>
+                  </label>
+                  <Field
+                    type="password"
+                    name="password"
+                    className={errors?.password && touched?.password && "error"}
+                    placeholder="New Password"
+                    value={values?.password ?? ""}
+                  />
+                  {errors?.password && touched?.password ? (
+                    <div className="error">{errors?.password}</div>
+                  ) : null}
+                </div>
+                <div className="form_group">
+                  <label htmlFor="password">
+                    Confirm New Password<span className="astrisk">*</span>
+                  </label>
+                  <Field
+                    type="password"
+                    name="confirmPassword"
+                    className={
+                      errors?.confirmPassword &&
+                      touched?.confirmPassword &&
+                      "error"
+                    }
+                    placeholder="Confirm Password"
+                    value={values?.confirmPassword ?? ""}
+                  />
+                  {errors?.confirmPassword && touched?.confirmPassword ? (
+                    <div className="error">{errors?.confirmPassword}</div>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="my-5">
+                <div className="font-semibold text-sm text-black mb-2">
+                  Password Requirements:
+                </div>
+                <ul className="text-sm list-disc pl-4">
+                  <li>Minimum 6 characters long - the more, the better</li>
+                  <li>At least one lowercase & one uppercase character</li>
+                  <li>At least one number</li>
+                  <li>At least one special character</li>
+                </ul>
+              </div>
+              <div className="flex item-center gap-3">
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  onClick={handleSubmit}
+                  className="btn btn-primary"
+                >
+                  {isLoading && <Spin className="custom_spinner" />}
+                  Save Changes
+                </button>
+                <button type="button" className="btn btn-grey">
+                  Cancel
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
 
       {/* Two-steps verification */}
-      <div className="border rounded p-6">
+      {/* <div className="border rounded p-6">
         <div className="mb-5">
           <div className="font-semibold text-black mb-2">
             Two-steps verification
@@ -83,10 +161,10 @@ export const ProfileSettings = () => {
             Enable Two-factor Authentication
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Notification Settings */}
-      <div className="border rounded p-6">
+      {/* <div className="border rounded p-6">
         <div className="mb-5">
           <div className="font-semibold text-black mb-2">
             Notification Settings
@@ -110,12 +188,14 @@ export const ProfileSettings = () => {
             Discard
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Delete Account */}
-      <div className="border rounded p-6">
+      {/* <div className="border rounded p-6">
         <div className="mb-5">
-          <div className="font-semibold text-black mb-2">Delete Account</div>
+          <div className="font-semibold text-black mb-2">
+            Notification Settings
+          </div>
           <div className="mb-5 bg-tertiary p-4 text-primary rounded">
             <div className="font-medium mb-1">
               Are you sure you want to delete your account?
@@ -136,7 +216,7 @@ export const ProfileSettings = () => {
         <button type="button" className="btn btn-primary">
           Deactivate Account
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

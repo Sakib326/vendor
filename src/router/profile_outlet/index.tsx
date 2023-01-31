@@ -2,13 +2,25 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { ImPinterest2 } from "react-icons/im";
 import { FiFacebook, FiInstagram, FiYoutube } from "react-icons/fi";
 import { BiEdit } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 export const ProfileOutlet = ({ type = "view" }) => {
+  const { user } = useSelector((state: any) => state.auth);
+
+  const userProfile =
+    user !== ""
+      ? user
+      : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo;
   return (
     <div className="pb-[80px]">
       <div className="h-[320px] max-w-[1270px] mx-auto w-full">
         <img
-          src="/temp/cover.webp"
+          crossOrigin="anonymous"
+          src={
+            userProfile?.banner !== "" && userProfile?.banner
+              ? `${import.meta.env.VITE_API_URL}/${userProfile?.banner}`
+              : "https://cdn.pixabay.com/photo/2015/01/29/16/34/mothers-day-616363_960_720.jpg"
+          }
           alt="cover"
           className="w-full h-full object-cover"
         />
@@ -18,7 +30,12 @@ export const ProfileOutlet = ({ type = "view" }) => {
           <div className="bg-white border-[3px] border-[#fff] rounded-full">
             <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center">
               <img
-                src="/temp/logo-unisearch.webp"
+                crossOrigin="anonymous"
+                src={
+                  userProfile?.logo !== "" && userProfile?.logo
+                    ? `${import.meta.env.VITE_API_URL}/${userProfile?.logo}`
+                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                }
                 alt="Campaign unisearch"
                 title="Campaign unisearch"
               />
@@ -27,7 +44,17 @@ export const ProfileOutlet = ({ type = "view" }) => {
           <div className="self-end flex justify-between items-center">
             <div className="left">
               <div className="text-black font-semibold text-3xl">Unisearch</div>
-              <a href="#">www.myunisearch.com</a>
+              <a
+                href={`${
+                  userProfile?.website !== "" && userProfile?.website
+                    ? userProfile?.website
+                    : "#"
+                }`}
+              >
+                {userProfile?.website !== "" && userProfile?.website
+                  ? userProfile?.website
+                  : "N/A"}
+              </a>
             </div>
             <div className="right">
               <div className="flex item-center ">
@@ -45,7 +72,7 @@ export const ProfileOutlet = ({ type = "view" }) => {
                 )}
               </div>
 
-              {type === "view" && (
+              {/* {type === "view" && (
                 <ul className="flex items-center gap-5">
                   <li className="ml-auto">
                     <a href="#">
@@ -68,7 +95,7 @@ export const ProfileOutlet = ({ type = "view" }) => {
                     </a>
                   </li>
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
         </div>

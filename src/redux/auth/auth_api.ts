@@ -64,26 +64,143 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const result = await queryFulfilled;
-          localStorage.setItem(
-            "profileInfo",
-            JSON.stringify({
-              profileInfo: result.data,
-            })
-          );
-          if (result.data) {
-            dispatch(
-              setUser(
-                result.data || {
-                  avatar: "",
-                  userName: "Anonymous",
-                  email: "",
-                }
-              )
+          let formattedProfile;
+          await queryFulfilled.then((res: any) => {
+            formattedProfile = {
+              skipHashPassword:
+                res?.data?.skipHashPassword !== null &&
+                res?.data?.skipHashPassword
+                  ? res?.data?.skipHashPassword
+                  : false,
+              id: res?.data?.id !== null && res?.data?.id ? res?.data?.id : 0,
+              createdUserType:
+                res?.data?.createdUserType !== null &&
+                res?.data?.createdUserType
+                  ? res?.data?.createdUserType
+                  : "",
+              createdBy:
+                res?.data?.createdBy !== null && res?.data?.createdBy
+                  ? res?.data?.createdBy
+                  : "",
+              updatedUserType:
+                res?.data?.updatedUserType !== null &&
+                res?.data?.updatedUserType
+                  ? res?.data?.updatedUserType
+                  : "",
+              createdAt:
+                res?.data?.createdAt !== null && res?.data?.createdAt
+                  ? res?.data?.createdAt
+                  : new Date(),
+              updatedAt:
+                res?.data?.updatedAt !== null && res?.data?.updatedAt
+                  ? res?.data?.updatedAt
+                  : new Date(),
+              deletedAt:
+                res?.data?.deletedAt !== null && res?.data?.deletedAt
+                  ? res?.data?.deletedAt
+                  : "",
+              email:
+                res?.data?.email !== null && res?.data?.email
+                  ? res?.data?.email
+                  : "",
+              username:
+                res?.data?.username !== null && res?.data?.username
+                  ? res?.data?.username
+                  : "",
+              businessName:
+                res?.data?.businessName !== null && res?.data?.businessName
+                  ? res?.data?.businessName
+                  : "",
+              mobile:
+                res?.data?.mobile !== null && res?.data?.mobile
+                  ? res?.data?.mobile
+                  : "",
+              businessEmail:
+                res?.data?.businessEmail !== null && res?.data?.businessEmail
+                  ? res?.data?.businessEmail
+                  : "",
+              website:
+                res?.data?.website !== null && res?.data?.website
+                  ? res?.data?.website
+                  : "",
+              overview:
+                res?.data?.overview !== null && res?.data?.overview
+                  ? res?.data?.overview
+                  : "",
+              province:
+                res?.data?.province !== null && res?.data?.province
+                  ? res?.data?.province
+                  : "",
+              city:
+                res?.data?.city !== null && res?.data?.city
+                  ? res?.data?.city
+                  : "",
+              area:
+                res?.data?.area !== null && res?.data?.area
+                  ? res?.data?.area
+                  : "",
+              landmark:
+                res?.data?.landmark !== null && res?.data?.landmark
+                  ? res?.data?.landmark
+                  : "",
+              gMapLink:
+                res?.data?.gMapLink !== null && res?.data?.gMapLink
+                  ? res?.data?.gMapLink
+                  : "",
+              socialLinks:
+                res?.data?.socialLinks !== null && res?.data?.socialLinks
+                  ? res?.data?.socialLinks
+                  : "",
+              logo:
+                res?.data?.logo !== null && res?.data?.logo
+                  ? res?.data?.logo
+                  : "",
+              banner:
+                res?.data?.banner !== null && res?.data?.banner
+                  ? res?.data?.banner
+                  : "",
+              status:
+                res?.data?.status !== null && res?.data?.status
+                  ? res?.data?.status
+                  : "",
+              token:
+                res?.data?.token !== null && res?.data?.token
+                  ? res?.data?.token
+                  : "",
+              tokenValidityDate:
+                res?.data?.tokenValidityDate !== null &&
+                res?.data?.tokenValidityDate
+                  ? res?.data?.tokenValidityDate
+                  : "",
+              salt:
+                res?.data?.salt !== null && res?.data?.salt
+                  ? res?.data?.salt
+                  : "",
+              twoFAThrottleTime:
+                res?.data?.twoFAThrottleTime !== null &&
+                res?.data?.twoFAThrottleTime
+                  ? res?.data?.twoFAThrottleTime
+                  : "",
+              isTwoFAEnabled:
+                res?.data?.isTwoFAEnabled !== null && res?.data?.isTwoFAEnabled
+                  ? res?.data?.isTwoFAEnabled
+                  : "",
+              roleId:
+                res?.data?.roleId !== null && res?.data?.roleId
+                  ? res?.data?.roleId
+                  : undefined,
+            };
+            localStorage.setItem(
+              "profileInfo",
+              JSON.stringify({
+                profileInfo: formattedProfile,
+              })
             );
-          }
+            dispatch(setUser(formattedProfile));
+          });
         } catch (error) {}
       },
+      providesTags: ["profile"],
     }),
 
     signOut: build.mutation({
@@ -114,6 +231,21 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateProfile: build.mutation({
+      query: (data) => ({
+        url: `vendor/auth/update-profile`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["profile"],
+    }),
+    updatePassword: build.mutation({
+      query: (data) => ({
+        url: `vendor/auth/change-password`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -125,4 +257,6 @@ export const {
   useForgotPassChangeMutation,
   useForgotPassMutation,
   useLazySignUpVerificatonQuery,
+  useUpdateProfileMutation,
+  useUpdatePasswordMutation,
 } = authApi;
