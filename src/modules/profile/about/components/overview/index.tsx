@@ -17,7 +17,9 @@ const ProfileAbourOverview = () => {
           Company Overview
         </h4>
 
-        <div>{parse(userProfile?.Overview ?? "<p>N/A</p>")}</div>
+        <div>
+          {parse(userProfile?.overview ? userProfile?.overview : "<p>N/A</p>")}
+        </div>
       </div>
       <div className="mt-[30px]">
         <div className="border-t">
