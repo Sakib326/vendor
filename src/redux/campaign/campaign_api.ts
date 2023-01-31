@@ -32,6 +32,7 @@ export const campaignApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["campaign"],
     }),
   }),
 });
