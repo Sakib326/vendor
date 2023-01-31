@@ -26,22 +26,24 @@ export const ProfileOutlet = ({ type = "view" }) => {
         />
       </div>
       <div className="max-w-[1234px] w-full mx-auto px-8">
-        <div className="grid grid-cols-[160px_1fr] mt-[-55px] gap-5 mb-4">
-          <div className="bg-white border-[3px] border-[#fff] rounded-full">
-            <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center">
-              <img
-                crossOrigin="anonymous"
-                src={
-                  userProfile?.logo !== "" && userProfile?.logo
-                    ? `${import.meta.env.VITE_API_URL}/${userProfile?.logo}`
-                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-                }
-                alt="Campaign unisearch"
-                title="Campaign unisearch"
-              />
+        <div className="grid geid-cols-1 md:grid-cols-[160px_1fr] mt-[-55px] gap-5 mb-4">
+          <div className="flex justify-center">
+            <div className="bg-white border-[3px] border-[#fff] rounded-full">
+              <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center">
+                <img
+                  crossOrigin="anonymous"
+                  src={
+                    userProfile?.logo !== "" && userProfile?.logo
+                      ? `${import.meta.env.VITE_API_URL}/${userProfile?.logo}`
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                  }
+                  alt="Campaign bdwinners"
+                  title="Campaign bdwinners"
+                />
+              </div>
             </div>
           </div>
-          <div className="self-end flex justify-between items-center">
+          <div className="self-end flex flex-col gap-3 md:flex-row justify-between items-center">
             <div className="left">
               <div className="text-black font-semibold text-3xl">Unisearch</div>
               <a
@@ -101,7 +103,7 @@ export const ProfileOutlet = ({ type = "view" }) => {
         </div>
 
         <nav className="mb-7">
-          <ul className="flex border-t border-b gap-[2px]">
+          <ul className="flex border-t border-b gap-[2px] overflow-auto whitespace-nowrap">
             {type === "edit" ? (
               <>
                 <li>

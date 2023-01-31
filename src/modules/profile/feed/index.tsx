@@ -104,7 +104,7 @@ export const ProfileFeed = () => {
   };
 
   return (
-    <div className="grid grid-cols-[2fr_1fr] gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
       {/* left */}
       <div>
         {/* card */}
