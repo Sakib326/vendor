@@ -83,12 +83,12 @@ export const Register = () => {
 
   return (
     <div className="p-8 min-h-screen overflow-auto">
-      <div className="auth_h_screen grid grid-cols-[1fr_650px] gap-12">
-        <div className="flex items-end justify-center bg-[#F8F7FA]  rounded-2xl pt-10">
+      <div className="auth_h_screen grid lg:grid-cols-[1fr_550px] xl:grid-cols-[1fr_650px] lg:gap-6 xl:gap-12">
+        <div className="hidden lg:flex lg:items-center xl:items-end justify-center bg-[#F8F7FA] rounded-2xl pt-10">
           <img src="/images/auth/register.webp" alt="register" />
         </div>
 
-        <div className="flex flex-col h-full items-center justify-center p-12">
+        <div className="flex flex-col h-full items-center justify-center p-5 md:p-12 md:px-[70px] lg:p-12">
           <div className="mb-10 text-center">
             <div className="mb-4 flex justify-center">
               <img src="/images/misc/logo.webp" alt="logo" />
