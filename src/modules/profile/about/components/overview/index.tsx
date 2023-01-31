@@ -78,14 +78,9 @@ const ProfileAbourOverview = () => {
             </div>
           </div> */}
           <div className="map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.281836240752!2d90.38529931534455!3d23.73732709519169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8c780d8921d%3A0x548a98b9b05efa42!2sM4YOURS%20IT!5e0!3m2!1sen!2sbd!4v1674807237847!5m2!1sen!2sbd"
-              width="728"
-              height="300"
-              className="border:0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            {parse(
+              userProfile?.gMapLink ? userProfile?.gMapLink : "<p>N/A</p>"
+            )}
           </div>
         </div>
       </div>
