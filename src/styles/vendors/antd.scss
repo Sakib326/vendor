@@ -24,3 +24,14 @@
   color: #fff !important;
   background-color: #ac224d !important;
 }
+
+// vendor profile dropdown
+
+.profile_dropdown ul {
+  min-width: 160px;
+}
+.profile_dropdown li {
+  &:hover {
+    background-color: #faf2f5 !important;
+  }
+}
