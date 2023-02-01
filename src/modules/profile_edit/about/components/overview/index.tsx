@@ -123,7 +123,7 @@ const ProfileEditOverview = () => {
           resetForm,
         }: any) => (
           <Form className="w-full">
-            <div className="grid grid-cols-[1fr]  gap-2 md:grid-cols-[110px_1fr] md:gap-[44px] mb-3">
+            <div className="grid grid-cols-[110px_1fr] gap-[44px] mb-3">
               <span>Avatar</span>
               <ImageInput
                 onChange={(e: any) => {
@@ -136,7 +136,7 @@ const ProfileEditOverview = () => {
                 }
               />
             </div>
-            <div className="grid grid-cols-1  gap-2 md:grid-cols-[110px_1fr] md:gap-[44px] mb-3">
+            <div className="grid grid-cols-[110px_1fr] gap-[44px] mb-3">
               <span>Banner</span>
               <ImageInput
                 onChange={(e: any) => {
@@ -149,9 +149,8 @@ const ProfileEditOverview = () => {
                 }
               />
             </div>
-
             <div className="col-span-2">
-              <div className="grid grid-cols-1  gap-2 md:grid-cols-[110px_1fr] md:gap-[44px]">
+              <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                 <label>Name</label>
                 <Field
                   type="text"
@@ -165,7 +164,7 @@ const ProfileEditOverview = () => {
                 ) : null}
               </div>
             </div>
-            <div className="grid grid-cols-1  gap-2 md:grid-cols-[110px_1fr] md:gap-[44px] mt-[10px]">
+            <div className=" grid grid-cols-[110px_1fr] gap-[44px] mt-[10px]">
               <span>Overview</span>
               <div className="input_wrapper">
                 <WinnersEditor
@@ -185,11 +184,10 @@ const ProfileEditOverview = () => {
                 />
               </div>
             </div>
-
             <div className="text-sm">
-              <div className="grid grid-cols-[1fr_1fr] gap-x-8 gap-y-5 mt-5">
-                <div className="col-span-2 md:col-span-1 ">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+              <div className="grid grid-cols-1 gap-x-8 gap-y-5 mt-5">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Mobile Number</label>
                     <Field
                       type="text"
@@ -204,29 +202,27 @@ const ProfileEditOverview = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="col-span-2 md:col-span-1 ">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Business Email</label>
-                    <div>
-                      <Field
-                        type="email"
-                        className={`form_control ${
-                          errors?.businessEmail &&
-                          touched?.businessEmail &&
-                          "error"
-                        }`}
-                        placeholder="Example: info@m4yours.com"
-                        name="businessEmail"
-                      />
-                      {errors?.businessEmail && touched?.businessEmail ? (
-                        <div className="error">{errors?.businessEmail}</div>
-                      ) : null}
-                    </div>
+                    <Field
+                      type="email"
+                      className={`form_control ${
+                        errors?.businessEmail &&
+                        touched?.businessEmail &&
+                        "error"
+                      }`}
+                      placeholder="Example: info@m4yours.com"
+                      name="businessEmail"
+                    />
+                    {errors?.businessEmail && touched?.businessEmail ? (
+                      <div className="error">{errors?.businessEmail}</div>
+                    ) : null}
                   </div>
                 </div>
 
-                <div className="col-span-2 md:col-span-1">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Website</label>
                     <Field
                       type="text"
@@ -242,8 +238,8 @@ const ProfileEditOverview = () => {
                   </div>
                 </div>
 
-                <div className="col-span-2 md:col-span-1">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Province</label>
                     <Select
                       value={
@@ -268,8 +264,8 @@ const ProfileEditOverview = () => {
                   </div>
                 </div>
 
-                <div className="col-span-2 md:col-span-1">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>City</label>
                     <Field
                       type="text"
@@ -279,8 +275,8 @@ const ProfileEditOverview = () => {
                     />
                   </div>
                 </div>
-                <div className="col-span-2 md:col-span-1">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Area</label>
                     <Field
                       type="text"
@@ -291,7 +287,7 @@ const ProfileEditOverview = () => {
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Landmark</label>
                     <Field
                       type="text"
@@ -302,7 +298,7 @@ const ProfileEditOverview = () => {
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>GMap Embed Code</label>
                     <Field
                       type="text"

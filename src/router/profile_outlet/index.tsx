@@ -101,146 +101,147 @@ export const ProfileOutlet = ({ type = "view" }) => {
             </div>
           </div>
         </div>
-
-        <nav className="mb-7">
-          <ul className="flex border-t border-b gap-[2px] overflow-auto whitespace-nowrap">
-            {type === "edit" ? (
-              <>
-                <li>
-                  <NavLink
-                    to="/profile/edit"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    About
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/settings"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Settings
-                  </NavLink>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <NavLink
-                    to="/profile/feed"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Feed
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/about"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    About
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/products"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Products
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/products/1"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Product Details
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/services"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Services
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile/campaigns"
-                    className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                    style={(navData: { isActive: boolean }) =>
-                      navData.isActive
-                        ? {
-                            color: "#AC224D",
-                            borderBottom: "2px solid #AC224D",
-                          }
-                        : undefined
-                    }
-                  >
-                    Campaigns
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-        </nav>
+        <div className="sticky top-[72px] md:top-[72px] bg-white z-[100] asdf">
+          <nav className="mb-7 ">
+            <ul className="flex border-t border-b gap-[2px] overflow-auto whitespace-nowrap asdf">
+              {type === "edit" ? (
+                <>
+                  <li>
+                    <NavLink
+                      to="/profile/edit"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      About
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/settings"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Settings
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <NavLink
+                      to="/profile/feed"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Feed
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/about"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      About
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/products"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Products
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/products/1"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Product Details
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/services"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Services
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/profile/campaigns"
+                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                      style={(navData: { isActive: boolean }) =>
+                        navData.isActive
+                          ? {
+                              color: "#AC224D",
+                              borderBottom: "2px solid #AC224D",
+                            }
+                          : undefined
+                      }
+                    >
+                      Campaigns
+                    </NavLink>
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
+        </div>
 
         <Outlet />
       </div>
