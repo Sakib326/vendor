@@ -1,47 +1,32 @@
-import { Form, message, Modal, Select, Spin } from "antd";
-import { HiPlus } from "react-icons/hi";
-import WinnersEditor from "../../../../@common/editor/bdwinners_editor";
-import { useState } from "react";
-import { InboxOutlined } from "@ant-design/icons";
+import { Form, message, Popconfirm, Select, Spin } from "antd";
 import { Field, Formik } from "formik";
+import { Fragment, useState } from "react";
+import { FiTrash } from "react-icons/fi";
+import { HiPlus } from "react-icons/hi";
 import { useSelector } from "react-redux";
-import ImageInput from "../../../../@common/image_input/Image_input";
+import * as Yup from "yup";
 import {
   useGetProfileQuery,
   useUpdateProfileMutation,
 } from "../../../../../redux/auth/auth_api";
-import * as Yup from "yup";
-import Dragger from "antd/es/upload/Dragger";
+import WinnersEditor from "../../../../@common/editor/bdwinners_editor";
+import ImageInput from "../../../../@common/image_input/Image_input";
 
 const ProfileEditOverview = () => {
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const [isProfileGet, setIsProfileGet] = useState(true);
-  const { data: profileData } = useGetProfileQuery("init", {
-    skip: isProfileGet,
-  });
+
+  const { data: profileData } = useGetProfileQuery({});
   const { user } = useSelector((state: any) => state.auth);
 
   const userProfile =
     user !== ""
       ? user
-      : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo;
+      : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo ?? {};
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   // Validation schema
   const validationSchema = Yup.object().shape({
     businessName: Yup.string()
@@ -66,7 +51,59 @@ const ProfileEditOverview = () => {
       )
       .nullable(),
   });
+  let mediaNameSelectOptions = [
+    {
+      label: "Facebook",
+      mediaName: "Facebook",
+    },
+    {
+      label: "Linkedin",
+      mediaName: "Linkedin",
+    },
+    {
+      label: "Twitter",
+      mediaName: "Twitter",
+    },
+    {
+      label: "Youtube",
+      mediaName: "Youtube",
+    },
+  ];
+  const createTuitionOptions = (data: any, mediaNameValue = false) => {
+    let exist =
+      data && data.length > 0 ? data.map((item: any) => item.label) : [];
+
+    if (mediaNameSelectOptions && mediaNameSelectOptions.length > 0) {
+      let mediaNameSelect = [{ label: "Select...", value: "" }];
+
+      if (mediaNameValue) {
+        const existItem = mediaNameSelectOptions.filter(
+          (exitem: any) => exitem.mediaName == mediaNameValue
+        )[0];
+        if (existItem && existItem.mediaName != "") {
+          mediaNameSelect.push({
+            label: existItem.label,
+            value: existItem.mediaName,
+          });
+        }
+      }
+
+      mediaNameSelectOptions.map((item) => {
+        if (exist && !exist.includes(item.mediaName)) {
+          mediaNameSelect.push({
+            label: item.label,
+            value: item.mediaName,
+          });
+        }
+      });
+
+      return mediaNameSelect;
+    }
+  };
   const updateProfileData = async (values: any) => {
+    console.log(values);
+    // return;
+
     const formArray = new FormData();
 
     formArray.append("website", values?.website);
@@ -79,15 +116,23 @@ const ProfileEditOverview = () => {
     formArray.append("city", values?.city);
     formArray.append("area", values?.area);
     formArray.append("landmark", values?.landmark);
-    // if (values?.hobbies?.length > 0) {
-    //   values?.hobbies?.map((e: any) => {
-    //     formArray.append("hobbies[]", e);
-    //   });
-    // }
-    if (values.logo && values?.logo !== "") {
+    if (values?.socialLinks?.length > 0) {
+      values?.socialLinks?.map((e: any, index: any) => {
+        formArray.append(`socialLinks[${index}]`, JSON?.stringify(e));
+      });
+    }
+    if (
+      values.logo &&
+      values?.logo !== "" &&
+      typeof values?.logo !== "string"
+    ) {
       formArray.append("logo", values.logo);
     }
-    if (values.banner && values?.banner !== "") {
+    if (
+      values.banner &&
+      values?.banner !== "" &&
+      typeof values?.banner! == "string"
+    ) {
       formArray.append("banner", values.banner);
     }
     await updateProfile(formArray).then((res: any) => {
@@ -101,6 +146,30 @@ const ProfileEditOverview = () => {
         );
       }
     });
+  };
+  const addMediaItem = (values: any, setFieldValue: any) => {
+    setFieldValue("socialLinks", [
+      ...values.socialLinks,
+      {
+        label: "",
+        value: "",
+      },
+    ]);
+  };
+  //remove item
+  const removeMediaItem = (index: any, values: any, setFieldValue: any) => {
+    let NewLinks = [...values.socialLinks];
+    NewLinks.splice(index, 1);
+    setFieldValue("socialLinks", NewLinks);
+  };
+  //handle media
+  const handleSocialMedia = (
+    name: any,
+    value: any,
+    index: any,
+    setFieldValue: any
+  ) => {
+    setFieldValue(`socialLinks.${index}.${name}`, value);
   };
   return (
     <div>
@@ -313,44 +382,112 @@ const ProfileEditOverview = () => {
                   </div>
                 </div>
 
-                {/* <div className="grid grid-cols-[110px_1fr] gap-[44px]">
-                  <label className="mt-2">Category</label>
-                  <div className="flex justify-center gap-[15px]">
-                    <div>
-                      <Select
-                        className="form_control_select w-full"
-                        onChange={handleChange}
-                        options={[
-                          { value: "Edu Tech", label: "Edu Tech" },
-                          { value: "Service", label: "Service" },
-                          { value: "Manufacturing", label: "Manufacturing" },
-                        ]}
-                        placeholder="Select a category"
-                      />
-                      <button
-                        onClick={showModal}
-                        type="button"
-                        className="btn btn-secondary mt-3 px-2 py-1.5 text-xs"
-                      >
-                        <HiPlus />
-                        <span>Add More</span>
-                      </button>
+                <div className="col-span-2">
+                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[110px_1fr] lg:gap-[44px]">
+                    <label>Social</label>
+                    {/* repeatable fields wrapper */}
+                    <div className="grid gap-5">
+                      {values.socialLinks &&
+                        values.socialLinks.length > 0 &&
+                        values.socialLinks.map((item: any, index: any) => {
+                          //set value in variable
+                          const socialLinksValue =
+                            values.socialLinks && values.socialLinks[index]
+                              ? values.socialLinks[index]?.label
+                              : undefined;
+                          let socialMediaNameSelect =
+                            createTuitionOptions(
+                              values.socialLinks,
+                              item?.mediaName
+                            ) ?? [];
+
+                          return (
+                            <Fragment key={`social_${index}`}>
+                              {/* repeatable fields */}
+                              <div className="grid grid-cols-[1fr_auto] gap-3 items-center">
+                                <div className="grid grid-cols-[1fr_1fr] gap-7">
+                                  <div className="grid grid-cols-[40px_1fr] gap-[44px] items-center">
+                                    <label>Media</label>
+                                    <Select
+                                      value={socialLinksValue}
+                                      placeholder="Select Province"
+                                      className="form_control_select"
+                                      onChange={(e) => {
+                                        handleSocialMedia(
+                                          "label",
+                                          e,
+                                          index,
+                                          setFieldValue
+                                        );
+                                      }}
+                                      options={socialMediaNameSelect}
+                                    />
+                                  </div>
+                                  <div className="grid grid-cols-[40px_1fr] gap-[44px] items-center">
+                                    <label>Username</label>
+                                    <Field
+                                      type="text"
+                                      className="form_control"
+                                      placeholder="Example: johndoe"
+                                      value={
+                                        values.socialLinks &&
+                                        values.socialLinks[index]
+                                          ? values.socialLinks[index]?.value
+                                          : undefined
+                                      }
+                                      name="value"
+                                      onChange={(e: any) => {
+                                        handleSocialMedia(
+                                          "value",
+                                          e?.target?.value,
+                                          index,
+                                          setFieldValue
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                                {index > 0 && (
+                                  <Popconfirm
+                                    placement="right"
+                                    title="Are you sure to delete this ?"
+                                    description="Delete the media"
+                                    onConfirm={(e) => {
+                                      removeMediaItem(
+                                        index,
+                                        values,
+                                        setFieldValue
+                                      );
+                                    }}
+                                    okText="Yes"
+                                    cancelText="No"
+                                  >
+                                    <button className="hover:text-primary transition-all">
+                                      <FiTrash />
+                                    </button>
+                                  </Popconfirm>
+                                )}
+                              </div>
+                            </Fragment>
+                          );
+                        })}
                     </div>
-                    <div className="w-full">
-                      <Select
-                        className="form_control_select w-full"
-                        onChange={handleChange}
-                        options={[
-                          { value: "instagram", label: "Instagram" },
-                          { value: "facebook", label: "Facebook" },
-                          { value: "whatsapp", label: "Whatsapp" },
-                        ]}
-                        placeholder="Instagram"
-                      />
-                    </div>
+                    {/* repeatable fields wrapper end */}
                   </div>
-                </div> */}
+                </div>
               </div>
+              {values?.socialLinks?.length < 4 && (
+                <div className="flex  justify-end ">
+                  <button
+                    onClick={(e) => addMediaItem(values, setFieldValue)}
+                    type="button"
+                    className="btn btn-secondary mt-3 px-2 py-1.5 text-xs "
+                  >
+                    <HiPlus />
+                    <span>Add More</span>
+                  </button>
+                </div>
+              )}
               <div className="flex items-center gap-3 mt-[30px]">
                 <button
                   type="button"
@@ -373,77 +510,6 @@ const ProfileEditOverview = () => {
           </Form>
         )}
       </Formik>
-      {/* <Modal
-        footer={null}
-        title={<div className="text-black ml-1">Create New Category</div>}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        wrapClassName="bg-red"
-      >
-        <div className="mt-4 p-2">
-          <form action="#" className="w-full">
-            <div className="grid gap-5">
-              <div>
-                <label className="mb-1">Title</label>
-                <input
-                  type="text"
-                  className="form_control"
-                  placeholder="Title"
-                />
-              </div>
-
-              <div>
-                <label className="mb-1">Icon</label>
-                <div className="flex flex-col justify-center items-center border-[1px] border-[#EEEEEE] hover:border-[#AC224D] transition-all py-[27px] rounded-[6px]">
-                  <p className="text-[48px]">
-                    <InboxOutlined />
-                  </p>
-                  <div className="max-w-[290px] w-full mx-auto">
-                    <p className="text-center text-base text-[#181B31] font-medium mb-[10px]">
-                      Click or drag file to this area to upload
-                    </p>
-                    <p className=" text-center text-[12px]">
-                      Support for a single or bulk upload. Strictly prohibit
-                      from uploading company data or other band files
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className="mb-1">Icon</label>
-                <div>
-                  <Dragger >
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
-                    <p className="ant-upload-text">
-                      Click or drag file to this area to upload
-                    </p>
-                    <p className="ant-upload-hint">
-                      Support for a single or bulk upload. Strictly prohibit
-                      from uploading company data or other band files
-                    </p>
-                  </Dragger>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 mt-5">
-              <button type="submit" className="btn btn-primary">
-                Create
-              </button>
-              <button
-                onClick={handleCancel}
-                type="button"
-                className="btn btn-grey"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal> */}
     </div>
   );
 };

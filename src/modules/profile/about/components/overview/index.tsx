@@ -1,4 +1,11 @@
-import { FiFacebook, FiInstagram, FiYoutube } from "react-icons/fi";
+import {
+  FiFacebook,
+  FiInstagram,
+  FiLink,
+  FiLinkedin,
+  FiTwitter,
+  FiYoutube,
+} from "react-icons/fi";
 import { ImPinterest2 } from "react-icons/im";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
@@ -84,29 +91,58 @@ const ProfileAbourOverview = () => {
           </div>
         </div>
       </div>
-      {/* <div className="mt-[30px]">
+      <div className="mt-[30px]">
         <div className="border-b border-t">
           <h4 className="py-[15px]  text-lg font-medium">Social Media Links</h4>
         </div>
         <div className="grid gap-3 mt-[15px]">
-          <a href="#" className="flex gap-2 items-center">
-            <ImPinterest2 />
-            <span className="text-black">www.pinterest.com</span>
-          </a>
-          <a href="#" className="flex gap-2 items-center">
-            <FiFacebook />
-            <span className="text-black">www.facebook.com</span>
-          </a>
-          <a href="#" className="flex gap-2 items-center">
-            <FiInstagram />
-            <span className="text-black">www.instagram.com</span>
-          </a>
-          <a href="#" className="flex gap-2 items-center">
-            <FiYoutube />
-            <span className="text-black">www.youtube.com</span>
-          </a>
+          {userProfile?.socialLinks &&
+            userProfile?.socialLinks.length > 0 &&
+            userProfile?.socialLinks.map((e: any, i: any) => {
+              return (
+                <a
+                  href={`${
+                    e?.label === "Facebook"
+                      ? "https://fb.com"
+                      : e?.label === "Linkedin"
+                      ? "https://linkedin.com/in"
+                      : e?.label === "Twitter"
+                      ? "https://twitter.com"
+                      : e?.label === "Youtube"
+                      ? "https://www.youtube.com"
+                      : "/"
+                  }/${e?.value}`}
+                  target="_blank"
+                  key={i}
+                  className="flex gap-2 items-center"
+                >
+                  {e?.label === "Facebook" ? (
+                    <FiFacebook />
+                  ) : e?.label === "Linkedin" ? (
+                    <FiLinkedin />
+                  ) : e?.label === "Twitter" ? (
+                    <FiTwitter />
+                  ) : e?.label === "Youtube" ? (
+                    <FiYoutube />
+                  ) : (
+                    <FiLink />
+                  )}
+                  <span className="text-black">{`${
+                    e?.label === "Facebook"
+                      ? "https://fb.com"
+                      : e?.label === "Linkedin"
+                      ? "https://linkedin.com/in"
+                      : e?.label === "Twitter"
+                      ? "https://twitter.com"
+                      : e?.label === "Youtube"
+                      ? "https://www.youtube.com"
+                      : "/"
+                  }/${e?.value}`}</span>
+                </a>
+              );
+            })}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -10,12 +10,19 @@ import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
 import { useSignOutMutation } from "../../../redux/auth/auth_api";
 import { IoIosLogOut } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 type headerProps = {
   handleOpen?: any;
 };
 
 const Header = ({ handleOpen }: headerProps) => {
+  const { user } = useSelector((state: any) => state.auth);
+
+  const userProfile =
+    user !== ""
+      ? user
+      : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo ?? {};
   const [signOut] = useSignOutMutation();
   const navigate = useNavigate();
   const logOut = async () => {
@@ -90,7 +97,7 @@ const Header = ({ handleOpen }: headerProps) => {
       </div>
 
       <div className="flex items-center gap-3 ">
-        <MdNotifications className="text-white text-2xl	" />
+        {/* <MdNotifications className="text-white text-2xl	" /> */}
 
         <Dropdown
           menu={{ items }}
@@ -101,8 +108,13 @@ const Header = ({ handleOpen }: headerProps) => {
             <Space>
               <div className="w-[40px] h-[40px]">
                 <img
+                  crossOrigin="anonymous"
                   className="w-full h-full object-cover rounded-full"
-                  src="https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+                  src={
+                    userProfile?.logo !== "" && userProfile?.logo
+                      ? `${import.meta.env.VITE_API_URL}/${userProfile?.logo}`
+                      : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+                  }
                   alt="user"
                 />
               </div>

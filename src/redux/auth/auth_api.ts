@@ -147,10 +147,7 @@ export const authApi = apiSlice.injectEndpoints({
                 res?.data?.gMapLink !== null && res?.data?.gMapLink
                   ? res?.data?.gMapLink
                   : "",
-              socialLinks:
-                res?.data?.socialLinks !== null && res?.data?.socialLinks
-                  ? res?.data?.socialLinks
-                  : "",
+
               logo:
                 res?.data?.logo !== null && res?.data?.logo
                   ? res?.data?.logo
@@ -190,13 +187,29 @@ export const authApi = apiSlice.injectEndpoints({
                   ? res?.data?.roleId
                   : undefined,
             };
+            const socialLinks = [];
+            if (res?.data?.socialLinks?.length > 0) {
+              res?.data?.socialLinks?.map((e: any, index: any) => {
+                socialLinks.push(JSON?.parse(e));
+              });
+            } else {
+              socialLinks.push({
+                label: "",
+                value: "",
+              });
+            }
+            const profileForEdit = {
+              ...formattedProfile,
+              socialLinks,
+            };
+
             localStorage.setItem(
               "profileInfo",
               JSON.stringify({
-                profileInfo: formattedProfile,
+                profileInfo: profileForEdit,
               })
             );
-            dispatch(setUser(formattedProfile));
+            dispatch(setUser(profileForEdit));
           });
         } catch (error) {}
       },
@@ -211,6 +224,7 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           localStorage.removeItem("auth");
+          localStorage.removeItem("profileInfo");
           dispatch(onSignOutSuccess());
           dispatch(setUser(userInit));
           window.location.href = "http://www.w3schools.com";

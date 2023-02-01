@@ -1,6 +1,13 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { ImPinterest2 } from "react-icons/im";
-import { FiFacebook, FiInstagram, FiYoutube } from "react-icons/fi";
+import {
+  FiFacebook,
+  FiInstagram,
+  FiLink,
+  FiLinkedin,
+  FiTwitter,
+  FiYoutube,
+} from "react-icons/fi";
 import { BiEdit } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
@@ -45,7 +52,11 @@ export const ProfileOutlet = ({ type = "view" }) => {
           </div>
           <div className="self-end flex flex-col gap-3 md:flex-row justify-between items-center">
             <div className="left">
-              <div className="text-black font-semibold text-3xl">Unisearch</div>
+              <div className="text-black font-semibold text-3xl">
+                {userProfile?.businessName !== "" && userProfile?.businessName
+                  ? userProfile?.businessName
+                  : "N/A"}
+              </div>
               <a
                 href={`${
                   userProfile?.website !== "" && userProfile?.website
@@ -74,30 +85,46 @@ export const ProfileOutlet = ({ type = "view" }) => {
                 )}
               </div>
 
-              {/* {type === "view" && (
-                <ul className="flex items-center gap-5">
-                  <li className="ml-auto">
-                    <a href="#">
-                      <FiFacebook />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <FiYoutube />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <ImPinterest2 />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <FiInstagram />
-                    </a>
-                  </li>
-                </ul>
-              )} */}
+              {type === "view" && (
+                <div>
+                  <ul className="flex items-center gap-5">
+                    {userProfile?.socialLinks &&
+                      userProfile?.socialLinks.length > 0 &&
+                      userProfile?.socialLinks.map((e: any, i: any) => {
+                        return (
+                          <li className="ml-auto" key={i}>
+                            <a
+                              href={`${
+                                e?.label === "Facebook"
+                                  ? "https://fb.com"
+                                  : e?.label === "Linkedin"
+                                  ? "https://linkedin.com/in"
+                                  : e?.label === "Twitter"
+                                  ? "https://twitter.com"
+                                  : e?.label === "Youtube"
+                                  ? "https://www.youtube.com"
+                                  : "/"
+                              }/${e?.value}`}
+                              target="_blank"
+                            >
+                              {e?.label === "Facebook" ? (
+                                <FiFacebook />
+                              ) : e?.label === "Linkedin" ? (
+                                <FiLinkedin />
+                              ) : e?.label === "Twitter" ? (
+                                <FiTwitter />
+                              ) : e?.label === "Youtube" ? (
+                                <FiYoutube />
+                              ) : (
+                                <FiLink />
+                              )}
+                            </a>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
