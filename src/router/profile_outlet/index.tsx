@@ -13,7 +13,7 @@ export const ProfileOutlet = ({ type = "view" }) => {
       : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo;
   return (
     <div className="pb-[80px]">
-      <div className="h-[320px] max-w-[1270px] mx-auto w-full">
+      <div className="h-[280px] lg:h-[320px] max-w-[1270px] mx-auto w-full">
         <img
           crossOrigin="anonymous"
           src={
@@ -25,11 +25,11 @@ export const ProfileOutlet = ({ type = "view" }) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="max-w-[1234px] w-full mx-auto px-8">
-        <div className="grid geid-cols-1 md:grid-cols-[160px_1fr] mt-[-55px] gap-5 mb-4">
+      <div className="max-w-[1234px] w-full mx-auto px-5 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] mt-[-55px] gap-1 lg:gap-4 mb-4">
           <div className="flex justify-center">
             <div className="bg-white border-[3px] border-[#fff] rounded-full">
-              <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center">
+              <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center overflow-hidden">
                 <img
                   crossOrigin="anonymous"
                   src={
