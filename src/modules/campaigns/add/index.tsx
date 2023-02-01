@@ -45,6 +45,7 @@ const CampaignAdd = () => {
       console.log("Clear");
     }
   };
+
   const disabledDate: RangePickerProps["disabledDate"] = (current) => {
     // Can not select days before today and today
     return current && current < dayjs().endOf("day");
@@ -76,12 +77,20 @@ const CampaignAdd = () => {
   };
   const handleCampaign = async (values: any) => {
     const formArray = new FormData();
-    if (values.promotionValue && values?.promotionType !== "IMAGE") {
+    if (
+      values.promotionValue &&
+      values?.promotionType !== "IMAGE" &&
+      values?.promotionValue !== undefined
+    ) {
       formArray.append("promotionValue", values.promotionValue);
-    } else {
+    } else if (
+      values.promotionValue &&
+      values?.promotionType === "IMAGE" &&
+      values?.promotionFile
+    ) {
       formArray.append("promotionValue", values.promotionFile);
     }
-    if (values.thumbnail) {
+    if (values.thumbnail && values?.thumbnailType) {
       formArray.append("thumbnail", values.thumbnail);
     }
     formArray.append("name", values.name);
@@ -92,6 +101,7 @@ const CampaignAdd = () => {
     formArray.append("giftValue", values?.giftValue);
     formArray.append("winnerCount", values?.winnerCount);
     formArray.append("promotionType", values?.promotionType);
+    formArray.append("drawTime", values?.drawTime);
     if (id) {
       await updateCampaign({ data: formArray, id: id }).then((res: any) => {
         if (!res?.error) {
@@ -106,6 +116,7 @@ const CampaignAdd = () => {
     } else {
       await addCampaign(formArray).then((res: any) => {
         if (!res?.error) {
+          navigate("/campaigns/list");
           message.success("Campaign created & submitted for review");
         } else {
           message.error(
@@ -194,8 +205,8 @@ const CampaignAdd = () => {
                             Brand Awarness
                           </div>
                           <div>
-                            Lorem ipsum dolor sit amet consectetur. Ligula
-                            commodo tempor.
+                            Generate positive media coverage for your brand to
+                            increase brand recognition and awareness.
                           </div>
                         </div>
                       </label>
@@ -229,8 +240,9 @@ const CampaignAdd = () => {
                             Website Promotion
                           </div>
                           <div>
-                            Lorem ipsum dolor sit amet consectetur. Ligula
-                            commodo tempor.
+                            A Website Promotion campaign is a marketing effort
+                            aimed at increasing traffic to a specific your
+                            website.
                           </div>
                         </div>
                       </label>
@@ -274,24 +286,27 @@ const CampaignAdd = () => {
                     </div>
                     <ol className="list-decimal	pl-4 pt-4 flex flex-col gap-2 ">
                       <li className="text-[#808291] text-[14px]">
-                        Lorem ipsum dolor sit amet consectetur. Mollis integer
-                        condimentum blandit.
+                        This campaign is open to all individuals who are at
+                        least 8 years of age and reside in the eligible country.
+                        Employees of the company and their immediate families
+                        are not eligible to participate.
                       </li>
                       <li className="text-[#808291] text-[14px]">
-                        Lorem ipsum dolor sit amet consectetur. Mollis integer
-                        condimentum blandit.
+                        Participants agree not to submit any content that is
+                        offensive, defamatory, abusive, hateful, sexually
+                        explicit, or otherwise inappropriate or that infringes
+                        the rights of any third party. The company reserves the
+                        right to remove any such content and disqualify any
+                        participant who breaches this requirement.
                       </li>
                       <li className="text-[#808291] text-[14px]">
-                        Lorem ipsum dolor sit amet consectetur. Mollis integer
-                        condimentum blandit.
-                      </li>
-                      <li className="text-[#808291] text-[14px]">
-                        Lorem ipsum dolor sit amet consectetur. Mollis integer
-                        condimentum blandit.
-                      </li>
-                      <li className="text-[#808291] text-[14px]">
-                        Lorem ipsum dolor sit amet consectetur. Mollis integer
-                        condimentum blandit.
+                        The company reserves the right to modify or cancel the
+                        campaign at any time. By participating in the campaign,
+                        participants agree to be bound by these terms and
+                        conditions and the decisions of the company. The company
+                        is not responsible for lost, late, or misdirected
+                        entries or for any technical or human error that may
+                        occur in the administration of the campaign.
                       </li>
                     </ol>
                   </div>
@@ -333,6 +348,38 @@ const CampaignAdd = () => {
                         ) : null}
                       </div>
                     </div>
+                    <div className="grid grid-cols-[120px_1fr]">
+                      <label className="mt-2">
+                        <span>
+                          Draw <span className="text-danger">*</span>
+                        </span>
+                        <br />(<span className="text-[11px]">Date & Time</span>)
+                      </label>
+                      <div>
+                        <DatePicker
+                          format="YYYY-MM-DD HH:mm:ss"
+                          disabledDate={(current) => {
+                            let customDate = moment(values?.endDate).format(
+                              "YYYY-MM-DD"
+                            );
+                            return (
+                              current &&
+                              current < moment(customDate, "YYYY-MM-DD")
+                            );
+                          }}
+                          value={dayjs(
+                            new Date(values?.drawTime ?? values?.endDate)
+                          )}
+                          className="text-sm bg-[#f9f9f9] border-[#f9f9f9]"
+                          showTime={{
+                            defaultValue: dayjs("00:00:00", "HH:mm:ss"),
+                          }}
+                          onChange={(e: any) => {
+                            setFieldValue("drawTime", moment(e?.$d).format());
+                          }}
+                        />
+                      </div>
+                    </div>
 
                     <div className="grid grid-cols-[120px_1fr]">
                       <label className="mt-2">
@@ -359,9 +406,10 @@ const CampaignAdd = () => {
                       <label className="mt-2">Thumbnail</label>
                       <div>
                         <ImageInput
-                          onChange={(e: any) =>
-                            setFieldValue("thumbnail", e?.file)
-                          }
+                          onChange={(e: any) => {
+                            setFieldValue("thumbnail", e?.file);
+                            setFieldValue("thumbnailType", e?.type);
+                          }}
                           imageSource={
                             values?.thumbnail
                               ? `${import.meta.env.VITE_API_URL}/${

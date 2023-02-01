@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { Tabs, Table } from "antd";
 import type { TabsProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { RiHandCoinLine } from "react-icons/ri";
 import { IoPodiumOutline } from "react-icons/io5";
+import { useGetSingleCampaignQuery } from "../../../redux/campaign/campaign_api";
+import parse from "html-react-parser";
+import { useState } from "react";
 
 const onChange = (key: string) => {
   console.log(key);
 };
+const [pageSize, setPageSize] = useState(10);
+const [currentPage, setCurrentPage] = useState(1);
+const { id } = useParams();
+const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`);
 
 interface DataType {
   key: string;
@@ -304,10 +311,21 @@ const DataTable = ({ data, winner }: any) => (
     rowClassName={(record, index) =>
       index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
     }
+    pagination={{
+      defaultPageSize: 10,
+      showSizeChanger: true,
+      pageSizeOptions: ["10", "20", "30"],
+      total: 1000,
+    }}
+    onChange={(e: any) => {
+      console.log(e);
+    }}
   />
 );
 
 export const CampaignDetails = () => {
+  const [showMore, setShowMore] = useState(false);
+  const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`);
   const items: TabsProps["items"] = [
     {
       key: "2",
@@ -342,12 +360,13 @@ export const CampaignDetails = () => {
                 <img src="/temp/campaign-unisearch.webp" alt="campaign" />
               </div>
               <div className="text-xl text-black font-medium mb-5 text-center">
-                This is campaign title sit amet consectetur. Mollis integer
-                condim entum blandit.
+                {singleCampaign?.name && singleCampaign?.name !== null
+                  ? singleCampaign?.name
+                  : "N/A"}
               </div>
-              <div className="mb-7 flex justify-center">
+              {/* <div className="mb-7 flex justify-center">
                 <img src="/temp/logo-unisearch.webp" alt="logo" />
-              </div>
+              </div> */}
 
               <div className="mb-5 flex flex-wrap	justify-center gap-x-8 gap-y-6 text-left">
                 <div className="grid grid-cols-[44px_1fr] gap-4">
@@ -356,12 +375,15 @@ export const CampaignDetails = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-3xl text-black font-semibold">
-                      1.23k
+                      {singleCampaign?.totalParticipants &&
+                      singleCampaign?.totalParticipants !== null
+                        ? singleCampaign?.totalParticipants
+                        : "N/A"}
                     </span>
                     <span>Total Take</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-[44px_1fr] gap-4">
+                {/* <div className="grid grid-cols-[44px_1fr] gap-4">
                   <div className="flex items-center justify-center bg-tertiary w-[44px] h-[44px] rounded">
                     <ReactSVG src="/icons/podium-red.svg" />
                   </div>
@@ -371,8 +393,8 @@ export const CampaignDetails = () => {
                     </span>
                     <span>Total Winners</span>
                   </div>
-                </div>
-                <div className="grid grid-cols-[44px_1fr] gap-4">
+                </div> */}
+                {/* <div className="grid grid-cols-[44px_1fr] gap-4">
                   <div className="flex items-center justify-center bg-tertiary w-[44px] h-[44px] rounded">
                     <ReactSVG src="/icons/eye-red.svg" />
                   </div>
@@ -382,7 +404,7 @@ export const CampaignDetails = () => {
                     </span>
                     <span>Total Impression</span>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* details */}
@@ -393,21 +415,55 @@ export const CampaignDetails = () => {
                 <ul className="flex flex-col gap-1">
                   <li className="flex gap-1">
                     <span className="font-medium">Type:</span>
-                    <span>Brand Awareness</span>
+                    <span>
+                      {singleCampaign?.type && singleCampaign?.type !== null
+                        ? singleCampaign?.type
+                        : "N/A"}
+                    </span>
                   </li>
                   <li className="flex gap-1">
                     <span className="font-medium">Start Date:</span>
-                    <span>21/1/2023</span>
+                    <span>
+                      {singleCampaign?.startDate &&
+                      singleCampaign?.startDate !== null
+                        ? singleCampaign?.startDate
+                        : "N/A"}
+                    </span>
                   </li>
                   <li className="flex gap-1">
                     <span className="font-medium">End Date:</span>
-                    <span>22/02/2023</span>
+                    <span>
+                      {singleCampaign?.endDate &&
+                      singleCampaign?.endDate !== null
+                        ? singleCampaign?.endDate
+                        : "N/A"}
+                    </span>
                   </li>
                   <li className="flex gap-1">
                     <span className="font-medium">Status:</span>
-                    <div className="text-[#28C76F] bg-[#28776f29] text-sm px-3 py-1 text-center rounded  w-max font-semibold">
-                      Complete
-                    </div>
+                    {(singleCampaign?.status === "Pending" ||
+                      singleCampaign?.status === "Review") && (
+                      <div className="text-[#FFA800] bg-[#f9ebd1] text-sm px-3 py-1 text-center rounded w-max">
+                        {singleCampaign?.status}
+                      </div>
+                    )}
+                    {(singleCampaign?.status === "Published" ||
+                      singleCampaign?.status === "Selection") && (
+                      <div className="text-[#7367F0] bg-[#e9e7fd] text-sm px-3 py-1 text-center rounded  w-max">
+                        {singleCampaign?.status}
+                      </div>
+                    )}
+                    {singleCampaign?.status === "Completed" && (
+                      <div className="text-[#28C76F] bg-[#e7f0e3] text-sm px-3 py-1 text-center rounded  w-max">
+                        {singleCampaign?.status}
+                      </div>
+                    )}
+                    {(singleCampaign?.status === "Rejected" ||
+                      singleCampaign?.status === "Blocked") && (
+                      <div className="text-red-700 bg-red-100 text-sm px-3 py-1 text-center rounded  w-max">
+                        {singleCampaign?.status}
+                      </div>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -417,11 +473,25 @@ export const CampaignDetails = () => {
                   Description
                 </div>
                 <div>
-                  We are looking for a senior software engineer having
-                  professional experience and deep knowledge of JavaScript,
-                  Node.js, and web application development services (backend
-                  frameworks like nest.js, adonis.js, and server side
-                  application frameworks like nextjs). See More
+                  {showMore
+                    ? parse(
+                        singleCampaign?.description &&
+                          singleCampaign?.description !== null
+                          ? singleCampaign?.description
+                          : "<p>N/A</p>"
+                      )
+                    : parse(
+                        singleCampaign?.description &&
+                          singleCampaign?.description !== null
+                          ? singleCampaign?.description.substring(0, 250)
+                          : "<p>N/A</p>"
+                      )}
+                  <span
+                    className="cursor-pointer text-primary"
+                    onClick={() => setShowMore(!showMore)}
+                  >
+                    {showMore ? "Show less" : "Show more"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -429,7 +499,7 @@ export const CampaignDetails = () => {
 
           <div>
             {/* table */}
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+            <Tabs defaultActiveKey="2" items={items} onChange={onChange} />
           </div>
         </div>
       </div>

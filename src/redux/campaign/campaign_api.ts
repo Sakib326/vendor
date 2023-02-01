@@ -34,6 +34,10 @@ export const campaignApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["campaign"],
     }),
+    getAllTakerList: build.query<any, void>({
+      query: ({ id, pageSize, currentPage }: any) =>
+        `/campaign/vendor/get-take-list?limit=${pageSize}&page=${currentPage}`,
+    }),
   }),
 });
 
@@ -43,4 +47,5 @@ export const {
   useDeleteCampaignMutation,
   useGetSingleCampaignQuery,
   useUpdateCampaignMutation,
+  useGetAllTakerListQuery,
 } = campaignApi;

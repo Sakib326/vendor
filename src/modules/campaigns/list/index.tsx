@@ -1,4 +1,4 @@
-import { message, Popconfirm, Table } from "antd";
+import { message, Popconfirm, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
@@ -10,7 +10,8 @@ import {
 } from "../../../redux/campaign/campaign_api";
 
 export const CampaignList = () => {
-  const { data: campaignList } = useGetAllCampaignQuery<any>({});
+  const { data: campaignList, isLoading: dataLoading } =
+    useGetAllCampaignQuery<any>({});
   const [deleteCampaign, { isLoading }] = useDeleteCampaignMutation();
   const onDeleteClick = (id: any) => {
     deleteCampaign({ id: id }).then((res: any) => {
@@ -55,30 +56,35 @@ export const CampaignList = () => {
     //   dataIndex: "impression",
     //   key: "impression",
     // },
-    // {
-    //   title: "Take",
-    //   dataIndex: "totalTake",
-    //   key: "totalTake",
-    // },
+    {
+      title: "Take",
+      dataIndex: "totalParticipants",
+      key: "totalParticipants",
+    },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       render: (_: any, col: any) => (
         <>
-          {col?.status === "DRAFT" && (
+          {(col?.status === "Pending" || col?.status === "Review") && (
             <div className="text-[#FFA800] bg-[#f9ebd1] text-sm px-3 py-1 text-center rounded w-max">
-              Draft
+              {col?.status}
             </div>
           )}
-          {col?.status === "ACTIVE" && (
+          {(col?.status === "Published" || col?.status === "Selection") && (
             <div className="text-[#7367F0] bg-[#e9e7fd] text-sm px-3 py-1 text-center rounded  w-max">
-              Active
+              {col?.status}
             </div>
           )}
-          {col?.status === "complete" && (
+          {col?.status === "Completed" && (
             <div className="text-[#28C76F] bg-[#e7f0e3] text-sm px-3 py-1 text-center rounded  w-max">
-              Complete
+              {col?.status}
+            </div>
+          )}
+          {(col?.status === "Rejected" || col?.status === "Blocked") && (
+            <div className="text-red-700 bg-red-100 text-sm px-3 py-1 text-center rounded  w-max">
+              {col?.status}
             </div>
           )}
         </>
@@ -92,7 +98,7 @@ export const CampaignList = () => {
         <>
           <div className="flex items-center">
             <Link
-              to="/campaigns/1"
+              to={`/campaigns/${col?.uuid}`}
               className="hover:text-primary transition-all p-1"
             >
               <FiEye />
@@ -153,6 +159,7 @@ export const CampaignList = () => {
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
             }
             rowKey="id"
+            loading={dataLoading}
           />
         </div>
       </div>

@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useGetAllCampaignQuery } from "../../../redux/campaign/campaign_api";
 import CountdownTimer from "../../@common/countdown_timer";
 
 export const ProfileCampaigns = () => {
+  const { data: campaignList, isLoading: dataLoading } =
+    useGetAllCampaignQuery<any>({});
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
