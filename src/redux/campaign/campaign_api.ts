@@ -11,7 +11,7 @@ export const campaignApi = apiSlice.injectEndpoints({
       invalidatesTags: ["campaign"],
     }),
     getAllCampaign: build.query({
-      query: () => "/campaign/get-all",
+      query: () => "/campaign/get-all?limit=2000&page=1",
       providesTags: ["campaign"],
     }),
     deleteCampaign: build.mutation({

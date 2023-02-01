@@ -12,10 +12,6 @@ import { useState } from "react";
 const onChange = (key: string) => {
   console.log(key);
 };
-const [pageSize, setPageSize] = useState(10);
-const [currentPage, setCurrentPage] = useState(1);
-const { id } = useParams();
-const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`);
 
 interface DataType {
   key: string;
@@ -324,8 +320,11 @@ const DataTable = ({ data, winner }: any) => (
 );
 
 export const CampaignDetails = () => {
-  const [showMore, setShowMore] = useState(false);
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { id } = useParams();
   const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`);
+  const [showMore, setShowMore] = useState(false);
   const items: TabsProps["items"] = [
     {
       key: "2",

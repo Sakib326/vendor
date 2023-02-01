@@ -18,7 +18,7 @@ interface DataTypeWinners {
 }
 
 export const ProductList = () => {
-  const { data: allProductList } = useGetAllProductQuery<any>({});
+  const { data: allProductList, isLoading } = useGetAllProductQuery<any>({});
   const [deleteProduct] = useDeleteProductMutation();
   const onDeleteClick = (id: any) => {
     deleteProduct({ id: id }).then((res: any) => {
@@ -117,6 +117,7 @@ export const ProductList = () => {
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
             }
             rowKey="id"
+            loading={isLoading}
           />
         </div>
       </div>

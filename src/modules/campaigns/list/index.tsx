@@ -46,16 +46,11 @@ export const CampaignList = () => {
       dataIndex: "endDate",
       key: "endDate",
     },
-    // {
-    //   title: "View",
-    //   dataIndex: "views",
-    //   key: "views",
-    // },
-    // {
-    //   title: "Impression",
-    //   dataIndex: "impression",
-    //   key: "impression",
-    // },
+    {
+      title: "Impression",
+      dataIndex: "clicks",
+      key: "clicks",
+    },
     {
       title: "Take",
       dataIndex: "totalParticipants",
