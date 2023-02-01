@@ -1,9 +1,14 @@
 import { message, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import * as Yup from "yup";
 import { useUpdatePasswordMutation } from "../../../redux/auth/auth_api";
 
 export const ProfileSettings = () => {
+  const [currentPassword, setCurrentPassword] = useState("password");
+  const [newPassword, setNewPassword] = useState("password");
+  const [confirmNewPassword, setconfirmNewPassword] = useState("password");
   const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
   const changePassword = async (values: any, resetForm: any) => {
     await updatePassword({
@@ -61,15 +66,32 @@ export const ProfileSettings = () => {
                   <label htmlFor="">
                     Current Password <span className="astrisk">*</span>
                   </label>
-                  <Field
-                    type="password"
-                    name="oldPassword"
-                    className={
-                      errors?.oldPassword && touched?.oldPassword && "error"
-                    }
-                    placeholder="Current Password"
-                    value={values?.oldPassword ?? ""}
-                  />
+                  <div className="relative">
+                    <Field
+                      type={`${currentPassword}`}
+                      name="oldPassword"
+                      className={
+                        errors?.oldPassword && touched?.oldPassword && "error"
+                      }
+                      placeholder="Current Password"
+                      value={values?.oldPassword ?? ""}
+                    />
+                    <div
+                      className="password_view"
+                      onClick={() =>
+                        setCurrentPassword(
+                          currentPassword == "password" ? "text" : "password"
+                        )
+                      }
+                    >
+                      {currentPassword === "password" && (
+                        <AiOutlineEyeInvisible className="text-xl" />
+                      )}
+                      {currentPassword === "text" && (
+                        <AiOutlineEye className="text-xl" />
+                      )}
+                    </div>
+                  </div>
                   {errors?.oldPassword && touched?.oldPassword ? (
                     <div className="error">{errors?.oldPassword}</div>
                   ) : null}
@@ -79,13 +101,32 @@ export const ProfileSettings = () => {
                   <label htmlFor="password">
                     New Password <span className="astrisk">*</span>
                   </label>
-                  <Field
-                    type="password"
-                    name="password"
-                    className={errors?.password && touched?.password && "error"}
-                    placeholder="New Password"
-                    value={values?.password ?? ""}
-                  />
+                  <div className="relative">
+                    <Field
+                      type={`${newPassword}`}
+                      name="password"
+                      className={
+                        errors?.password && touched?.password && "error"
+                      }
+                      placeholder="New Password"
+                      value={values?.password ?? ""}
+                    />
+                    <div
+                      className="password_view"
+                      onClick={() =>
+                        setNewPassword(
+                          newPassword == "password" ? "text" : "password"
+                        )
+                      }
+                    >
+                      {newPassword === "password" && (
+                        <AiOutlineEyeInvisible className="text-xl" />
+                      )}
+                      {newPassword === "text" && (
+                        <AiOutlineEye className="text-xl" />
+                      )}
+                    </div>
+                  </div>
                   {errors?.password && touched?.password ? (
                     <div className="error">{errors?.password}</div>
                   ) : null}
@@ -94,17 +135,34 @@ export const ProfileSettings = () => {
                   <label htmlFor="password">
                     Confirm New Password<span className="astrisk">*</span>
                   </label>
-                  <Field
-                    type="password"
-                    name="confirmPassword"
-                    className={
-                      errors?.confirmPassword &&
-                      touched?.confirmPassword &&
-                      "error"
-                    }
-                    placeholder="Confirm Password"
-                    value={values?.confirmPassword ?? ""}
-                  />
+                  <div className="relative">
+                    <Field
+                      type={`${confirmNewPassword}`}
+                      name="confirmPassword"
+                      className={
+                        errors?.confirmPassword &&
+                        touched?.confirmPassword &&
+                        "error"
+                      }
+                      placeholder="Confirm Password"
+                      value={values?.confirmPassword ?? ""}
+                    />
+                    <div
+                      className="password_view"
+                      onClick={() =>
+                        setconfirmNewPassword(
+                          confirmNewPassword == "password" ? "text" : "password"
+                        )
+                      }
+                    >
+                      {confirmNewPassword === "password" && (
+                        <AiOutlineEyeInvisible className="text-xl" />
+                      )}
+                      {confirmNewPassword === "text" && (
+                        <AiOutlineEye className="text-xl" />
+                      )}
+                    </div>
+                  </div>
                   {errors?.confirmPassword && touched?.confirmPassword ? (
                     <div className="error">{errors?.confirmPassword}</div>
                   ) : null}

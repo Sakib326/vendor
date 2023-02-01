@@ -50,3 +50,7 @@
 .contact_info {
   overflow-wrap: anywhere;
 }
+
+body::-webkit-scrollbar {
+  width: 1em;
+}
