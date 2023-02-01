@@ -32,7 +32,7 @@ export const ProfileEditAbout = () => {
   const [step, setStep] = useState(0);
 
   return (
-    <div className="border p-[30px]">
+    <div className="border p-[20px] md:p-[30px]">
       <div className="max-w-[860px]">
         <ProfileEditOverview />
       </div>

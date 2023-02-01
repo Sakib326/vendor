@@ -129,7 +129,7 @@ export const ProfileFeed = () => {
         </div>
         {/* card */}
         <div className="border rounded p-5 pb-0 mb-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-start lg:items-center justify-between mb-4">
             <div className="grid grid-cols-[46px_1fr] gap-6">
               <div className="border rounded-full flex items-center justify-center p-1">
                 <img

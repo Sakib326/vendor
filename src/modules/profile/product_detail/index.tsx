@@ -149,6 +149,16 @@ const settingsThumbs = {
         slidesToScroll: 1,
       },
     },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: true,
+        dots: false,
+        centerMode: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
   ],
 };
 
@@ -157,7 +167,7 @@ const ProfileProductDetail = () => {
   const [nav2, setNav2] = useState<any>();
   return (
     <div>
-      <div className="grid grid-cols-[770px_1fr] gap-[30px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-[770px_1fr] gap-[30px]">
         {/* left */}
         <div className="border rounded py-6 px-10 self-start">
           <Slider

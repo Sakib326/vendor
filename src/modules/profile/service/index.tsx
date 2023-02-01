@@ -1,6 +1,6 @@
 export const ProfileServices = () => {
   return (
-    <div className="grid grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
       {/* card */}
       <div className="flex flex-col">
         <div className="mb-4 w-full h-[220px]">

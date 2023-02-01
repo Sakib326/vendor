@@ -81,7 +81,7 @@ const singleProduct = [
 export const ProfileProducts = () => {
   return (
     <div>
-      <div className="grid grid-cols-6 gap-6 mb-8">
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-6 mb-5 lg:mb-8">
         <div className="bg-primary text-white border rounded-md p-5 flex flex-col gap-3 items-center text-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all">
           <FaUniversity className="text-4xl" />
           <span>Study Abroad</span>
@@ -111,13 +111,13 @@ export const ProfileProducts = () => {
           <span>Online Learning</span>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
         {/* card */}
 
         {singleProduct?.map((item, i) => {
           return (
             <div className="flex flex-col">
-              <div className="mb-4 w-[270px] h-[270px]">
+              <div className="mb-4 w-full h-[270px]">
                 <img
                   className=" w-full h-full object-cover"
                   src={item.imgSrc}

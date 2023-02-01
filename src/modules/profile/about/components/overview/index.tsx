@@ -27,25 +27,25 @@ const ProfileAbourOverview = () => {
             Contact and Info
           </h4>
         </div>
-        <div className="grid grid-cols-1 gap-8 text-sm mt-[15px]">
-          <div className="grid grid-cols-[130px_1fr] items-center">
+        <div className="grid  grid-cols-1 gap-8 text-sm mt-[15px]">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-[130px_1fr] items-center">
             <span>Mobile Number</span>
-            <span className="text-black font-medium">
+            <span className="text-black font-medium contact_info">
               {userProfile?.mobile ?? "N/A"}
             </span>
           </div>
 
-          <div className="grid grid-cols-[130px_1fr] items-center">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-[130px_1fr] items-center">
             <span>Email</span>
-            <span className="text-black font-medium">
+            <span className="text-black font-medium contact_info">
               {userProfile?.email ?? "N/A"}
             </span>
           </div>
 
           <div className="">
-            <div className="grid grid-cols-[130px_1fr] items-center">
+            <div className="grid grid-cols-1 gap-2 lg:gap-0 lg:grid-cols-[130px_1fr] items-center">
               <span>Website</span>
-              <span className="text-black font-medium">
+              <span className="text-black font-medium contact_info">
                 {userProfile?.website !== "" && userProfile?.website
                   ? userProfile?.website
                   : "N/A"}
@@ -53,9 +53,9 @@ const ProfileAbourOverview = () => {
             </div>
           </div>
           <div className="">
-            <div className="grid grid-cols-[130px_1fr] items-center">
+            <div className="grid lg:grid-cols-[130px_1fr] items-center">
               <span>Address</span>
-              <span className="text-black font-medium">
+              <span className="text-black font-medium contact_info">
                 {userProfile?.landmark !== null &&
                   userProfile?.landmark &&
                   `${userProfile?.landmark},`}

@@ -56,7 +56,7 @@ export const ProfileSettings = () => {
         >
           {({ handleSubmit, resetForm, errors, values, touched }: any) => (
             <Form className="w-full">
-              <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+              <div className="grid grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-x-4 md:gap-y-10">
                 <div className="form_group">
                   <label htmlFor="">
                     Current Password <span className="astrisk">*</span>
@@ -74,7 +74,7 @@ export const ProfileSettings = () => {
                     <div className="error">{errors?.oldPassword}</div>
                   ) : null}
                 </div>
-                <div></div>
+                <div className="hidden sm:grid sm:grid-cols-2"></div>
                 <div className="form_group">
                   <label htmlFor="password">
                     New Password <span className="astrisk">*</span>
