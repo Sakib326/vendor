@@ -13,7 +13,8 @@ import { useSelector } from "react-redux";
 import { useGetProfileQuery } from "../../redux/auth/auth_api";
 
 export const ProfileOutlet = ({ type = "view" }) => {
-  const { data: user } = useGetProfileQuery({});
+  const { user } = useSelector((state: any) => state.auth);
+  console.log(user);
 
   const userProfile =
     user !== ""

@@ -10,6 +10,7 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import ImageMagnifier from "../../@common/image_viewer/ImageViewer";
 
 const singleProduct = [
   {
@@ -178,11 +179,10 @@ const ProfileProductDetail = () => {
             {new Array(12).fill(1).map((_, i) => {
               return (
                 <div key={i} className="focus_visible_remove">
-                  <img
+                  <ImageMagnifier
                     src="/temp/campaign-unisearch.webp"
-                    alt="Campaign unisearch"
-                    title="Campaign unisearch"
                     className="w-full p-2"
+                    alt="Campaign unisearch"
                   />
                 </div>
               );
