@@ -66,14 +66,15 @@ const CampaignAdd = () => {
     name: "",
     description: "",
     type: "BRAND_AWARENESS",
-    startDate: moment(new Date(), "DD/MM/YYYY"),
-    endDate: moment(new Date(), "DD/MM/YYYY"),
+    startDate: moment().format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
     thumbnail: "",
     giftValue: undefined,
     winnerCount: undefined,
     promotionType: "IMAGE",
     promotionValue: "",
     promotionFile: undefined,
+    drawTime: moment().format(),
   };
   const handleCampaign = async (values: any) => {
     const formArray = new FormData();
@@ -417,6 +418,7 @@ const CampaignAdd = () => {
                                 }`
                               : ""
                           }
+                          maxSize={300}
                         />
                       </div>
                     </div>
@@ -522,6 +524,7 @@ const CampaignAdd = () => {
                                   }`
                                 : ""
                             }
+                            maxSize={700}
                           />
                         </div>
                       </div>

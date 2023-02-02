@@ -14,7 +14,6 @@ import ImageInput from "../../../../@common/image_input/Image_input";
 
 const ProfileEditOverview = () => {
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
-  const [isProfileGet, setIsProfileGet] = useState(true);
 
   const { data: profileData } = useGetProfileQuery({});
   const { user } = useSelector((state: any) => state.auth);
@@ -101,9 +100,6 @@ const ProfileEditOverview = () => {
     }
   };
   const updateProfileData = async (values: any) => {
-    console.log(values);
-    // return;
-
     const formArray = new FormData();
 
     formArray.append("website", values?.website);
@@ -131,14 +127,13 @@ const ProfileEditOverview = () => {
     if (
       values.banner &&
       values?.banner !== "" &&
-      typeof values?.banner! == "string"
+      typeof values?.banner !== "string"
     ) {
       formArray.append("banner", values.banner);
     }
     await updateProfile(formArray).then((res: any) => {
       if (!res?.error) {
         message.success("Profile Updated");
-        setIsProfileGet(false);
       } else {
         message.error(
           res?.error?.data?.message ??
@@ -203,6 +198,7 @@ const ProfileEditOverview = () => {
                     ? `${import.meta.env.VITE_API_URL}/${values?.logo}`
                     : ""
                 }
+                maxSize={300}
               />
             </div>
             <div className="grid grid-cols-[110px_1fr] gap-[44px] mb-3">
@@ -216,6 +212,7 @@ const ProfileEditOverview = () => {
                     ? `${import.meta.env.VITE_API_URL}/${values?.banner}`
                     : ""
                 }
+                maxSize={700}
               />
             </div>
             <div className="col-span-2">
@@ -435,7 +432,7 @@ const ProfileEditOverview = () => {
                                       onChange={(e: any) => {
                                         handleSocialMedia(
                                           "value",
-                                          e?.target?.value,
+                                          e?.target?.value.trim(),
                                           index,
                                           setFieldValue
                                         );

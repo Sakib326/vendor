@@ -1,20 +1,18 @@
 import { message, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload/interface";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 interface PropsType {
   errorMessage?: any;
-  accept?: string;
   maxSize?: number;
   onChange: Function;
   width?: number;
   imageSource?: string;
 }
 export const ImageInput = (props: PropsType) => {
-  const errorMessage = props?.errorMessage;
-  const accept = props?.accept;
-  const maxSize = props?.maxSize ?? 2;
-  const width = props?.width ?? 150;
-  const imageSource = props?.imageSource;
+  let errorMessage = props?.errorMessage;
+  let maxSize = props?.maxSize ?? 2048;
+  let width = props?.width ?? 150;
+  let imageSource = props?.imageSource;
 
   const [imageUrl, setImageUrl] = useState<string>();
   const [isError, setIsError] = useState(errorMessage ? true : false);
@@ -27,7 +25,7 @@ export const ImageInput = (props: PropsType) => {
       info.file.type === "image/jpeg" ||
       info.file.type === "image/png" ||
       info.file.type === "image/webp";
-    const isInSize = info.file?.size / 1024 / 1024 < maxSize;
+    const isInSize = info.file?.size / 1024 < maxSize;
 
     if (info?.fileList.length > 0 && isJpgOrPng && isInSize) {
       props?.onChange({ file: info?.file, type: info?.file?.type });
@@ -37,6 +35,7 @@ export const ImageInput = (props: PropsType) => {
     } else {
       props?.onChange();
       setImageUrl("");
+      setIsError(true);
     }
   };
 
@@ -47,17 +46,17 @@ export const ImageInput = (props: PropsType) => {
       file.type === "image/webp";
     if (!isJpgOrPng) {
       message.error("You can only upload JPG/PNG/WEBP file!");
-      setIsError(true);
     }
-    const isInSize = file.size / 1024 / 1024 < maxSize;
+
+    const isInSize = file.size / 1024 < maxSize;
     if (!isInSize) {
-      message.error(`Image must smaller than ${maxSize}MB!`);
-      setIsError(true);
+      message.error(`Image must smaller than ${maxSize}KB!`);
     }
 
     // Prevent upload
     return false;
   };
+
   const uploadButton =
     imageUrl || imageSource ? (
       <div style={{ width: `${width}px` }}>
@@ -81,7 +80,7 @@ export const ImageInput = (props: PropsType) => {
   return (
     <div style={{ width: `${width}px` }}>
       <Upload
-        accept={`${accept ?? "image/png, image/jpeg, image/webp"} `}
+        accept="image/png, image/jpeg, image/webp"
         beforeUpload={beforeUpload}
         onChange={(e) => {
           handleChange(e);

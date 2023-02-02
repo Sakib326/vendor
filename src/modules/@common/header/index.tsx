@@ -1,23 +1,21 @@
-import { AiFillSetting, AiOutlineMenu } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import {
-  MdNotifications,
-  MdOutlineDashboard,
-  MdSettings,
-} from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
-import { useSignOutMutation } from "../../../redux/auth/auth_api";
+import { AiOutlineMenu } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { MdOutlineDashboard, MdSettings } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useGetProfileQuery,
+  useSignOutMutation,
+} from "../../../redux/auth/auth_api";
 
 type headerProps = {
   handleOpen?: any;
 };
 
 const Header = ({ handleOpen }: headerProps) => {
-  const { user } = useSelector((state: any) => state.auth);
+  const { data: user } = useGetProfileQuery({});
 
   const userProfile =
     user !== ""

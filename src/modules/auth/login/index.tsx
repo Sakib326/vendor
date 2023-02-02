@@ -1,15 +1,13 @@
 import { message, Spin } from "antd";
-import { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import Cookies from "js-cookie";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import {
   useGetProfileQuery,
   useSignInMutation,
 } from "../../../redux/auth/auth_api";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { useSelector } from "react-redux";
 
 export const Login = () => {
   const [type, setType] = useState("password");
@@ -18,6 +16,8 @@ export const Login = () => {
   const { data: profileData } = useGetProfileQuery("init", {
     skip: isProfileGet,
   });
+  console.log({ profileData });
+
   const navigate = useNavigate();
 
   const signInInit = {

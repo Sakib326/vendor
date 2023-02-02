@@ -10,9 +10,10 @@ import {
 } from "react-icons/fi";
 import { BiEdit } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { useGetProfileQuery } from "../../redux/auth/auth_api";
 
 export const ProfileOutlet = ({ type = "view" }) => {
-  const { user } = useSelector((state: any) => state.auth);
+  const { data: user } = useGetProfileQuery({});
 
   const userProfile =
     user !== ""
@@ -90,6 +91,7 @@ export const ProfileOutlet = ({ type = "view" }) => {
                   <ul className="flex items-center gap-5">
                     {userProfile?.socialLinks &&
                       userProfile?.socialLinks.length > 0 &&
+                      userProfile?.socialLinks[0]?.label !== "" &&
                       userProfile?.socialLinks.map((e: any, i: any) => {
                         return (
                           <li className="ml-auto" key={i}>

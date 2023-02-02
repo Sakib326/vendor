@@ -20,6 +20,7 @@
     "formik": "^2.2.9",
     "html-react-parser": "^3.0.8",
     "js-cookie": "^3.0.1",
+    "localStorage": "^1.0.4",
     "moment": "^2.29.4",
     "postcss": "^8.4.21",
     "query-string": "^8.1.0",

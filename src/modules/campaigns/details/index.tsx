@@ -356,7 +356,17 @@ export const CampaignDetails = () => {
           <div>
             <div className="">
               <div className="mb-4">
-                <img src="/temp/campaign-unisearch.webp" alt="campaign" />
+                <img
+                  crossOrigin="anonymous"
+                  src={
+                    singleCampaign?.thumbnail
+                      ? `${import.meta.env.VITE_API_URL}/${
+                          singleCampaign?.thumbnail
+                        }`
+                      : "/temp/campaign-unisearch.webp"
+                  }
+                  alt="campaign"
+                />
               </div>
               <div className="text-xl text-black font-medium mb-5 text-center">
                 {singleCampaign?.name && singleCampaign?.name !== null
@@ -415,9 +425,11 @@ export const CampaignDetails = () => {
                   <li className="flex gap-1">
                     <span className="font-medium">Type:</span>
                     <span>
-                      {singleCampaign?.type && singleCampaign?.type !== null
-                        ? singleCampaign?.type
-                        : "N/A"}
+                      {singleCampaign?.type &&
+                      singleCampaign?.type !== null &&
+                      singleCampaign?.type === "WEBSITE_PROMOTION"
+                        ? "Website Promotion"
+                        : "Brand Awarness"}
                     </span>
                   </li>
                   <li className="flex gap-1">
@@ -489,7 +501,9 @@ export const CampaignDetails = () => {
                     className="cursor-pointer text-primary"
                     onClick={() => setShowMore(!showMore)}
                   >
-                    {showMore ? "Show less" : "Show more"}
+                    {singleCampaign?.description.length > 250 && (
+                      <div>{showMore ? "Show less" : "Show more"}</div>
+                    )}
                   </span>
                 </div>
               </div>

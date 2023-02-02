@@ -357,6 +357,7 @@ export const ProductAdd = () => {
                                 errors?.hasFile) ??
                               undefined
                             }
+                            maxSize={700}
                           />
                         </div>
                       </div>

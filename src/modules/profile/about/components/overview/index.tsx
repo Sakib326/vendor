@@ -91,58 +91,63 @@ const ProfileAbourOverview = () => {
           </div>
         </div>
       </div>
-      <div className="mt-[30px]">
-        <div className="border-b border-t">
-          <h4 className="py-[15px]  text-lg font-medium">Social Media Links</h4>
-        </div>
-        <div className="grid gap-3 mt-[15px]">
-          {userProfile?.socialLinks &&
-            userProfile?.socialLinks.length > 0 &&
-            userProfile?.socialLinks.map((e: any, i: any) => {
-              return (
-                <a
-                  href={`${
-                    e?.label === "Facebook"
-                      ? "https://fb.com"
-                      : e?.label === "Linkedin"
-                      ? "https://linkedin.com/in"
-                      : e?.label === "Twitter"
-                      ? "https://twitter.com"
-                      : e?.label === "Youtube"
-                      ? "https://www.youtube.com"
-                      : "/"
-                  }/${e?.value}`}
-                  target="_blank"
-                  key={i}
-                  className="flex gap-2 items-center"
-                >
-                  {e?.label === "Facebook" ? (
-                    <FiFacebook />
-                  ) : e?.label === "Linkedin" ? (
-                    <FiLinkedin />
-                  ) : e?.label === "Twitter" ? (
-                    <FiTwitter />
-                  ) : e?.label === "Youtube" ? (
-                    <FiYoutube />
-                  ) : (
-                    <FiLink />
-                  )}
-                  <span className="text-black">{`${
-                    e?.label === "Facebook"
-                      ? "https://fb.com"
-                      : e?.label === "Linkedin"
-                      ? "https://linkedin.com/in"
-                      : e?.label === "Twitter"
-                      ? "https://twitter.com"
-                      : e?.label === "Youtube"
-                      ? "https://www.youtube.com"
-                      : "/"
-                  }/${e?.value}`}</span>
-                </a>
-              );
-            })}
-        </div>
-      </div>
+      {userProfile?.socialLinks.length > 0 &&
+        userProfile?.socialLinks[0]?.label !== "" && (
+          <div className="mt-[30px]">
+            <div className="border-b border-t">
+              <h4 className="py-[15px]  text-lg font-medium">
+                Social Media Links
+              </h4>
+            </div>
+            <div className="grid gap-3 mt-[15px]">
+              {userProfile?.socialLinks &&
+                userProfile?.socialLinks.length > 0 &&
+                userProfile?.socialLinks.map((e: any, i: any) => {
+                  return (
+                    <a
+                      href={`${
+                        e?.label === "Facebook"
+                          ? "https://fb.com"
+                          : e?.label === "Linkedin"
+                          ? "https://linkedin.com/in"
+                          : e?.label === "Twitter"
+                          ? "https://twitter.com"
+                          : e?.label === "Youtube"
+                          ? "https://www.youtube.com"
+                          : "/"
+                      }/${e?.value}`}
+                      target="_blank"
+                      key={i}
+                      className="flex gap-2 items-center"
+                    >
+                      {e?.label === "Facebook" ? (
+                        <FiFacebook />
+                      ) : e?.label === "Linkedin" ? (
+                        <FiLinkedin />
+                      ) : e?.label === "Twitter" ? (
+                        <FiTwitter />
+                      ) : e?.label === "Youtube" ? (
+                        <FiYoutube />
+                      ) : (
+                        <FiLink />
+                      )}
+                      <span className="text-black">{`${
+                        e?.label === "Facebook"
+                          ? "https://fb.com"
+                          : e?.label === "Linkedin"
+                          ? "https://linkedin.com/in"
+                          : e?.label === "Twitter"
+                          ? "https://twitter.com"
+                          : e?.label === "Youtube"
+                          ? "https://www.youtube.com"
+                          : "/"
+                      }/${e?.value}`}</span>
+                    </a>
+                  );
+                })}
+            </div>
+          </div>
+        )}
     </div>
   );
 };

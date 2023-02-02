@@ -25,6 +25,7 @@ export const campaignApi = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `campaign/get-one/${id}`,
       }),
+      providesTags: ["campaign"],
     }),
     updateCampaign: build.mutation({
       query: ({ data, id }) => ({

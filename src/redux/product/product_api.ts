@@ -21,6 +21,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["product"],
     }),
     updateProduct: build.mutation({
       query: ({ data, id }) => ({
@@ -28,6 +29,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["product"],
     }),
     deleteProduct: build.mutation({
       query: ({ id }) => ({
@@ -69,6 +71,7 @@ export const productsApi = apiSlice.injectEndpoints({
           );
         } catch (error) {}
       },
+      providesTags: ["product"],
     }),
   }),
 });

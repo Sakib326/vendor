@@ -65,7 +65,7 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           let formattedProfile;
-          await queryFulfilled.then((res: any) => {
+          const result = await queryFulfilled.then((res: any) => {
             formattedProfile = {
               skipHashPassword:
                 res?.data?.skipHashPassword !== null &&
@@ -211,6 +211,7 @@ export const authApi = apiSlice.injectEndpoints({
             );
             dispatch(setUser(profileForEdit));
           });
+          console.log({ result });
         } catch (error) {}
       },
       providesTags: ["profile"],
