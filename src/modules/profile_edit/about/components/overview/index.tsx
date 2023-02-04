@@ -1,6 +1,6 @@
 import { Form, message, Popconfirm, Select, Spin } from "antd";
 import { Field, Formik } from "formik";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { FiTrash } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { useSelector } from "react-redux";
@@ -22,9 +22,6 @@ const ProfileEditOverview = () => {
     user !== ""
       ? user
       : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo ?? {};
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   // Validation schema
   const validationSchema = Yup.object().shape({
@@ -255,52 +252,58 @@ const ProfileEditOverview = () => {
                 <div className="col-span-1">
                   <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Mobile Number</label>
-                    <Field
-                      type="text"
-                      className={`form_control ${
-                        errors?.mobile && touched?.mobile && "error"
-                      }`}
-                      placeholder="Example: +880 123 456 7890"
-                      name="mobile"
-                    />
-                    {errors?.mobile && touched?.mobile ? (
-                      <div className="error">{errors?.mobile}</div>
-                    ) : null}
+                    <div>
+                      <Field
+                        type="text"
+                        className={`form_control ${
+                          errors?.mobile && touched?.mobile && "error"
+                        }`}
+                        placeholder="Example: +880 123 456 7890"
+                        name="mobile"
+                      />
+                      {errors?.mobile && touched?.mobile ? (
+                        <div className="error">{errors?.mobile}</div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
                 <div className="col-span-1">
                   <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Business Email</label>
-                    <Field
-                      type="email"
-                      className={`form_control ${
-                        errors?.businessEmail &&
-                        touched?.businessEmail &&
-                        "error"
-                      }`}
-                      placeholder="Example: info@m4yours.com"
-                      name="businessEmail"
-                    />
-                    {errors?.businessEmail && touched?.businessEmail ? (
-                      <div className="error">{errors?.businessEmail}</div>
-                    ) : null}
+                    <div>
+                      <Field
+                        type="email"
+                        className={`form_control ${
+                          errors?.businessEmail &&
+                          touched?.businessEmail &&
+                          "error"
+                        }`}
+                        placeholder="Example: info@m4yours.com"
+                        name="businessEmail"
+                      />
+                      {errors?.businessEmail && touched?.businessEmail ? (
+                        <div className="error">{errors?.businessEmail}</div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
 
                 <div className="col-span-1">
                   <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
                     <label>Website</label>
-                    <Field
-                      type="text"
-                      className={`form_control ${
-                        errors?.website && touched?.website && "error"
-                      }`}
-                      placeholder="Example: m4yours.com"
-                      name="website"
-                    />
-                    {errors?.website && touched?.website ? (
-                      <div className="error">{errors?.website}</div>
-                    ) : null}
+                    <div>
+                      <Field
+                        type="text"
+                        className={`form_control ${
+                          errors?.website && touched?.website && "error"
+                        }`}
+                        placeholder="Example: m4yours.com"
+                        name="website"
+                      />
+                      {errors?.website && touched?.website ? (
+                        <div className="error">{errors?.website}</div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
 

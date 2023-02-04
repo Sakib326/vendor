@@ -39,8 +39,10 @@ export const productsApi = apiSlice.injectEndpoints({
       invalidatesTags: ["product"],
     }),
     getAllProduct: build.query({
-      query: () => ({
-        url: "products?limit=200&page=1",
+      query: ({ pageSize = 8, currentPage = 1, categorySlug = "" }) => ({
+        url: `products?limit=${pageSize}&page=${
+          currentPage === false ? 1 : currentPage
+        }&categorySlug=${categorySlug}`,
       }),
       providesTags: ["product"],
     }),

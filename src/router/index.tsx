@@ -76,7 +76,7 @@ const AppRouter = () => {
             <Route path="profile/about" element={<ProfileAbout />} />
             <Route path="profile/products" element={<ProfileProducts />} />
             <Route
-              path="profile/products/1"
+              path="profile/products/view/:id"
               element={<ProfileProductDetail />}
             />
             <Route path="profile/services" element={<ProfileServices />} />

@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { ImPinterest2 } from "react-icons/im";
 import {
   FiFacebook,
@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 import { useGetProfileQuery } from "../../redux/auth/auth_api";
 
 export const ProfileOutlet = ({ type = "view" }) => {
+  const location = useLocation();
   const { user } = useSelector((state: any) => state.auth);
-  console.log(user);
 
   const userProfile =
     user !== ""
@@ -28,9 +28,10 @@ export const ProfileOutlet = ({ type = "view" }) => {
           src={
             userProfile?.banner !== "" && userProfile?.banner
               ? `${import.meta.env.VITE_API_URL}/${userProfile?.banner}`
-              : "https://cdn.pixabay.com/photo/2015/01/29/16/34/mothers-day-616363_960_720.jpg"
+              : "/images/misc/banner.webp"
           }
-          alt="cover"
+          alt={userProfile?.businessName}
+          title={userProfile?.businessName}
           className="w-full h-full object-cover"
         />
       </div>
@@ -39,16 +40,18 @@ export const ProfileOutlet = ({ type = "view" }) => {
           <div className="flex justify-center">
             <div className="bg-white border-[3px] border-[#fff] rounded-full">
               <div className="w-[154px] h-[154px] bg-white border-[3px] border-[#eee] rounded-full	p-3 flex items-center justify-center overflow-hidden">
-                <img
-                  crossOrigin="anonymous"
-                  src={
-                    userProfile?.logo !== "" && userProfile?.logo
-                      ? `${import.meta.env.VITE_API_URL}/${userProfile?.logo}`
-                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-                  }
-                  alt="Campaign bdwinners"
-                  title="Campaign bdwinners"
-                />
+                {userProfile?.logo !== "" && userProfile?.logo ? (
+                  <img
+                    crossOrigin="anonymous"
+                    src={`${import.meta.env.VITE_API_URL}/${userProfile?.logo}`}
+                    alt="Campaign bdwinners"
+                    title="Campaign bdwinners"
+                  />
+                ) : (
+                  <div className="text-black font-medium text-center">
+                    {userProfile?.businessName}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -219,22 +222,24 @@ export const ProfileOutlet = ({ type = "view" }) => {
                       Products
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/profile/products/1"
-                      className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
-                      style={(navData: { isActive: boolean }) =>
-                        navData.isActive
-                          ? {
-                              color: "#AC224D",
-                              borderBottom: "2px solid #AC224D",
-                            }
-                          : undefined
-                      }
-                    >
-                      Product Details
-                    </NavLink>
-                  </li>
+                  {location?.pathname?.includes("profile/products/view") && (
+                    <li>
+                      <span
+                        className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                        style={
+                          location?.pathname?.includes("profile/products/view")
+                            ? {
+                                color: "#AC224D",
+                                borderBottom: "2px solid #AC224D",
+                              }
+                            : undefined
+                        }
+                      >
+                        Product Details
+                      </span>
+                    </li>
+                  )}
+
                   <li>
                     <NavLink
                       to="/profile/services"

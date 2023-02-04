@@ -39,6 +39,24 @@ export const campaignApi = apiSlice.injectEndpoints({
       query: ({ id, pageSize, currentPage }: any) =>
         `/campaign/vendor/get-take-list?limit=${pageSize}&page=${currentPage}`,
     }),
+    getPublishedCampaign: build.query({
+      query: ({ pageSize = 8, currentPage }) =>
+        `/campaign/get-all?status=Published&limit=${pageSize ?? 8}&page=${
+          currentPage === false ? 1 : currentPage
+        }`,
+    }),
+    getPendingCampaign: build.query({
+      query: ({ pageSize = 8, currentPage = 1 }) =>
+        `/campaign/get-all?status=Pending&limit=${pageSize ?? 8}&page=${
+          currentPage === false ? 1 : currentPage
+        }`,
+    }),
+    getCompletedCampaign: build.query({
+      query: ({ pageSize = 8, currentPage = 1 }) =>
+        `/campaign/get-all?status=Completed&limit=${pageSize ?? 8}&page=${
+          currentPage === false ? 1 : currentPage
+        }`,
+    }),
   }),
 });
 
@@ -49,4 +67,7 @@ export const {
   useGetSingleCampaignQuery,
   useUpdateCampaignMutation,
   useGetAllTakerListQuery,
+  useGetCompletedCampaignQuery,
+  useGetPendingCampaignQuery,
+  useGetPublishedCampaignQuery,
 } = campaignApi;

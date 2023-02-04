@@ -8,6 +8,7 @@ export default function ImageMagnifier({
   zoomLevel = 2,
   className,
   alt,
+  crossOrigin,
 }: {
   src: string;
   width?: string;
@@ -17,6 +18,7 @@ export default function ImageMagnifier({
   zoomLevel?: number;
   className?: string;
   alt?: string;
+  crossOrigin?: string;
 }) {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -55,6 +57,7 @@ export default function ImageMagnifier({
         }}
         alt={alt ? alt : "image"}
         className={`cursor-zoom-in ${className ? className : null}`}
+        crossOrigin="anonymous"
       />
 
       <div

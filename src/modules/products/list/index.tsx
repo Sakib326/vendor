@@ -63,7 +63,7 @@ export const ProductList = () => {
         <>
           <div className="flex items-center">
             <Link
-              to="/campaigns/1"
+              to={`/profile/products/${col?.id}`}
               className="hover:text-primary transition-all p-1"
             >
               <FiEye />

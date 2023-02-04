@@ -1,94 +1,27 @@
-import { TiMessages } from "react-icons/ti";
+import { Modal } from "antd";
+import { Field, Form, Formik } from "formik";
+import parse from "html-react-parser";
+import { useState } from "react";
+import { FaRegHeart } from "react-icons/fa";
 import { IoArrowRedoOutline } from "react-icons/io5";
-import { InboxOutlined } from "@ant-design/icons";
-import { BiBookReader } from "react-icons/bi";
-import { FaRegHeart, FaUniversity } from "react-icons/fa";
-import { GiReceiveMoney } from "react-icons/gi";
-import { MdOutlineHealthAndSafety } from "react-icons/md";
+import { TiMessages } from "react-icons/ti";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
-import { Modal } from "antd";
-import { useState } from "react";
+import { useGetAllProductQuery } from "../../../redux/product/product_api";
 import WinnersEditor from "../../@common/editor/bdwinners_editor";
-import { Field, Form, Formik } from "formik";
 import ImageInput from "../../@common/image_input/Image_input";
 
-const singleProduct = [
-  {
-    id: 1,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673766791276-5f46fd720021?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE4fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "Nature",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 2,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673874246309-de6d5fc34369?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIxfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "category",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 3,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "Arts",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 4,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673591296410-1220ba8d6c0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDd8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    category: "category",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 5,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673766791276-5f46fd720021?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE4fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "Nature",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 6,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673874246309-de6d5fc34369?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIxfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "category",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 7,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    category: "Arts",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-  {
-    id: 8,
-    imgSrc:
-      "https://images.unsplash.com/photo-1673591296410-1220ba8d6c0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDd8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    category: "category",
-    name: "Product name",
-    price: "BDT 5000",
-    prevPrice: "BDT 6000",
-  },
-];
-
 export const ProfileFeed = () => {
+  const { user } = useSelector((state: any) => state.auth);
+
+  const userProfile =
+    user !== ""
+      ? user
+      : JSON.parse(localStorage.getItem("profileInfo")!)?.profileInfo;
+  const { data: allProductList, isLoading } = useGetAllProductQuery<any>({
+    pageSize: 10,
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -500,53 +433,61 @@ export const ProfileFeed = () => {
         <div className="border rounded p-5 mb-5">
           <h4 className="mb-3 text-lg">About Company</h4>
           <div className="mb-4">
-            UniSearch harnesses over ten years of experience in international
-            student recruitment within source markets and innovative AI-powered
-            technology to streamline the study abroad process from the research
-            stage down to arriving in the destination country and beyond.
-            Through predictive analytics and algorithm-driven systems,
-            all-inclusive platform.
+            {parse(
+              userProfile?.overview ? userProfile?.overview : "<p>N/A</p>"
+            )}
           </div>
         </div>
 
         {/* products */}
-        <div className="mb-5">
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="text-lg">Product</h4>
-            <Link to="/profile/products" className="text-secondary">
-              View All
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-5">
-            {singleProduct?.map((item, i) => {
-              return (
-                <div className="flex flex-col" key={i}>
-                  <div className="mb-4 w-full h-[170px]">
-                    <img
-                      className=" w-full h-full object-cover"
-                      src={item.imgSrc}
-                      alt="product"
-                    />
-                  </div>
-                  <div className="text-grey mb-0.5 text-sm">
-                    {item?.category}
-                  </div>
-                  <Link
-                    to="/profile/products/1"
-                    className="block text-black text-sm mb-1 font-medium"
-                  >
-                    Online IELTS 64 Class
-                  </Link>
+        {allProductList?.data && allProductList?.data.length > 0 && (
+          <div className="mb-5">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-lg">Product</h4>
+              <Link to="/products/list" className="text-secondary">
+                View All
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-5">
+              {allProductList?.data.map((item: any, i: any) => {
+                return (
+                  <div className="flex flex-col" key={i}>
+                    <div className="mb-4 w-full h-[170px]">
+                      <img
+                        crossOrigin="anonymous"
+                        className="w-full h-full object-cover"
+                        src={
+                          item?.image
+                            ? `${import.meta.env.VITE_API_URL}/${item?.image}`
+                            : "/images/misc/image-placeholder-big.webp"
+                        }
+                        alt="product"
+                      />
+                    </div>
+                    <div className="text-grey mb-0.5 text-sm">
+                      {item?.category}
+                    </div>
+                    <Link
+                      to={`/profile/products/view/${item?.id}`}
+                      className="block text-black text-sm mb-1 font-medium"
+                    >
+                      {item?.name}
+                    </Link>
 
-                  <div className="flex items-center gap-2 text-sm">
-                    <p className="text-primary font-medium">{item?.price}</p>
-                    <p className="line-through">{item?.prevPrice}</p>
+                    <div className="flex items-center gap-2 text-sm">
+                      <p className="text-primary font-medium">
+                        {item?.discountPrice} BDT
+                      </p>
+                      {item?.discountPrice !== item?.price && (
+                        <p className="line-through">{item?.price}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Modal

@@ -18,6 +18,7 @@ import ImageInput from "../../@common/image_input/Image_input";
 
 export const ProductAdd = () => {
   const { id } = useParams();
+
   const [getSingleProduct, setGetSingleProduct] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export const ProductAdd = () => {
     useUpdateProductMutation();
 
   const { data: catData } = useGetCategoryQuery<any>({});
-  const { data: singleProduct } = useGetSingleProductQuery<any>(`${id}`, {
+  const { data: singleProduct } = useGetSingleProductQuery<any>(id, {
     skip: getSingleProduct,
   });
   const { singleProductData } = useSelector((state: any) => state.product);
@@ -357,7 +358,7 @@ export const ProductAdd = () => {
                                 errors?.hasFile) ??
                               undefined
                             }
-                            maxSize={700}
+                            maxSize={300}
                           />
                         </div>
                       </div>
