@@ -16,17 +16,22 @@ const Dashboard = lazy(() => import("../modules/dashboard"));
 const CampaignList = lazy(() => import("../modules/campaigns/list"));
 const CampaignAdd = lazy(() => import("../modules/campaigns/add"));
 import WinnersList from "../modules/winners/list";
-const CampaignEdit = lazy(() => import("../modules/campaigns/edit"));
 const CampaignDetails = lazy(() => import("../modules/campaigns/details"));
-
+//product
 const ProductList = lazy(() => import("../modules/products/list"));
 const ProductAdd = lazy(() => import("../modules/products/add"));
+//Service
+const ServiceList = lazy(() => import("../modules/services/list"));
+const ServiceAdd = lazy(() => import("../modules/services/add"));
 // profile
 const ProfileFeed = lazy(() => import("../modules/profile/feed"));
 const ProfileAbout = lazy(() => import("../modules/profile/about"));
 const ProfileProducts = lazy(() => import("../modules/profile/products"));
 const ProfileProductDetail = lazy(
   () => import("../modules/profile/product_detail")
+);
+const ProfileServiceDetail = lazy(
+  () => import("../modules/profile/service_details")
 );
 const ProfileServices = lazy(() => import("../modules/profile/service"));
 const ProfileCampaigns = lazy(() => import("../modules/profile/campaigns"));
@@ -71,6 +76,10 @@ const AppRouter = () => {
           <Route path="products/edit/:id" element={<ProductAdd />} />
           <Route path="products/add" element={<ProductAdd />} />
 
+          <Route path="services/list" element={<ServiceList />} />
+          <Route path="services/edit/:id" element={<ServiceAdd />} />
+          <Route path="services/add" element={<ServiceAdd />} />
+
           <Route path="/" element={<ProfileOutlet />}>
             <Route path="profile/feed" element={<ProfileFeed />} />
             <Route path="profile/about" element={<ProfileAbout />} />
@@ -78,6 +87,10 @@ const AppRouter = () => {
             <Route
               path="profile/products/view/:id"
               element={<ProfileProductDetail />}
+            />
+            <Route
+              path="profile/services/view/:id"
+              element={<ProfileServiceDetail />}
             />
             <Route path="profile/services" element={<ProfileServices />} />
             <Route path="profile/campaigns" element={<ProfileCampaigns />} />

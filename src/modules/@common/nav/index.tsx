@@ -5,6 +5,7 @@ import { BsCart4, BsTrophy } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineCampaign, MdOutlineDashboard } from "react-icons/md";
+import { RiHandCoinLine } from "react-icons/ri";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { useSignOutMutation } from "../../../redux/auth/auth_api";
@@ -42,13 +43,19 @@ const mobileNavData = [
   },
   {
     id: 5,
+    icon: <RiHandCoinLine className="text-[18px]" />,
+    title: "Services",
+    url: "/services/list",
+  },
+  {
+    id: 6,
     icon: <BiUserCircle className="text-[18px]" />,
     title: "My Profile",
     url: "/profile/feed",
     bottom: true,
   },
   {
-    id: 6,
+    id: 7,
     icon: <IoIosLogOut className="text-[18px]" />,
     title: "Log Out",
   },
@@ -106,6 +113,15 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
           >
             <BsCart4 className="text-[18px]" />
             <span>Products</span>
+          </NavLink>
+          <NavLink
+            to="/services/list"
+            className={`nav_link ${
+              location?.pathname?.includes("services") ? "active" : ""
+            }`}
+          >
+            <RiHandCoinLine className="text-[18px]" />
+            <span>Services</span>
           </NavLink>
         </div>
         <div className="mt-auto">

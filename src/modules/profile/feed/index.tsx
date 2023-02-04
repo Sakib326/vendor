@@ -444,9 +444,11 @@ export const ProfileFeed = () => {
           <div className="mb-5">
             <div className="flex items-center justify-between mb-4">
               <h4 className="text-lg">Product</h4>
-              <Link to="/products/list" className="text-secondary">
-                View All
-              </Link>
+              {allProductList?.data && allProductList?.data.length > 10 && (
+                <Link to="/products/list" className="text-secondary">
+                  View All
+                </Link>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-5">
               {allProductList?.data.map((item: any, i: any) => {

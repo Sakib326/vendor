@@ -1,245 +1,94 @@
+import { useGetAllServiceQuery } from "../../../redux/services/service_api";
+import Skeleton from "../../@common/skeleton";
+import { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Pagination } from "antd";
+import queryString from "query-string";
+
 export const ProfileServices = () => {
+  const navigate = useNavigate();
+  const currentPage = queryString.parse(location.search)?.currentPage;
+  const { data: allServiceList, isLoading } = useGetAllServiceQuery<any>({
+    currentPage,
+  });
+  const handleChange = (e: any) => {
+    navigate(`/profile/services?currentPage=${e}`);
+  };
   return (
-    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://www.d2l.com/wp-content/uploads/2022/09/hero-d2l-brightspace-he.webp"
-            alt="product"
-          />
+    // <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
+    <Fragment>
+      {isLoading ? (
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
+          {new Array(8).fill(1).map((_, i) => {
+            return <Skeleton height={270} key={i} />;
+          })}
         </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Education Product - How to Design for Best Usage
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://breadnbeyond.com/wp-content/uploads/2021/09/Education-Explainer-Video.jpg"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1674062130751-f8c23f3b4821?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Product Education designs, themes, templates and
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673579015800-81a951ca977d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDR8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673591296410-1220ba8d6c0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDd8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673874246309-de6d5fc34369?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIxfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1669681056200-31a8490a2bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDEzfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673555791730-0ee56e1b768b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDQwfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-      {/* card */}
-      <div className="flex flex-col">
-        <div className="mb-4 w-full h-[220px]">
-          <img
-            className=" w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1673766791276-5f46fd720021?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE4fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt="product"
-          />
-        </div>
-        <a
-          href="#"
-          className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
-        >
-          Create learning experiences with affordable Windows devices and get
-          it's about what the key benefits are for the user.
-        </a>
-        <div className="line-clamp-2 text-sm">
-          True product education is the practice of ensuring that your users
-          understand how your product can help them achieve their goals and
-          become wildly successful. It's not about understanding the ins and
-          outs of every functionality; it's about what the key benefits are for
-          the user.
-        </div>
-      </div>
-    </div>
+      ) : (
+        <Fragment>
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-5 lg:mb-8">
+            {/* card */}
+
+            {allServiceList &&
+              allServiceList?.data?.length > 0 &&
+              allServiceList?.data.map((item: any, i: number) => {
+                return (
+                  <div key={i} className="flex flex-col">
+                    <div className="mb-4 w-full h-[220px]">
+                      <img
+                        className=" w-full h-full object-cover"
+                        src={
+                          item?.image
+                            ? `${import.meta.env.VITE_API_URL}/${item?.image}`
+                            : "/images/misc/image-placeholder-big.webp"
+                        }
+                        alt="product"
+                        crossOrigin="anonymous"
+                      />
+                    </div>
+                    <Link
+                      to={`/profile/services/view/${item?.id}`}
+                      className="block line-clamp-2 mb-2 text-lg font-medium text-black hover:text-primary transition-all"
+                    >
+                      {item?.title}
+                    </Link>
+
+                    <div className="line-clamp-2 text-sm">
+                      {item?.description.replace(/<\/?[^>]+(>|$)/g, "")}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          {allServiceList && allServiceList?.data?.length > 8 && (
+            <div className="flex justify-center my-[10px]">
+              <Pagination
+                onChange={(e) => handleChange(e)}
+                total={allServiceList?.pagination?.total}
+                showTotal={(total, range) =>
+                  `${range[0]}-${range[1]} of ${total} items`
+                }
+                defaultPageSize={8}
+                defaultCurrent={allServiceList?.pagination?.page}
+              />
+            </div>
+          )}
+        </Fragment>
+      )}
+      {allServiceList &&
+        allServiceList?.data &&
+        allServiceList?.data?.length === 0 && (
+          <div className="grid place-items-center mt-10">
+            <img
+              width={500}
+              src="/images/misc/no-data-found.svg"
+              alt="no data found"
+              title="no data found"
+            />
+            <p>No Data Found !</p>
+          </div>
+        )}
+    </Fragment>
+    // </div>
   );
 };
 

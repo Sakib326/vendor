@@ -5,9 +5,9 @@ import { FiDelete, FiEdit, FiEye } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { Link, useParams } from "react-router-dom";
 import {
-  useDeleteProductMutation,
-  useGetAllProductQuery,
-} from "../../../redux/product/product_api";
+  useDeleteServiceMutation,
+  useGetAllServiceQuery,
+} from "../../../redux/services/service_api";
 
 interface DataTypeWinners {
   key: string;
@@ -17,13 +17,13 @@ interface DataTypeWinners {
   categories?: any;
 }
 
-export const ProductList = () => {
-  const { data: allProductList, isLoading } = useGetAllProductQuery<any>({});
-  const [deleteProduct] = useDeleteProductMutation();
+export const ServiceList = () => {
+  const { data: allServiceList, isLoading } = useGetAllServiceQuery<any>({});
+  const [deleteService] = useDeleteServiceMutation();
   const onDeleteClick = (id: any) => {
-    deleteProduct({ id: id }).then((res: any) => {
+    deleteService({ id: id }).then((res: any) => {
       if (!res?.error) {
-        message.success("Product deleted");
+        message.success("Service deleted");
       } else {
         message.error(
           res?.error?.data?.message ??
@@ -39,21 +39,14 @@ export const ProductList = () => {
       key: "id",
     },
     {
-      title: "Product Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Service Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Category",
-      dataIndex: "categories",
-      key: "categories",
-      render: (_, col) => <div>{col?.categories?.[0]?.title}</div>,
-    },
-
-    {
-      title: "Product Link",
-      dataIndex: "productLink",
-      key: "productLink",
+      title: "Service Link",
+      dataIndex: "link",
+      key: "link",
     },
     {
       title: "Actions",
@@ -63,13 +56,13 @@ export const ProductList = () => {
         <>
           <div className="flex items-center">
             <Link
-              to={`/profile/products/view/${col?.id}`}
+              to={`/profile/services/${col?.id}`}
               className="hover:text-primary transition-all p-1"
             >
               <FiEye />
             </Link>
             <Link
-              to={`/products/edit/${col?.id}`}
+              to={`/services/edit/${col?.id}`}
               className="hover:text-primary transition-all p-1"
             >
               <FiEdit />
@@ -77,7 +70,7 @@ export const ProductList = () => {
             <Popconfirm
               placement="right"
               title="Are you sure to delete this ?"
-              description="Delete the product"
+              description="Delete the services"
               onConfirm={(e) => {
                 onDeleteClick(col?.id);
               }}
@@ -99,19 +92,19 @@ export const ProductList = () => {
         <div className="border rounded">
           <div className="p-5 flex justify-between items-center">
             <div>
-              <div className="text-black font-medium text-lg">Product List</div>
+              <div className="text-black font-medium text-lg">Service List</div>
               <div className="text-xs">
-                Total Products ({allProductList?.pagination?.total})
+                Total Services ({allServiceList?.pagination?.total ?? 0})
               </div>
             </div>
-            <Link to="/products/add" className="btn btn-primary ">
+            <Link to="/services/add" className="btn btn-primary ">
               <HiPlus />
-              <span>Add New Product</span>
+              <span>Add New Service</span>
             </Link>
           </div>
           <Table
             size="middle"
-            dataSource={allProductList?.data ?? []}
+            dataSource={allServiceList?.data ?? []}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
@@ -125,4 +118,4 @@ export const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ServiceList;

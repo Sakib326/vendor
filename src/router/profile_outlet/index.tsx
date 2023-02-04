@@ -256,6 +256,23 @@ export const ProfileOutlet = ({ type = "view" }) => {
                       Services
                     </NavLink>
                   </li>
+                  {location?.pathname?.includes("profile/services/view") && (
+                    <li>
+                      <span
+                        className={`px-5 py-3 inline-flex border-b-2 border-transparent hover:border-primary hover:text-primary`}
+                        style={
+                          location?.pathname?.includes("profile/services/view")
+                            ? {
+                                color: "#AC224D",
+                                borderBottom: "2px solid #AC224D",
+                              }
+                            : undefined
+                        }
+                      >
+                        Service Details
+                      </span>
+                    </li>
+                  )}
                   <li>
                     <NavLink
                       to="/profile/campaigns"
