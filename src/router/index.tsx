@@ -1,6 +1,7 @@
 import { Spin } from "antd";
 import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import AllCategories from "../modules/category";
 // outlet
 const PrivateOutlet = lazy(() => import("./private_outlet"));
 const PublicOutlet = lazy(() => import("./public_outlet"));
@@ -70,6 +71,7 @@ const AppRouter = () => {
           <Route path="campaigns/add" element={<CampaignAdd />} />
           <Route path="campaigns/edit/:id" element={<CampaignAdd />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
+          <Route path="campaigns/categories" element={<AllCategories />} />
 
           <Route path="winners/list" element={<WinnersList />} />
           <Route path="products/list" element={<ProductList />} />

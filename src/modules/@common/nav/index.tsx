@@ -84,7 +84,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
               (navData.isActive ? "active " : "") + `nav_link`
             }
           >
-            <ReactSVG src="/icons/dashboard.svg" />
+            <MdOutlineDashboard className="text-[18px]" />
             <span>Dashboard</span>
           </NavLink>
           <NavLink
@@ -93,7 +93,7 @@ export const Nav = ({ className, open, handleClose }: navProps) => {
               location?.pathname?.includes("campaign") ? "active" : ""
             }`}
           >
-            <ReactSVG src="/icons/feed.svg" />
+            <MdOutlineCampaign className="text-[18px]" />
             <span>Campaigns</span>
           </NavLink>
           <NavLink

@@ -75,15 +75,48 @@ export const productsApi = apiSlice.injectEndpoints({
       },
       providesTags: ["product"],
     }),
+    getSingleCategory: build.query({
+      query: (id) => ({
+        url: `categories/${id}`,
+      }),
+
+      providesTags: ["category"],
+    }),
+    getAllCategory: build.query({
+      query: () => ({
+        url: `categories`,
+      }),
+
+      providesTags: ["category"],
+    }),
+    deleteCategory: build.mutation({
+      query: ({ id }) => ({
+        url: `categories/${id}`,
+        method: "Delete",
+      }),
+      invalidatesTags: ["category"],
+    }),
+    updateCategory: build.mutation({
+      query: ({ data, id }) => ({
+        url: `categories/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["category"],
+    }),
   }),
 });
 
 export const {
   useAddCategoryMutation,
   useGetCategoryQuery,
+  useDeleteCategoryMutation,
+  useGetAllCategoryQuery,
+  useGetSingleCategoryQuery,
   useAddProductMutation,
   useGetAllProductQuery,
   useGetSingleProductQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useUpdateCategoryMutation,
 } = productsApi;

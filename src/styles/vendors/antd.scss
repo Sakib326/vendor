@@ -35,3 +35,8 @@
     background-color: #faf2f5 !important;
   }
 }
+:where(.css-dev-only-do-not-override-1kenlec).ant-table-wrapper
+  .ant-table-row-indent
+  + .ant-table-row-expand-icon {
+  display: none !important;
+}

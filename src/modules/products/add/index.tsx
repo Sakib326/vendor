@@ -421,11 +421,17 @@ export const ProductAdd = () => {
                     <label className="mb-1">Title</label>
                     <Field
                       type="text"
-                      className="form_control"
+                      className={`form_control ${
+                        errors?.title && touched?.title && "error"
+                      }`}
+                      placeh
                       placeholder="Title"
                       name="title"
                       value={values?.title ?? ""}
                     />
+                    {errors?.title && touched?.title ? (
+                      <div className="error">{errors?.title}</div>
+                    ) : null}
                   </div>
 
                   <div>

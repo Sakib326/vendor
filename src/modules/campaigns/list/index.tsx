@@ -3,13 +3,14 @@ import type { ColumnsType } from "antd/es/table";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useDeleteCampaignMutation,
   useGetAllCampaignQuery,
 } from "../../../redux/campaign/campaign_api";
 
 export const CampaignList = () => {
+  const navigate = useNavigate();
   const { data: campaignList, isLoading: dataLoading } =
     useGetAllCampaignQuery<any>({});
   const [deleteCampaign, { isLoading }] = useDeleteCampaignMutation();
@@ -92,22 +93,36 @@ export const CampaignList = () => {
       render: (_: any, col: any) => (
         <>
           <div className="flex items-center">
-            <Link
-              to={`/campaigns/${col?.uuid}`}
+            <span
+              onClick={() => {
+                if (col?.status !== ("Published" || "Completed")) {
+                  return message.error(
+                    `Details available only for published and completed campaign`
+                  );
+                } else {
+                  navigate(`/campaigns/${col?.uuid}`);
+                }
+              }}
               className="hover:text-primary transition-all p-1"
             >
               <FiEye />
-            </Link>
-            <Link
-              to={`/campaigns/edit/${col?.uuid}`}
+            </span>
+            <span
+              onClick={() => {
+                if (col?.status !== "Pending") {
+                  message.error(`You can't edit ${col?.status} campaign`);
+                } else {
+                  navigate(`/campaigns/edit/${col?.uuid}`);
+                }
+              }}
               className="hover:text-primary transition-all p-1"
             >
               <FiEdit />
-            </Link>
+            </span>
             <Popconfirm
               placement="right"
               title="Are you sure to delete this ?"
-              description="Delete the product"
+              description="Delete the campaign"
               onConfirm={(e) => {
                 if (col?.status === "ACTIVE") {
                   message.error("You can't delete an active campaign");
@@ -141,10 +156,16 @@ export const CampaignList = () => {
                 Total Campaign ({campaignList?.totalItems})
               </div>
             </div>
-            <Link to="/campaigns/add" className="btn btn-primary ">
-              <HiPlus />
-              <span>Add New Campaign</span>
-            </Link>
+            <div>
+              <Link to="/campaigns/categories" className="btn btn-primary mr-5">
+                <HiPlus />
+                <span>Category</span>
+              </Link>
+              <Link to="/campaigns/add" className="btn btn-primary ">
+                <HiPlus />
+                <span>Add New Campaign</span>
+              </Link>
+            </div>
           </div>
           <Table
             size="middle"
