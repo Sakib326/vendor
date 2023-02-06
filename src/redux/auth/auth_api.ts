@@ -139,9 +139,17 @@ export const authApi = apiSlice.injectEndpoints({
                 res?.data?.area !== null && res?.data?.area
                   ? res?.data?.area
                   : "",
+              address:
+                res?.data?.address !== null && res?.data?.address
+                  ? res?.data?.address
+                  : "",
               landmark:
                 res?.data?.landmark !== null && res?.data?.landmark
                   ? res?.data?.landmark
+                  : "",
+              postalCode:
+                res?.data?.postalCode !== null && res?.data?.postalCode
+                  ? res?.data?.postalCode
                   : "",
               gMapLink:
                 res?.data?.gMapLink !== null && res?.data?.gMapLink

@@ -109,6 +109,8 @@ const ProfileEditOverview = () => {
     formArray.append("city", values?.city);
     formArray.append("area", values?.area);
     formArray.append("landmark", values?.landmark);
+    formArray.append("address", values?.address);
+    formArray.append("postalCode", values?.postalCode);
     if (values?.socialLinks?.length > 0) {
       values?.socialLinks?.map((e: any, index: any) => {
         formArray.append(`socialLinks[${index}]`, JSON?.stringify(e));
@@ -357,11 +359,33 @@ const ProfileEditOverview = () => {
                 </div>
                 <div className="col-span-2">
                   <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
-                    <label>Landmark</label>
+                    <label>Address</label>
                     <Field
                       type="text"
                       className="form_control"
                       placeholder="Example: Flat A&B, Level 6, 308"
+                      name="address"
+                    />
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
+                    <label>Postal Code</label>
+                    <Field
+                      type="text"
+                      className="form_control"
+                      placeholder="Example: 1217"
+                      name="postalCode"
+                    />
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <div className="grid grid-cols-[110px_1fr] items-center gap-[44px]">
+                    <label>Landmark</label>
+                    <Field
+                      type="text"
+                      className="form_control"
+                      placeholder="Example: Beside train station"
                       name="landmark"
                     />
                   </div>

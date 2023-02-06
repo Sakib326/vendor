@@ -1,7 +1,5 @@
 import { Checkbox, message, Spin } from "antd";
-import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { Field, Form, Formik } from "formik";
-import queryString from "query-string";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";

@@ -27,7 +27,7 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 401) {
+  if (result.error && result.error.status === (401 || 403)) {
     api.dispatch(onSignOutSuccess());
     api.dispatch(setUser(userInit));
     window.location.href = "http://www.w3schools.com";
@@ -38,7 +38,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
 
-  tagTypes: ["category", "campaign", "product", "profile", "service"],
+  tagTypes: ["category", "campaign", "product", "profile", "service", "feed"],
   endpoints: () => ({}),
 });
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";

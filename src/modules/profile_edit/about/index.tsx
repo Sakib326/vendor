@@ -33,7 +33,8 @@ export const ProfileEditAbout = () => {
 
   return (
     <div className="border p-[20px] md:p-[30px]">
-      <div className="max-w-[860px]">
+      <div className="max-w-[1260px]">
+        {/* <div className="max-w-[860px]"> */}
         <ProfileEditOverview />
       </div>
     </div>
