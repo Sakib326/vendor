@@ -35,9 +35,9 @@ export const campaignApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["campaign"],
     }),
-    getAllTakerList: build.query<any, void>({
-      query: ({ id, pageSize, currentPage }: any) =>
-        `/campaign/vendor/get-take-list?limit=${pageSize}&page=${currentPage}`,
+    getAllTakerList: build.query({
+      query: ({ uuid, pageSize, currentPage }: any) =>
+        `/campaign/participate/${uuid}?limit=${pageSize}&page=${currentPage}`,
     }),
     getPublishedCampaign: build.query({
       query: ({ pageSize = 8, currentPage }) =>

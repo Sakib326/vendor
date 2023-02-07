@@ -95,7 +95,10 @@ export const CampaignList = () => {
           <div className="flex items-center">
             <span
               onClick={() => {
-                if (col?.status !== ("Published" || "Completed")) {
+                if (
+                  col?.status !== "Published" &&
+                  col?.status !== "Completed"
+                ) {
                   return message.error(
                     `Details available only for published and completed campaign`
                   );
@@ -124,8 +127,8 @@ export const CampaignList = () => {
               title="Are you sure to delete this ?"
               description="Delete the campaign"
               onConfirm={(e) => {
-                if (col?.status === "ACTIVE") {
-                  message.error("You can't delete an active campaign");
+                if (col?.status === "Published" || "Completed") {
+                  message.error("You can't delete this campaign");
                   return;
                 }
                 onDeleteClick(col?.uuid);
@@ -157,10 +160,6 @@ export const CampaignList = () => {
               </div>
             </div>
             <div>
-              <Link to="/campaigns/categories" className="btn btn-primary mr-5">
-                <HiPlus />
-                <span>Category</span>
-              </Link>
               <Link to="/campaigns/add" className="btn btn-primary ">
                 <HiPlus />
                 <span>Add New Campaign</span>

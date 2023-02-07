@@ -5,143 +5,20 @@ import type { TabsProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { RiHandCoinLine } from "react-icons/ri";
 import { IoPodiumOutline } from "react-icons/io5";
-import { useGetSingleCampaignQuery } from "../../../redux/campaign/campaign_api";
+import {
+  useGetAllTakerListQuery,
+  useGetSingleCampaignQuery,
+} from "../../../redux/campaign/campaign_api";
 import parse from "html-react-parser";
 import { useState } from "react";
-
-const onChange = (key: string) => {
-  console.log(key);
-};
 
 interface DataType {
   key: string;
   winner: { avatar: string; name: string };
-  name?: string;
+  fullName?: string;
   level?: string;
+  avatar?: string;
 }
-
-const dataAllTake = [
-  {
-    key: "1",
-    id: "01",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    name: "Dhaka",
-  },
-  {
-    key: "2",
-    id: "02",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    name: "Sylhet",
-  },
-  {
-    key: "3",
-    id: "03",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
-      name: "Shamim Wasman",
-    },
-    name: "Jessore",
-  },
-  {
-    key: "4",
-    id: "04",
-    winner: {
-      avatar:
-        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
-      name: "Khalid Hasan",
-    },
-    name: "Chittagong",
-  },
-  {
-    key: "5",
-    id: "05",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    name: "Dhaka",
-  },
-  {
-    key: "6",
-    id: "06",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    name: "Jessore",
-  },
-  {
-    key: "7",
-    id: "07",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    name: "Chittagong",
-  },
-  {
-    key: "8",
-    id: "08",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    name: "Dhaka",
-  },
-  {
-    key: "9",
-    id: "09",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    name: "Jessore",
-  },
-  {
-    key: "10",
-    id: "10",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    name: "Chittagong",
-  },
-  {
-    key: "11",
-    id: "11",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    name: "Dhaka",
-  },
-  {
-    key: "12",
-    id: "12",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    name: "Jessore",
-  },
-];
 
 const dataAllWinner = [
   {
@@ -236,7 +113,7 @@ const dataAllWinner = [
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "SL",
+    title: "ID",
     dataIndex: "id",
     key: "id",
   },
@@ -249,24 +126,29 @@ const columns: ColumnsType<DataType> = [
         <div className="w-[30px] h-[30px]">
           <img
             className="w-full h-full object-cover rounded-full"
-            src={col?.winner?.avatar}
+            src={
+              col?.avatar
+                ? `${import.meta.env.VITE_API_URL}/${col?.avatar}`
+                : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+            }
             alt="logo"
+            crossOrigin="anonymous"
           />
         </div>
-        <span>{col?.winner?.name}</span>
+        <span>{col?.fullName}</span>
       </div>
     ),
   },
   {
-    title: "State",
-    dataIndex: "name",
-    key: "name",
+    title: "City",
+    dataIndex: "city",
+    key: "city",
   },
 ];
 
 const columns2: ColumnsType<DataType> = [
   {
-    title: "SL",
+    title: "ID",
     dataIndex: "id",
     key: "id",
   },
@@ -279,23 +161,23 @@ const columns2: ColumnsType<DataType> = [
         <div className="w-[30px] h-[30px]">
           <img
             className="w-full h-full object-cover rounded-full"
-            src={col?.winner?.avatar}
+            src={
+              col?.avatar
+                ? `${import.meta.env.VITE_API_URL}/${col?.avatar}`
+                : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+            }
             alt="logo"
+            crossOrigin="anonymous"
           />
         </div>
-        <span>{col?.winner?.name}</span>
+        <span>{col?.fullName}</span>
       </div>
     ),
   },
   {
-    title: "Gift Levels",
-    dataIndex: "level",
-    key: "level",
-  },
-  {
-    title: "State",
-    dataIndex: "name",
-    key: "name",
+    title: "City",
+    dataIndex: "city",
+    key: "city",
   },
 ];
 
@@ -307,22 +189,23 @@ const DataTable = ({ data, winner }: any) => (
     rowClassName={(record, index) =>
       index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
     }
-    pagination={{
-      defaultPageSize: 10,
-      showSizeChanger: true,
-      pageSizeOptions: ["10", "20", "30"],
-      total: 1000,
-    }}
-    onChange={(e: any) => {
-      console.log(e);
-    }}
+    // pagination={{
+    //   defaultPageSize: 10,
+    //   showSizeChanger: true,
+    //   pageSizeOptions: ["10", "20", "30"],
+    //   total: winner ? 10 : 20,
+    // }}
   />
 );
 
 export const CampaignDetails = () => {
-  const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const { id } = useParams();
+  const { data: allTakerList, isLoading } = useGetAllTakerListQuery({
+    uuid: id,
+    currentPage,
+    pageSize: 10000,
+  });
   const { data: singleCampaign } = useGetSingleCampaignQuery<any>(`${id}`);
   const [showMore, setShowMore] = useState(false);
   const items: TabsProps["items"] = [
@@ -334,7 +217,7 @@ export const CampaignDetails = () => {
           <span>All Take List</span>
         </div>
       ),
-      children: <DataTable data={dataAllTake} />,
+      children: <DataTable data={allTakerList?.results ?? []} />,
     },
     {
       key: "1",
@@ -347,7 +230,9 @@ export const CampaignDetails = () => {
       children: <DataTable data={dataAllWinner} winner />,
     },
   ];
-
+  const onChange = (key: string) => {
+    setCurrentPage(1);
+  };
   return (
     <div className="p-8">
       <div className="max-w-[1170px] mx-auto w-full">
@@ -387,33 +272,38 @@ export const CampaignDetails = () => {
                       {singleCampaign?.totalParticipants &&
                       singleCampaign?.totalParticipants !== null
                         ? singleCampaign?.totalParticipants
-                        : "N/A"}
+                        : 0}
                     </span>
                     <span>Total Take</span>
                   </div>
                 </div>
-                {/* <div className="grid grid-cols-[44px_1fr] gap-4">
+                <div className="grid grid-cols-[44px_1fr] gap-4">
                   <div className="flex items-center justify-center bg-tertiary w-[44px] h-[44px] rounded">
                     <ReactSVG src="/icons/podium-red.svg" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-3xl text-black font-semibold">
-                      12
+                      {singleCampaign?.winnerCount &&
+                      singleCampaign?.winnerCount !== null
+                        ? singleCampaign?.winnerCount
+                        : 0}
                     </span>
                     <span>Total Winners</span>
                   </div>
-                </div> */}
-                {/* <div className="grid grid-cols-[44px_1fr] gap-4">
+                </div>
+                <div className="grid grid-cols-[44px_1fr] gap-4">
                   <div className="flex items-center justify-center bg-tertiary w-[44px] h-[44px] rounded">
                     <ReactSVG src="/icons/eye-red.svg" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-3xl text-black font-semibold">
-                      1.23k
+                      {singleCampaign?.clicks && singleCampaign?.clicks !== null
+                        ? singleCampaign?.clicks
+                        : 0}
                     </span>
                     <span>Total Impression</span>
                   </div>
-                </div> */}
+                </div>
               </div>
 
               {/* details */}

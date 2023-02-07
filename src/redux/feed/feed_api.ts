@@ -39,12 +39,34 @@ export const feedApi = apiSlice.injectEndpoints({
       },
       providesTags: ["feed"],
     }),
+    getAllFeedComment: build.query({
+      query: ({ feedId, limit = 10, page = 1 }) => ({
+        url: `feed-comments?feedId=${feedId}&limit=${limit}&page=${page}`,
+      }),
+
+      providesTags: ["feedComment"],
+    }),
+    replyFeedComment: build.mutation({
+      query: (data) => ({
+        url: `feed-comments`,
+        method: "post",
+        body: data,
+      }),
+      invalidatesTags: ["feedComment"],
+    }),
     getAllFeed: build.query({
       query: () => ({
         url: `feeds`,
       }),
 
       providesTags: ["feed"],
+    }),
+    getAllFeedReact: build.query({
+      query: ({ id }) => ({
+        url: `feed-reacts?feedId=${id}`,
+      }),
+
+      providesTags: ["feedComment"],
     }),
     deleteFeed: build.mutation({
       query: ({ id }) => ({
@@ -70,4 +92,7 @@ export const {
   useGetAllFeedQuery,
   useGetSingleFeedQuery,
   useUpdateFeedMutation,
+  useGetAllFeedCommentQuery,
+  useReplyFeedCommentMutation,
+  useGetAllFeedReactQuery,
 } = feedApi;

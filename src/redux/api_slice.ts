@@ -27,7 +27,11 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === (401 || 403)) {
+  if (
+    result.error &&
+    (result.error.status === 401 || result.error.status === 403)
+  ) {
+    console.log("error occured");
     api.dispatch(onSignOutSuccess());
     api.dispatch(setUser(userInit));
     window.location.href = "http://www.w3schools.com";
@@ -38,27 +42,14 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
 
-  tagTypes: ["category", "campaign", "product", "profile", "service", "feed"],
+  tagTypes: [
+    "category",
+    "campaign",
+    "product",
+    "profile",
+    "service",
+    "feed",
+    "feedComment",
+  ],
   endpoints: () => ({}),
 });
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { RootState } from "./store";
-
-// export const apiSlice = createApi({
-//   reducerPath: "api",
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: import.meta.env.VITE_API_URL,
-//     prepareHeaders: async (headers, { getState }) => {
-//       const localStorageToken = JSON.parse(localStorage.getItem("auth")!);
-//       const token =
-//         (getState() as RootState)?.auth?.accessToken ||
-//         localStorageToken?.accessToken;
-//       if (token) {
-//         headers.set("authToken", token);
-//       }
-//       return headers;
-//     },
-//   }),
-//   tagTypes: ["blog"],
-//   endpoints: () => ({}),
-// });

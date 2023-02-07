@@ -22,9 +22,9 @@ export const ProfileProducts = () => {
     { skip: categorySlug ? false : true }
   );
   useEffect(() => {
-    if (catData?.data?.length > 0 && !categorySlug) {
+    if (catData?.results?.length > 0 && !categorySlug) {
       navigate(
-        `/profile/products?categorySlug=${catData?.data[0]?.slug}&limit=8&currentPage=1`
+        `/profile/products?categorySlug=${catData?.results[0]?.slug}&limit=8&currentPage=1`
       );
     }
   }, [catData]);
@@ -44,36 +44,36 @@ export const ProfileProducts = () => {
       ) : (
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-6 mb-5 lg:mb-8">
           {catData &&
-            catData?.data &&
-            catData?.data?.length > 0 &&
-            catData?.data.map((event: any, i: any) => {
+            catData?.results &&
+            catData?.results?.length > 0 &&
+            catData?.results.map((item: any, i: any) => {
               return (
-                <div
-                  key={i}
-                  className={`border rounded-md p-5 flex flex-col gap-3 items-center text-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all 
+                <Fragment>
+                  <div
+                    key={i}
+                    className={`border rounded-md p-5 flex flex-col gap-3 items-center text-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all 
                   ${
-                    categorySlug === event?.slug
-                      ? "text-white bg-primary"
-                      : null
+                    categorySlug === item?.slug ? "text-white bg-primary" : null
                   }`}
-                  onClick={() =>
-                    navigate(
-                      `/profile/products?categorySlug=${event?.slug}&limit=8&currentPage=1`
-                    )
-                  }
-                >
-                  <img
-                    style={{ height: "36px", width: "36px" }}
-                    src={
-                      event?.image
-                        ? `${import.meta.env.VITE_API_URL}/${event?.image}`
-                        : "/images/misc/image-placeholder-big.webp"
+                    onClick={() =>
+                      navigate(
+                        `/profile/products?categorySlug=${item?.slug}&limit=8&currentPage=1`
+                      )
                     }
-                    crossOrigin="anonymous"
-                    alt="icom"
-                  />
-                  <span>{event?.title}</span>
-                </div>
+                  >
+                    <img
+                      style={{ height: "36px", width: "36px" }}
+                      src={
+                        item?.image
+                          ? `${import.meta.env.VITE_API_URL}/${item?.image}`
+                          : "https://cdn-icons-png.flaticon.com/512/3502/3502685.png"
+                      }
+                      crossOrigin="anonymous"
+                      alt="icom"
+                    />
+                    <span>{item?.title}</span>
+                  </div>
+                </Fragment>
               );
             })}
         </div>
@@ -90,8 +90,8 @@ export const ProfileProducts = () => {
             {/* card */}
 
             {allProductList &&
-              allProductList?.data?.length > 0 &&
-              allProductList?.data.map((item: any, i: number) => {
+              allProductList?.results?.length > 0 &&
+              allProductList?.results.map((item: any, i: number) => {
                 return (
                   <div key={i} className="flex flex-col">
                     <div className="mb-4 w-full h-[270px]">
@@ -106,7 +106,7 @@ export const ProfileProducts = () => {
                         crossOrigin="anonymous"
                       />
                     </div>
-                    <span>{item?.category}</span>
+                    <span>{item?.categories[0]?.title}</span>
                     <Link
                       to={`/profile/products/view/${item?.id}`}
                       className="text-primary font-medium"
@@ -126,7 +126,7 @@ export const ProfileProducts = () => {
                 );
               })}
           </div>
-          {allProductList && allProductList?.data?.length > 8 && (
+          {allProductList && allProductList?.results?.length > 8 && (
             <div className="flex justify-center my-[10px]">
               <Pagination
                 onChange={(e) => handleChange(e)}
@@ -135,16 +135,16 @@ export const ProfileProducts = () => {
                   `${range[0]}-${range[1]} of ${total} items`
                 }
                 defaultPageSize={8}
-                defaultCurrent={allProductList?.pagination?.page}
+                defaultCurrent={allProductList?.currentPage}
               />
             </div>
           )}
         </Fragment>
       )}
-      {((catData && catData?.data && catData?.data.length === 0) ||
+      {((catData && catData?.results && catData?.results.length === 0) ||
         (allProductList &&
-          allProductList?.data &&
-          allProductList?.data?.length === 0)) && (
+          allProductList?.results &&
+          allProductList?.results?.length === 0)) && (
         <div className="grid place-items-center mt-10">
           <img
             width={500}

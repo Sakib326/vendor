@@ -166,6 +166,7 @@ const ProfileServiceDetail = () => {
                 rel="nofollow"
                 href={`${singleProduct?.link}`}
                 className="btn btn-primary w-full"
+                target="_blank"
               >
                 Show Details
               </a>

@@ -177,20 +177,18 @@ const ProfileProductDetail = () => {
               {singleProduct?.categories[0]?.title ?? "N/A"}
             </div>
           </div>
-
-          <div className="mb-5">
-            <a
-              rel="nofollow"
-              href={`${
-                singleProduct?.productLink &&
-                singleProduct?.productLink !== "" &&
-                singleProduct?.productLink
-              }`}
-              className="btn btn-primary w-full"
-            >
-              Buy Now
-            </a>
-          </div>
+          {singleProduct?.productLink && singleProduct?.productLink !== "" && (
+            <div className="mb-5">
+              <a
+                rel="nofollow"
+                href={`${singleProduct?.productLink}`}
+                className="btn btn-primary w-full"
+                target="_blank"
+              >
+                Buy Now
+              </a>
+            </div>
+          )}
 
           {/* share on */}
           <div className="flex gap-5 items-center justify-center">

@@ -84,7 +84,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     getAllCategory: build.query({
       query: () => ({
-        url: `categories`,
+        url: `categories?limit=200&page=1`,
       }),
 
       providesTags: ["category"],

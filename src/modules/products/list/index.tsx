@@ -18,7 +18,9 @@ interface DataTypeWinners {
 }
 
 export const ProductList = () => {
-  const { data: allProductList, isLoading } = useGetAllProductQuery<any>({});
+  const { data: allProductList, isLoading } = useGetAllProductQuery<any>({
+    pageSize: 1000,
+  });
   const [deleteProduct] = useDeleteProductMutation();
   const onDeleteClick = (id: any) => {
     deleteProduct({ id: id }).then((res: any) => {
@@ -101,17 +103,22 @@ export const ProductList = () => {
             <div>
               <div className="text-black font-medium text-lg">Product List</div>
               <div className="text-xs">
-                Total Products ({allProductList?.pagination?.total})
+                Total Products ({allProductList?.totalItems})
               </div>
             </div>
-            <Link to="/products/add" className="btn btn-primary ">
-              <HiPlus />
-              <span>Add New Product</span>
-            </Link>
+            <div>
+              <Link to="/products/categories" className="btn btn-primary mr-5">
+                <span>Category</span>
+              </Link>
+              <Link to="/products/add" className="btn btn-primary ">
+                <HiPlus />
+                <span>Add New Product</span>
+              </Link>
+            </div>
           </div>
           <Table
             size="middle"
-            dataSource={allProductList?.data ?? []}
+            dataSource={allProductList?.results ?? []}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"

@@ -2,9 +2,8 @@ import { message, Modal, Popconfirm, Spin, Table } from "antd";
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { FiEdit, FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import {
@@ -27,9 +26,10 @@ export const AllCategories = () => {
   const [addCategory, { isLoading: addLoading }] = useAddCategoryMutation();
   const [updateCategory, { isLoading: loadingUpdatecategory }] =
     useUpdateCategoryMutation();
-  const { data: singleCategory } = useGetSingleCategoryQuery<any>(editId, {
-    skip: editId ? false : true,
-  });
+  const { data: singleCategory, isLoading: loadSingleData } =
+    useGetSingleCategoryQuery<any>(editId, {
+      skip: editId ? false : true,
+    });
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -79,6 +79,11 @@ export const AllCategories = () => {
       key: "title",
     },
     {
+      title: "Total Product",
+      dataIndex: "products",
+      key: "products",
+    },
+    {
       title: "Actions",
       dataIndex: "id",
       key: "id",
@@ -99,8 +104,10 @@ export const AllCategories = () => {
               title="Are you sure to delete this ?"
               description="Delete the category"
               onConfirm={(e) => {
-                if (col?.status === "ACTIVE") {
-                  message.error("You can't delete an active category");
+                if (col?.products > 0) {
+                  message.error(
+                    "You can't delete category which contain products."
+                  );
                   return;
                 }
                 onDeleteClick(col?.id);
@@ -169,7 +176,7 @@ export const AllCategories = () => {
                 Category List
               </div>
               <div className="text-xs">
-                Total Category ({categoryList?.pagination?.total})
+                Total Category ({categoryList?.totalItems})
               </div>
             </div>
             <span
@@ -189,7 +196,7 @@ export const AllCategories = () => {
           </div>
           <Table
             size="middle"
-            dataSource={categoryList?.data ?? []}
+            dataSource={categoryList?.results ?? []}
             columns={columns}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
@@ -201,7 +208,7 @@ export const AllCategories = () => {
       </div>
       <Modal
         footer={null}
-        title={<div className="text-black ml-1">Create New Category</div>}
+        title={<div className="text-black ml-1">Category</div>}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -242,7 +249,6 @@ export const AllCategories = () => {
                       <div className="error">{errors?.title}</div>
                     ) : null}
                   </div>
-
                   <div>
                     <label className="mb-1">Icon</label>
                     <ImageInput
@@ -265,10 +271,9 @@ export const AllCategories = () => {
                     className="btn btn-primary"
                     disabled={addLoading || loadingUpdatecategory}
                   >
-                    {addLoading ||
-                      (loadingUpdatecategory && (
-                        <Spin className="custom_spinner" />
-                      ))}
+                    {(addLoading ||
+                      loadingUpdatecategory ||
+                      loadSingleData) && <Spin className="custom_spinner" />}
                     {values?.id ? "Update" : "Create"}
                   </button>
                   <button

@@ -71,12 +71,12 @@ const AppRouter = () => {
           <Route path="campaigns/add" element={<CampaignAdd />} />
           <Route path="campaigns/edit/:id" element={<CampaignAdd />} />
           <Route path="campaigns/:id" element={<CampaignDetails />} />
-          <Route path="campaigns/categories" element={<AllCategories />} />
 
           <Route path="winners/list" element={<WinnersList />} />
           <Route path="products/list" element={<ProductList />} />
           <Route path="products/edit/:id" element={<ProductAdd />} />
           <Route path="products/add" element={<ProductAdd />} />
+          <Route path="products/categories" element={<AllCategories />} />
 
           <Route path="services/list" element={<ServiceList />} />
           <Route path="services/edit/:id" element={<ServiceAdd />} />
