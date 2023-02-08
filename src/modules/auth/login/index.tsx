@@ -42,7 +42,7 @@ export const Login = () => {
       if (!res?.error) {
         setIsProfileGet(false);
         Cookies.set("vendorAuth", res?.data?.accessToken, {
-          domain: "bdwinners.com",
+          domain: "vercel.app",
           secure: true,
           expires: 7,
         });
