@@ -126,49 +126,54 @@ function Comments({ postId }: any) {
                           <div>
                             <ul>
                               {item?.children.length > 0 &&
-                                item?.children.map((childItem: any) => {
-                                  return (
-                                    <li className="grid grid-cols-[42px_1fr] gap-3 mb-3 ml-10">
-                                      <div className="w-full h-[42px]">
-                                        <img
-                                          className="rounded object-cover align-middle border"
-                                          src={
-                                            childItem?.subscriber?.avatar !==
-                                              "" ||
-                                            childItem?.vendor?.logo !== ""
-                                              ? `${
-                                                  import.meta.env.VITE_API_URL
-                                                }/${
-                                                  childItem?.subscriber
-                                                    ?.avatar ??
-                                                  childItem?.vendor?.logo
-                                                }`
-                                              : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
-                                          }
-                                          alt="user"
-                                          crossOrigin="anonymous"
-                                        />
-                                      </div>
-                                      <div>
-                                        <div className="flex items-center justify-between">
-                                          <div className="mb-1">
-                                            <span className="font-medium text-black mr-2">
-                                              {item?.subscriber?.fullName}
-                                            </span>
-                                            <span className="text-sm">
-                                              {moment(
-                                                childItem?.createdAt
-                                              ).fromNow()}
-                                            </span>
+                                item?.children.map(
+                                  (childItem: any, childIndex: number) => {
+                                    return (
+                                      <li
+                                        className="grid grid-cols-[42px_1fr] gap-3 mb-3 ml-10"
+                                        key={`chils_${childIndex}`}
+                                      >
+                                        <div className="w-full h-[42px]">
+                                          <img
+                                            className="rounded object-cover align-middle border"
+                                            src={
+                                              childItem?.subscriber?.avatar !==
+                                                "" ||
+                                              childItem?.vendor?.logo !== ""
+                                                ? `${
+                                                    import.meta.env.VITE_API_URL
+                                                  }/${
+                                                    childItem?.subscriber
+                                                      ?.avatar ??
+                                                    childItem?.vendor?.logo
+                                                  }`
+                                                : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+                                            }
+                                            alt="user"
+                                            crossOrigin="anonymous"
+                                          />
+                                        </div>
+                                        <div>
+                                          <div className="flex items-center justify-between">
+                                            <div className="mb-1">
+                                              <span className="font-medium text-black mr-2">
+                                                {item?.subscriber?.fullName}
+                                              </span>
+                                              <span className="text-sm">
+                                                {moment(
+                                                  childItem?.createdAt
+                                                ).fromNow()}
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div className="text-[#3F4254] text-sm">
+                                            {childItem?.message}
                                           </div>
                                         </div>
-                                        <div className="text-[#3F4254] text-sm">
-                                          {childItem?.message}
-                                        </div>
-                                      </div>
-                                    </li>
-                                  );
-                                })}
+                                      </li>
+                                    );
+                                  }
+                                )}
                             </ul>
                           </div>
                         </Fragment>

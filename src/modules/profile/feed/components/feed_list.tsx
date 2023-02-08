@@ -48,7 +48,10 @@ const FeedList = ({
             <div>
               {allPosts?.data.map((item: any, i: any) => {
                 return (
-                  <div className="border rounded p-5 pb-0 mb-5">
+                  <div
+                    className="border rounded p-5 pb-0 mb-5"
+                    key={`feed_${i}`}
+                  >
                     <div className="flex items-center justify-between mb-4">
                       <div className="grid grid-cols-[46px_1fr] gap-6">
                         <div className="border rounded-full flex items-center justify-center p-1">

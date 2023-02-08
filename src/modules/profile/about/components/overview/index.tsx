@@ -78,13 +78,17 @@ const ProfileAbourOverview = () => {
               </span>
             </div>
           </div>
-          {/* <div className="">
+          <div className="">
             <div className="grid grid-cols-[130px_1fr] items-center">
               <span>Postal Code</span>
-              <span className="text-black font-medium">1200</span>
+              <span className="text-black font-medium">
+                {userProfile?.postalCode !== "" && userProfile?.postalCode
+                  ? userProfile?.postalCode
+                  : "N/A"}
+              </span>
             </div>
-          </div> */}
-          <div className="map">
+          </div>
+          <div className="items-center justify-center">
             {parse(
               userProfile?.gMapLink ? userProfile?.gMapLink : "<p>N/A</p>"
             )}

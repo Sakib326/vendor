@@ -1,269 +1,77 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { FiEdit, FiEye } from "react-icons/fi";
-import { HiPlus } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { useGetAllWinnerListQuery } from "../../../redux/dashboard/dashboard_api";
 
 interface DataTypeWinners {
   key: string;
-  winner: { avatar: string; name: string };
-  levels: string;
-  state: string;
+  subscriber_fullName: string;
+  subscriber_avatar: string;
+  campaign_name: string;
+  subscriber_address: string;
+  id: any;
 }
-
-const winnersData = [
-  {
-    key: "1",
-    id: "01",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-    levels: "1st Prize",
-    state: "Fairfield",
-  },
-  {
-    key: "2",
-    id: "02",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Naperville",
-  },
-  {
-    key: "3",
-    id: "03",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
-      name: "Shamim Wasman",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Toledo",
-  },
-  {
-    key: "4",
-    id: "04",
-    winner: {
-      avatar:
-        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
-      name: "Khalid Hasan",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Orange",
-  },
-  {
-    key: "5",
-    id: "05",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Pembroke Pines",
-  },
-  {
-    key: "6",
-    id: "6",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-    levels: "1st Prize",
-    state: "Fairfield",
-  },
-  {
-    key: "7",
-    id: "7",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Naperville",
-  },
-  {
-    key: "8",
-    id: "8",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
-      name: "Shamim Wasman",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Toledo",
-  },
-  {
-    key: "9",
-    id: "9",
-    winner: {
-      avatar:
-        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
-      name: "Khalid Hasan",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Orange",
-  },
-  {
-    key: "10",
-    id: "10",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Pembroke Pines",
-  },
-  {
-    key: "11",
-    id: "11",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-    levels: "1st Prize",
-    state: "Fairfield",
-  },
-  {
-    key: "12",
-    id: "12",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Naperville",
-  },
-  {
-    key: "13",
-    id: "13",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
-      name: "Shamim Wasman",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Toledo",
-  },
-  {
-    key: "14",
-    id: "14",
-    winner: {
-      avatar:
-        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
-      name: "Khalid Hasan",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Orange",
-  },
-  {
-    key: "15",
-    id: "15",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    campaignName: "Recognize Misinformation on the Internet",
-
-    levels: "1st Prize",
-    state: "Pembroke Pines",
-  },
-];
 
 const columns: ColumnsType<DataTypeWinners> = [
   {
-    title: "SL",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
     title: "Winners",
-    dataIndex: "winner",
-    key: "winner",
+    dataIndex: "subscriber_fullName",
+    key: "subscriber_fullName",
     render: (_, col) => (
       <div className="flex items-center gap-2">
         <div className="w-[30px] h-[30px]">
           <img
             className="w-full h-full object-cover rounded-full"
-            src={col?.winner?.avatar}
+            src={
+              col?.subscriber_avatar
+                ? `${import.meta.env.VITE_API_URL}/${col?.subscriber_avatar}`
+                : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+            }
             alt="logo"
+            crossOrigin="anonymous"
           />
         </div>
-        <span className="text-[#4c4e64] font-medium">{col?.winner?.name}</span>
+        <span className="text-[#4c4e64] font-medium">
+          {col?.subscriber_fullName}
+        </span>
       </div>
     ),
   },
   {
     title: "Campaign name",
-    dataIndex: "campaignName",
-    key: "campaignName",
-  },
-  {
-    title: "Gift Levels",
-    dataIndex: "levels",
-    key: "levels",
+    dataIndex: "campaign_name",
+    key: "campaign_name",
   },
 
   {
-    title: "State",
-    dataIndex: "state",
-    key: "state",
+    title: "Address",
+    dataIndex: "subscriber_address",
+    key: "subscriber_address",
   },
 ];
 
 export const WinnersList = () => {
+  const { data: allWinnerList, isLoading: winnerLoading } =
+    useGetAllWinnerListQuery({ limit: 500 });
   return (
     <div className="max-w-[1170px] w-full mx-auto p-8">
       <div className="border rounded">
         <div className="p-5 flex justify-between items-center">
           <div>
             <div className="text-black font-medium text-lg">Winners List</div>
-            <div className="text-xs">Total Winners (12)</div>
+            <div className="text-xs">
+              Total Winners ({allWinnerList?.totalItems})
+            </div>
           </div>
         </div>
         <Table
           size="middle"
-          dataSource={winnersData}
+          dataSource={allWinnerList?.results}
           columns={columns}
           rowClassName={(record, index) =>
             index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
           }
+          rowKey="campaignId"
+          loading={winnerLoading}
         />
       </div>
     </div>

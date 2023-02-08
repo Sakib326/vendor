@@ -1,5 +1,6 @@
 import { message, Spin } from "antd";
 import { Field, Form, Formik } from "formik";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,7 +17,6 @@ export const Login = () => {
   const { data: profileData } = useGetProfileQuery("init", {
     skip: isProfileGet,
   });
-  console.log({ profileData });
 
   const navigate = useNavigate();
 
@@ -41,6 +41,11 @@ export const Login = () => {
     }).then((res: any) => {
       if (!res?.error) {
         setIsProfileGet(false);
+        Cookies.set("vendorAuth", res?.data?.accessToken, {
+          domain: "bdwinners.com",
+          secure: true,
+          expires: 7,
+        });
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);

@@ -11,7 +11,8 @@ export const campaignApi = apiSlice.injectEndpoints({
       invalidatesTags: ["campaign"],
     }),
     getAllCampaign: build.query({
-      query: () => "/campaign/get-all?limit=2000&page=1",
+      query: ({ limit = 200, page = 1 }) =>
+        `/campaign/get-all?limit=${limit}&page=${page}`,
       providesTags: ["campaign"],
     }),
     deleteCampaign: build.mutation({
@@ -37,7 +38,7 @@ export const campaignApi = apiSlice.injectEndpoints({
     }),
     getAllTakerList: build.query({
       query: ({ uuid, pageSize, currentPage }: any) =>
-        `/campaign/participate/${uuid}?limit=${pageSize}&page=${currentPage}`,
+        `/campaign/vendor/get-take-list?uuid=${uuid}&limit=${pageSize}&page=${currentPage}`,
     }),
     getPublishedCampaign: build.query({
       query: ({ pageSize = 8, currentPage }) =>

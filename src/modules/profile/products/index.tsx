@@ -48,9 +48,8 @@ export const ProfileProducts = () => {
             catData?.results?.length > 0 &&
             catData?.results.map((item: any, i: any) => {
               return (
-                <Fragment>
+                <Fragment key={i}>
                   <div
-                    key={i}
                     className={`border rounded-md p-5 flex flex-col gap-3 items-center text-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all 
                   ${
                     categorySlug === item?.slug ? "text-white bg-primary" : null

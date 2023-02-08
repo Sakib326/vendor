@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BsPencil } from "react-icons/bs";
+import { useState } from "react";
 import { ReactSVG } from "react-svg";
 import { DatePicker } from "antd";
 import { Table } from "antd";
@@ -8,79 +8,23 @@ import { BiPlus } from "react-icons/bi";
 import { Chart } from "./components/chart";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
+import {
+  useGetAllWinnerListQuery,
+  useGetCampaignSummeryQuery,
+} from "../../redux/dashboard/dashboard_api";
+import { useGetAllCampaignQuery } from "../../redux/campaign/campaign_api";
+import moment from "moment";
 const { RangePicker } = DatePicker;
 
 interface DataTypeWinners {
   key: string;
-  winner: { avatar: string; name: string };
-  levels: string;
-  state: string;
+  subscriber_avatar: string;
+  subscriber_fullName: string;
+  campaign_thumbnail: string;
+  campaign_name: string;
 }
 
-const winnersData = [
-  {
-    key: "1",
-    id: "01",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    levels: "1st Prize",
-    state: "Fairfield",
-  },
-  {
-    key: "2",
-    id: "02",
-    winner: {
-      avatar:
-        "https://xyz.ir/wp-content/uploads/2021/05/avatar.jpg.320x320px.jpg",
-      name: "Smith Watson",
-    },
-    levels: "1st Prize",
-    state: "Naperville",
-  },
-  {
-    key: "3",
-    id: "03",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGa_Pf4i53Wxs_HrjmSgMEhE1Ac7rPhtFv2FpVCE0nHTHugg_iWgc9T5EqSManZ71nbw&usqp=CAU",
-      name: "Shamim Wasman",
-    },
-    levels: "1st Prize",
-    state: "Toledo",
-  },
-  {
-    key: "4",
-    id: "04",
-    winner: {
-      avatar:
-        "https://t3.ftcdn.net/jpg/02/11/41/90/360_F_211419019_XMsPr1uBdlJGKvlSRLZm5ZYzAEQvfFO2.jpg",
-      name: "Khalid Hasan",
-    },
-    levels: "1st Prize",
-    state: "Orange",
-  },
-  {
-    key: "5",
-    id: "05",
-    winner: {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0C4lPDZ-CdkIO0mmgk9bMi5Ss49u0E7e9w&usqp=CAU",
-      name: "Ema Watson",
-    },
-    levels: "1st Prize",
-    state: "Pembroke Pines",
-  },
-];
-
 const columns: ColumnsType<DataTypeWinners> = [
-  {
-    title: "SL",
-    dataIndex: "id",
-    key: "id",
-  },
   {
     title: "Winners",
     dataIndex: "winner",
@@ -90,119 +34,100 @@ const columns: ColumnsType<DataTypeWinners> = [
         <div className="w-[30px] h-[30px]">
           <img
             className="w-full h-full object-cover rounded-full"
-            src={col?.winner?.avatar}
+            src={
+              col?.subscriber_avatar
+                ? `${import.meta.env.VITE_API_URL}/${col?.subscriber_avatar}`
+                : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
+            }
             alt="logo"
+            crossOrigin="anonymous"
           />
         </div>
-        <span>{col?.winner?.name}</span>
+        <span>{col?.subscriber_fullName}</span>
       </div>
     ),
   },
   {
-    title: "Gift Levels",
-    dataIndex: "levels",
-    key: "levels",
+    title: "Campaigns",
+    dataIndex: "campaign_name",
+    key: "campaign_name",
+    render: (_, col) => (
+      <div className="flex items-center gap-2">
+        <div className="w-[60px] h-[30px] flex-shrink-0">
+          <img
+            className="w-full h-full object-contain"
+            src={
+              col?.campaign_thumbnail
+                ? `${import.meta.env.VITE_API_URL}/${col?.campaign_thumbnail}`
+                : "/images/misc/image-placeholder-big.webp"
+            }
+            crossOrigin="anonymous"
+            alt="logo"
+          />
+        </div>
+        <span className="line-clamp-1" title={col?.campaign_name}>
+          {col?.campaign_name}
+        </span>
+      </div>
+    ),
   },
 
   {
-    title: "State",
-    dataIndex: "state",
-    key: "state",
+    title: "Address",
+    dataIndex: "subscriber_address",
+    key: "subscriber_address",
   },
 ];
 interface DataTypeTake {
   key: string;
   winner: { avatar: string; name: string };
-  impressions: string;
-  state: string;
+  clicks: string;
+  name: string;
+  thumbnail: string;
+  participants: any;
 }
 
-const takeData = [
+const columnsCampaign: ColumnsType<DataTypeTake> = [
   {
-    key: "1",
-    id: "01",
-    winner: {
-      avatar: "/temp/campaign-unisearch.webp",
-      name: "Ema Watson",
-    },
-    impressions: "177",
-    state: "500",
-  },
-  {
-    key: "2",
-    id: "02",
-    winner: {
-      avatar: "/temp/campaign-enterprise360.webp",
-      name: "Smith Watson",
-    },
-    impressions: "214",
-    state: "345",
-  },
-  {
-    key: "3",
-    id: "03",
-    winner: {
-      avatar: "/temp/campaign-gadget-master.webp",
-      name: "Shamim Wasman",
-    },
-    impressions: "234",
-    state: "346",
-  },
-  {
-    key: "4",
-    id: "04",
-    winner: {
-      avatar: "/temp/campaign-enterprise360.webp",
-      name: "Khalid Hasan",
-    },
-    impressions: "654",
-    state: "123",
-  },
-  {
-    key: "5",
-    id: "05",
-    winner: {
-      avatar: "/temp/campaign-gadget-master.webp",
-      name: "Ema Watson",
-    },
-    impressions: "345",
-    state: "865",
-  },
-];
-
-const columnsTake: ColumnsType<DataTypeTake> = [
-  {
-    title: "SL",
+    title: "ID",
     dataIndex: "id",
     key: "id",
   },
   {
     title: "Campaigns",
-    dataIndex: "winner",
-    key: "winner",
+    dataIndex: "name",
+    key: "name",
     render: (_, col) => (
       <div className="flex items-center gap-2">
-        <div className="w-[60px] h-[30px]">
+        <div className="w-[60px] h-[30px] flex-shrink-0">
           <img
             className="w-full h-full object-contain"
-            src={col?.winner?.avatar}
+            src={
+              col?.thumbnail
+                ? `${import.meta.env.VITE_API_URL}/${col?.thumbnail}`
+                : "/images/misc/image-placeholder-big.webp"
+            }
+            crossOrigin="anonymous"
             alt="logo"
           />
         </div>
-        <span>{col?.winner?.name}</span>
+        <span className="line-clamp-1" title={col?.name}>
+          {col?.name}
+        </span>
       </div>
     ),
   },
   {
     title: "Impressions",
-    dataIndex: "impressions",
-    key: "impressions",
+    dataIndex: "clicks",
+    key: "clicks",
   },
 
   {
     title: "Take",
-    dataIndex: "state",
-    key: "state",
+    dataIndex: "totalTake",
+    key: "totalTake",
+    render: (_, col) => <div>{col?.participants.length ?? 0}</div>,
   },
 ];
 
@@ -217,13 +142,24 @@ const rangePresets: {
 ];
 
 export const Dashboard = () => {
+  const dateTo = moment(new Date()).format("YYYY-MM-DD");
+  const dateFrom = moment(+new Date() - 7).format("YYYY-MM-DD");
+  const [dateRangeState, setDateRangeState] = useState(
+    `${dateFrom} - ${dateTo}`
+  );
+  const { data: campaignSummery, isLoading: dataLoading } =
+    useGetCampaignSummeryQuery<any>({ dateRange: dateRangeState });
+  const { data: allWinnerList, isLoading: winnerLoading } =
+    useGetAllWinnerListQuery({});
+  const { data: campaignList, isLoading: campaignLoading } =
+    useGetAllCampaignQuery<any>({ limit: 5, page: 1 });
+
   const onRangeChange = (
     dates: null | (Dayjs | null)[],
     dateStrings: string[]
   ) => {
     if (dates) {
-      console.log("From: ", dates[0], ", to: ", dates[1]);
-      console.log("From: ", dateStrings[0], ", to: ", dateStrings[1]);
+      setDateRangeState(`${dateStrings[0]} - ${dateStrings[1]}`);
     } else {
       console.log("Clear");
     }
@@ -235,9 +171,10 @@ export const Dashboard = () => {
         {/* filter */}
         <div className="flex flex-wrap items-center gap-3 mb-5 relative">
           <div className="btn py-0 bg-tertiary text-primary border border-tertiary cursor-auto">
-            <span>Date: last 3 months</span>
+            <span>Date:</span>
             {/* <BsPencil /> */}
             <RangePicker
+              defaultValue={[dayjs().add(-7, "d"), dayjs()]}
               size="large"
               presets={rangePresets}
               onChange={onRangeChange}
@@ -262,7 +199,7 @@ export const Dashboard = () => {
               <span>Total Impressions</span>
             </div>
             <div className="text-white text-3xl sm:text-[50px] font-semibold">
-              1600
+              {campaignSummery?.totalClick ?? 0}
             </div>
           </div>
           <div className="bg-secondary text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full border-[1px] border-secondary">
@@ -271,7 +208,7 @@ export const Dashboard = () => {
               <span>Total Takes</span>
             </div>
             <div className="text-white text-3xl sm:text-[50px] font-semibold">
-              1600
+              {campaignSummery?.totalParticipants ?? 0}
             </div>
           </div>
           <div className=" text-white p-3 sm:p-5 lg:p-7 max-w-[260px] w-full border-[1px] ">
@@ -280,7 +217,7 @@ export const Dashboard = () => {
               <span className="font-medium">Total Winners</span>
             </div>
             <div className="text-white text-3xl sm:text-[50px] font-semibold text-[#ac224d]">
-              1900
+              {campaignSummery?.totalWinners ?? 0}
             </div>
           </div>
         </div>
@@ -299,7 +236,9 @@ export const Dashboard = () => {
                 <div className="text-black font-medium text-lg">
                   Campaign List
                 </div>
-                <div className="text-xs">Total Campaign (1205)</div>
+                <div className="text-xs">
+                  Total Campaign ({campaignList?.totalItems})
+                </div>
               </div>
               <Link to="/campaigns/list" className="btn btn-grey py-1.5">
                 View All
@@ -307,12 +246,13 @@ export const Dashboard = () => {
             </div>
             <Table
               size="middle"
-              dataSource={takeData}
+              dataSource={campaignList?.results}
               pagination={false}
-              columns={columnsTake}
+              columns={columnsCampaign}
               rowClassName={(record, index) =>
                 index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
               }
+              rowKey="id"
             />
           </div>
           {/* table winners */}
@@ -320,22 +260,25 @@ export const Dashboard = () => {
             <div className="p-5 flex justify-between items-center">
               <div>
                 <div className="text-black font-medium text-lg">
-                  Last Campaign Winners List
+                  Last Winners List
                 </div>
-                <div className="text-xs">Total Winners (12)</div>
+                <div className="text-xs">
+                  Total Winners ({allWinnerList?.totalItems ?? 0})
+                </div>
               </div>
-              <Link to="/campaigns/1" className="btn btn-grey py-1.5">
+              <Link to="/winners/list" className="btn btn-grey py-1.5">
                 View All
               </Link>
             </div>
             <Table
               size="middle"
-              dataSource={winnersData}
+              dataSource={allWinnerList?.results}
               pagination={false}
               columns={columns}
               rowClassName={(record, index) =>
                 index % 2 === 0 ? "bg-[#F8F8F9]" : "bg-[#fff]"
               }
+              rowKey="campaignId"
             />
           </div>
         </div>

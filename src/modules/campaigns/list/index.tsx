@@ -54,8 +54,9 @@ export const CampaignList = () => {
     },
     {
       title: "Take",
-      dataIndex: "totalParticipants",
-      key: "totalParticipants",
+      dataIndex: "participants",
+      key: "participants",
+      render: (_: any, col: any) => <div>{col?.participants.length ?? 0}</div>,
     },
     {
       title: "Status",
