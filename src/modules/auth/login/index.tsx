@@ -44,8 +44,8 @@ export const Login = () => {
         Cookies.set("vendorAuth", res?.data?.accessToken, {
           domain: "vercel.app",
           secure: true,
-          expires: 7,
         });
+        console.log("hi =======");
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);
