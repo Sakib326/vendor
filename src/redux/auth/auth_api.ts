@@ -247,6 +247,13 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    resendActivationMail: build.mutation({
+      query: (data) => ({
+        url: "/vendor/auth/resend-activation-link",
+        method: "PUT",
+        body: data,
+      }),
+    }),
     forgotPassChange: build.mutation({
       query: (data) => ({
         url: "vendor/auth/reset-password",
@@ -282,4 +289,5 @@ export const {
   useLazySignUpVerificatonQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
+  useResendActivationMailMutation,
 } = authApi;

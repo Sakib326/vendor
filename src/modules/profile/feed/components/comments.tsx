@@ -131,13 +131,18 @@ function Comments({ postId }: any) {
                                     <li className="grid grid-cols-[42px_1fr] gap-3 mb-3 ml-10">
                                       <div className="w-full h-[42px]">
                                         <img
-                                          className="rounded w-full h-full object-cover"
+                                          className="rounded object-cover align-middle border"
                                           src={
-                                            item?.subscriber?.avatar !== "" &&
-                                            item?.subscriber?.avatar
+                                            childItem?.subscriber?.avatar !==
+                                              "" ||
+                                            childItem?.vendor?.logo !== ""
                                               ? `${
                                                   import.meta.env.VITE_API_URL
-                                                }/${item?.subscriber?.avatar}`
+                                                }/${
+                                                  childItem?.subscriber
+                                                    ?.avatar ??
+                                                  childItem?.vendor?.logo
+                                                }`
                                               : "https://i.ibb.co/grqf3k6/istockphoto-1300845620-612x612.jpg"
                                           }
                                           alt="user"

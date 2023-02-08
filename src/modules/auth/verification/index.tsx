@@ -4,8 +4,13 @@ import queryString from "query-string";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useLazySignUpVerificatonQuery } from "../../../redux/auth/auth_api";
+import {
+  useLazySignUpVerificatonQuery,
+  useResendActivationMailMutation,
+} from "../../../redux/auth/auth_api";
 export const Verification = () => {
+  const [resendActivation, { isLoading: loadingUpdateProduct }] =
+    useResendActivationMailMutation();
   const parsedLinkQuery = queryString.parse(location.search);
   const [signUpVerificaton, { data, isLoading, isError }] =
     useLazySignUpVerificatonQuery();
