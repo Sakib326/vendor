@@ -42,10 +42,10 @@ export const Login = () => {
       if (!res?.error) {
         setIsProfileGet(false);
         Cookies.set("vendorAuth", res?.data?.accessToken, {
-          domain: "*.vercel.app",
+          domain: "vendor-one.vercel.app",
           secure: true,
         });
-        console.log("hi =======");
+        console.log("hi =======11");
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);
